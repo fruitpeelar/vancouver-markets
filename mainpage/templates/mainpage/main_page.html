@@ -1,82 +1,98 @@
 <html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-  </head>
- 
-<div class= "title">
-Vancouver Market
-</div>
+asd
+<head>
+<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
 <style>
-.title{
-font-size: 50px;
-background: beige;
-font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-text-align: center;
-padding-top: 20px;
-padding-bottom: 10px;
-margin-bottom: 20px;
+#map_canvas {
+	width: 500px;
+	height: 400px;
+	background-color: #CCC;
 }
-.list{
-width: 800px;
-height: 200px;
-margin-left: auto;
-margin-right: auto;
-background: burlywood;
-border: solid 1px black;
-}
-
-.map{
-width: 50%;
-height: 50%;
-border: red solid 1px;
-float: left;
-}
-.details{
-width: 50%;
-height: 50%;
-border: blue solid 1px;
-}
-
-span{
-font-color: gray;
-}
-tr, td{
-border: solid 1px black;
-font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-}
-
 </style>
-<div class = "list">
-<table>
-<tr>
-  <td>
-   All markets
-  </td>
-  <td>
-   Open now
-   </td>
-  <td>
-   Open soon
-   </td>
-   <td>
-   Closed
-   </td>
-   <td>
-   favourite
-   </td>
-</tr>
-</table>
-Market 1<br>
-Market 2 <br>
-Market 3<br>
-Market 2
+
+<script
+	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+<script> 
+		function initialize() {
+		var myLatLng = new google.maps.LatLng(49.287092, -123.117703);
+		var mapCanvas = document.getElementById('map_canvas');
+		var mapOptions = {
+			center: myLatLng,
+			zoom: 11,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		var map = new google.maps.Map(mapCanvas, mapOptions);
+		
+		var marker = new google.maps.Marker( {
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!'
+			});
+		} 
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+</head>
+<div id="map_canvas"></div>
+
+<div class="title">Vancouver Market</div>
+<style>
+.title {
+	font-size: 50px;
+	background: beige;
+	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.list {
+	width: 800px;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	background: burlywood;
+	border: solid 1px black;
+}
+
+.map {
+	width: 50%;
+	height: 50%;
+	border: red solid 1px;
+	float: left;
+}
+
+.details {
+	width: 50%;
+	height: 50%;
+	border: blue solid 1px;
+}
+
+span {
+	font-color: gray;
+}
+
+tr,td {
+	border: solid 1px black;
+	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
+</style>
+<div class="list">
+	<table>
+		<tr>
+			<td>All markets</td>
+			<td>Open now</td>
+			<td>Open soon</td>
+			<td>Closed</td>
+			<td>favourite</td>
+		</tr>
+	</table>
+	Market 1<br> Market 2 <br> Market 3<br> Market 2
 
 </div>
-<div class= "map">
-</div>
+<div class="map"></div>
 
-<div class="details">
-</div>
+<div class="details"></div>
 
- 
+
 </html>
