@@ -2,24 +2,81 @@
   <head>
     <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
   </head>
-  <body>
-    {% for greeting in greetings %}
-      {% if greeting.author.nickname %}
-        <b>{{ greeting.author }}</b> wrote:
-      {% else %}
-        An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
+ 
+<div class= "title">
+Vancouver Market
+</div>
+<style>
+.title{
+font-size: 50px;
+background: beige;
+font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+text-align: center;
+padding-top: 20px;
+padding-bottom: 10px;
+margin-bottom: 20px;
+}
+.list{
+width: 800px;
+height: 200px;
+margin-left: auto;
+margin-right: auto;
+background: burlywood;
+border: solid 1px black;
+}
 
-    <form action="/sign/" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="guestbook_name" value="{{ guestbook_name }}" />
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
+.map{
+width: 50%;
+height: 50%;
+border: red solid 1px;
+float: left;
+}
+.details{
+width: 50%;
+height: 50%;
+border: blue solid 1px;
+}
 
-    <a href="{{ url }}">{{ url_linktext }}</a>
+span{
+font-color: gray;
+}
+tr, td{
+border: solid 1px black;
+font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
 
-  </body>
+</style>
+<div class = "list">
+<table>
+<tr>
+  <td>
+   All markets
+  </td>
+  <td>
+   Open now
+   </td>
+  <td>
+   Open soon
+   </td>
+   <td>
+   Closed
+   </td>
+   <td>
+   favourite
+   </td>
+</tr>
+</table>
+Market 1<br>
+Market 2 <br>
+Market 3<br>
+Market 2
+
+</div>
+<div class= "map">
+</div>
+
+<div class="details">
+</div>
+
+ 
 </html>
