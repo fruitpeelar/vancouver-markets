@@ -1,7 +1,8 @@
 <html>
-
 <head>
 <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+<script type="text/javascript" src="/static/main_page.js"></script>
+</head>
 <style>
 #map_canvas {
 	width: 100%;
@@ -35,69 +36,52 @@
 
 
 <div class="title">Vancouver Market</div>
-<style>
-.title {
-	font-size: 50px;
-	background: beige;
-	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-	text-align: center;
-	padding-top: 20px;
-	padding-bottom: 10px;
-	margin-bottom: 20px;
-}
 
-.list {
-	width: 80%;
-	height: 200px;
-	margin-left: auto;
-	margin-right: auto;
-	background: burlywood;
-	border: solid 1px black;
-}
-.container {
-   
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    margin-top: 10px;
-}
-.map {
-	width: 49%;
-	height: 50%;
-	border: red solid 1px;
-	float: left;
-	margin-right: 1.5%;
-	
-	
-}
-
-.details {
-	width: 49%;
-	height: 50%;
-	border: blue solid 1px;
-	float: left;
-}
-
-span {
-	font-color: gray;
-}
-
-tr,td {
-	border: solid 1px black;
-	font-family: Copperplate, "Copperplate Gothic Light", fantasy;
-}
-</style>
 <div class="list">
-	<table>
-		<tr>
-			<td>All markets</td>
-			<td>Open now</td>
-			<td>Open soon</td>
-			<td>Closed</td>
-			<td>favourite</td>
-		</tr>
-	</table>
-	Market 1<br> Market 2 <br> Market 3<br> Market 2
+	<div class="tabs">
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1">All Markets</a></li>
+        <li><a href="#tab2">Open</a></li>
+        <li><a href="#tab3">Closed</a></li>
+        <li><a href="#tab4">Coming Soon</a></li>
+    </ul>
+ 
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
+            <p>
+            Brant Villa Mobile Produce Market <span>| location | time | details |</span><br>
+           Culloden Court Mobile Produce Market <span>| location | time | details |</span><br>
+           Kerrisdale Village Farmers Market <span>| location | time | details |</span><br>
+           Kitsilano Farmers Market <span>| location | time | details |</span><br>
+           Main St Station Farmers Market <span>| location | time | details |</span><br>
+           Market5 <span>| location | time | details |</span><br>
+           Market6 <span>| location | time | details |</span><br>
+           Market7 <span>| location | time | details |</span><br>
+           Market8 <span>| location | time | details |</span><br>
+           Market9 <span>| location | time | details |</span><br>
+           Market10 <span>| location | time | details |</span><br>
+           Market11 <span>| location | time | details |</span><br>
+           
+          
+            </p>
+        </div>
+ 
+        <div id="tab2" class="tab">
+            <p>Tab #2 content goes here!</p>
+            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+        </div>
+ 
+        <div id="tab3" class="tab">
+            <p>Tab #3 content goes here!</p>
+            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+        </div>
+ 
+        <div id="tab4" class="tab">
+            <p>Tab #4 content goes here!</p>
+            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+        </div>
+    </div>
+</div>
 
 </div>
 
@@ -106,7 +90,17 @@ tr,td {
 <div id="map_canvas"></div>
 </div>
 
-<div class="details"></div>
+<div class="details"> 
+<p>Brant Villa Mobile Produce Market</p>
+location: blahblah <br>
+time: blahblah<br>
+other stuff: blahblah<br>
+
 </div>
+<div class= "bottompanel">
+<span>Our Team: King Sejong <br> | JOL | GYP | JOP | EJK | JHC |</span>
+</div>
+</div>
+
 
 </html>
