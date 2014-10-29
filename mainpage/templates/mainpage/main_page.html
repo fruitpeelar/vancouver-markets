@@ -10,7 +10,7 @@
 	background-color: #CCC;
 }
 </style>
-
+<title> Vancouver Market</title>
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script> 
@@ -32,10 +32,59 @@
 		} 
 		google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<script type=text/javascript
+          src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 </head>
 
 
 <div class="title">Vancouver Market</div>
+
+
+
+<script type=text/javascript>
+jQuery(document).ready(function() {
+    jQuery('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = jQuery(this).attr('href');
+ 
+        // Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
+});
+</script>
+
+
+
+<script type="text/javascript">
+window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];
+if(d.getElementById(id)){return}js=d.createElement(s);
+js.id=id;js.src="https://platform.twitter.com/widgets.js";
+fjs.parentNode.insertBefore(js,fjs);
+return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+
+
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
 
 <div class="list">
 	<div class="tabs">
@@ -54,31 +103,43 @@
            Kerrisdale Village Farmers Market <span>| location | time | details |</span><br>
            Kitsilano Farmers Market <span>| location | time | details |</span><br>
            Main St Station Farmers Market <span>| location | time | details |</span><br>
-           Market5 <span>| location | time | details |</span><br>
-           Market6 <span>| location | time | details |</span><br>
-           Market7 <span>| location | time | details |</span><br>
-           Market8 <span>| location | time | details |</span><br>
-           Market9 <span>| location | time | details |</span><br>
-           Market10 <span>| location | time | details |</span><br>
-           Market11 <span>| location | time | details |</span><br>
-           
+           Oak Street Farmers Market <span>| location | time | details |</span><br>
+           Orchard Park Mobile Produce Market <span>| location | time | details |</span><br>
+           Shangri-La Farmers Market <span>| location | time | details |</span><br>
+           River District Farmers Market <span>| location | time | details |</span><br>
+         
           
             </p>
         </div>
  
         <div id="tab2" class="tab">
-            <p>Tab #2 content goes here!</p>
-            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            <p>
+              Orchard Park Mobile Produce Market <span>| location | time | details |</span><br>
+           Shangri-La Farmers Market <span>| location | time | details |</span><br>
+           River District Farmers Market <span>| location | time | details |</span><br>
+            </p>
+            
         </div>
  
         <div id="tab3" class="tab">
-            <p>Tab #3 content goes here!</p>
-            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+            <p>
+            Brant Villa Mobile Produce Market <span>| location | time | details |</span><br>
+           Culloden Court Mobile Produce Market <span>| location | time | details |</span><br>
+           Kerrisdale Village Farmers Market <span>| location | time | details |</span><br>
+           Kitsilano Farmers Market <span>| location | time | details |</span><br>
+           Main St Station Farmers Market <span>| location | time | details |</span><br>
+           Oak Street Farmers Market <span>| location | time | details |</span><br>
+            </p>
+            
         </div>
  
         <div id="tab4" class="tab">
-            <p>Tab #4 content goes here!</p>
-            <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            <p>
+            Kitsilano Farmers Market <span>| location | time | details |</span><br>
+           Main St Station Farmers Market <span>| location | time | details |</span><br>
+           Oak Street Farmers Market <span>| location | time | details |</span><br>
+            </p>
+            
         </div>
     </div>
 </div>
@@ -90,11 +151,34 @@
 <div id="map_canvas"></div>
 </div>
 
-<div class="details"> 
+<div class="details">
+<div class = "detailwords"> 
 <p>Brant Villa Mobile Produce Market</p>
 location: blahblah <br>
 time: blahblah<br>
 other stuff: blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+blahblah<br>
+</div>
+<div class="fbtwt">
+<a class="twitter-share-button"
+  href="http://eatlocal.org/">
+Tweet
+</a>
+<div class="fb-like" data-href="http://eatlocal.org/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+</div>
 
 </div>
 <div class= "bottompanel">
