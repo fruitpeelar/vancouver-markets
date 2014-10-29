@@ -15,3 +15,20 @@ class Greeting(ndb.Model):
     author = ndb.UserProperty()
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
+    
+class Market(ndb.Model):
+    '''Models an individual Market entry.'''
+    name = ndb.StringProperty(required = True)
+    address = ndb.StringProperty(required = True)
+    num_vendors = ndb.StringProperty(required = True)
+    market_type = ndb.StringProperty(required = True)
+    organization = ndb.StringProperty(required = True)
+    url = ndb.StringProperty(required = True)
+    products = ndb.StringProperty(repeated = True)
+    open_day = ndb.StringProperty(required = True)
+    open_month_string = ndb.StringProperty(required = True)
+    open_month = ndb.IntegerProperty(required = True)
+    close_month = ndb.IntegerProperty(required = True)
+    open_time = ndb.IntegerProperty(required = True)
+    close_time = ndb.IntegerProperty(required = True)
+    
