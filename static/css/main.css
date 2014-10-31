@@ -148,13 +148,13 @@ li {
     }
  
     .tab-links li {
-        margin:0px 5px;
+        margin:-7px 5px;
         float:left;
         list-style:none;
     }
  
         .tab-links a {
-            padding:10px 15px;
+            padding:3px 15px;
             display:inline-block;
             border-radius:3px 3px 0px 0px;
             background:cornsilk;
@@ -180,7 +180,7 @@ li {
         box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
         background: cornsilk;
         overflow: auto;
-        height: 50%;
+        height: 75%;
      
     }
  
