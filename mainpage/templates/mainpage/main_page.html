@@ -10,7 +10,7 @@
 	background-color: #CCC;
 }
 </style>
-<title> Vancouver Market</title>
+<title> Vancouver Markets</title>
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script> 
@@ -71,7 +71,7 @@
 </head>
 
 
-<div class="title">Vancouver Market</div>
+<div class="title">Vancouver Community and Farmers Markets</div>
 
 
 
@@ -116,22 +116,6 @@ return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"scri
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<script>
-$(document).ready(function(){
-	
-$('.fullstar').fadeTo('fast',0);
-		
-	$('.emptystar').toggle(
-		function(){
-		 $('.emptystar').fadeTo('fast', 0);
-		 $('.fullstar').fadeTo('fast',1);},
-		function(){
-		 $('.emptystar').fadeTo('fast', 1);
-		 $('.fullstar').fadeTo('fast',0);
-		 });
-		
-});
-</script>
 
 
 
@@ -141,52 +125,97 @@ $('.fullstar').fadeTo('fast',0);
         <li class="active"><a href="#tab1">All Markets</a></li>
         <li><a href="#tab2">Open</a></li>
         <li><a href="#tab3">Closed</a></li>
-        <li><a href="#tab4">Coming Soon</a></li>
+        <li><a href="#tab4">Upcoming</a></li>
     </ul>
  
     <div class="tab-content">
         <div id="tab1" class="tab active">
-            <p>
-            Brant Villa Mobile Produce Market <span>| location | time | details |</span><br>
-           Culloden Court Mobile Produce Market <span>| location | time | details |</span><br>
-           Kerrisdale Village Farmers Market <span>| location | time | details |</span><br>
-           Kitsilano Farmers Market <span>| location | time | details |</span><br>
-           Main St Station Farmers Market <span>| location | time | details |</span><br>
-           Oak Street Farmers Market <span>| location | time | details |</span><br>
-           Orchard Park Mobile Produce Market <span>| location | time | details |</span><br>
-           Shangri-La Farmers Market <span>| location | time | details |</span><br>
-           River District Farmers Market <span>| location | time | details |</span><br>
-         
-          
-            </p>
+        <p>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Brant Villa Mobile Produce Market</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Culloden Court Mobile Produce Market</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+        </p>
         </div>
  
         <div id="tab2" class="tab">
             <p>
-              Orchard Park Mobile Produce Market <span>| location | time | details |</span><br>
-           Shangri-La Farmers Market <span>| location | time | details |</span><br>
-           River District Farmers Market <span>| location | time | details |</span><br>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 1</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 2</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
             </p>
             
         </div>
  
         <div id="tab3" class="tab">
             <p>
-            Brant Villa Mobile Produce Market <span>| location | time | details |</span><br>
-           Culloden Court Mobile Produce Market <span>| location | time | details |</span><br>
-           Kerrisdale Village Farmers Market <span>| location | time | details |</span><br>
-           Kitsilano Farmers Market <span>| location | time | details |</span><br>
-           Main St Station Farmers Market <span>| location | time | details |</span><br>
-           Oak Street Farmers Market <span>| location | time | details |</span><br>
+             <table>
+             <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 3</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 4</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
             </p>
             
         </div>
  
         <div id="tab4" class="tab">
             <p>
-            Kitsilano Farmers Market <span>| location | time | details |</span><br>
-           Main St Station Farmers Market <span>| location | time | details |</span><br>
-           Oak Street Farmers Market <span>| location | time | details |</span><br>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 5</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 6</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
             </p>
             
         </div>
@@ -201,31 +230,16 @@ $('.fullstar').fadeTo('fast',0);
 </div>
 
 <div class="details">
-
-<div class="detailtitle"><p>Brant Villa Mobile Produce Market</p></div>
-<div class="favourite"> 
-	<div class="emptystar">★</div>
-	<div class="fullstar">★</div>
-	</div>
 <div class = "detailwords"> 
-
-location: blahblah <br>
-time: blahblah<br>
-other stuff: blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
-blahblah<br>
+<p>Brant Villa Mobile Produce Market</p>
+<ul>
+<li>Date:</li>
+<li>Website:</li>
+<li>Number of venders:</li>
+<li>Offerings:</li>
+<li>Type:</li>
+<li>Organization:</li>
+</ul>
 </div>
 <div class="fbtwt">
 <a class="twitter-share-button"
