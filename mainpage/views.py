@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from google.appengine.api import users
 
-from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME
+from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME, Market
 
 import urllib
 
@@ -18,6 +18,9 @@ def main_page(request):
     # show up in a query.
     greetings_query = Greeting.query(ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
     greetings = greetings_query.fetch(10)
+    
+    markets_query = Market.query()
+    markets = markets_query.fetch()
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -31,6 +34,7 @@ def main_page(request):
         'guestbook_name': guestbook_name,
         'url': url,
         'url_linktext': url_linktext,
+        'markets': markets,
     }
     #return direct_to_template(request, 'guestbook/main_page.html', template_values)
     return render(request, 'mainpage/main_page.html', template_values)
