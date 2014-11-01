@@ -51,3 +51,27 @@ def sign_post(request):
         greeting.put()
         return HttpResponseRedirect('/?' + urllib.urlencode({'guestbook_name': guestbook_name}))
     return HttpResponseRedirect('/')
+
+def create_marketstub():
+    market = Market(name = 'This Market Name Is This Market',
+                    address = 'Address of this Market',
+                    num_vendors = '5',
+                    market_type = 'No Type',
+                    organization = 'No Org',
+                    url = 'no url',
+                    products = ['this', 'that', 'it'],
+                    open_day = 'Monday',
+                    open_month_string = '6-8',
+                    open_time_string = '2pm - 4pm',
+                    open_month = 6,
+                    close_month = 8,
+                    open_time = 14,
+                    close_time = 16)
+    market.put()
+    
+def market_put(request):
+    if request.method == 'POST':
+        create_marketstub()
+        
+    return HttpResponseRedirect('/')
+    
