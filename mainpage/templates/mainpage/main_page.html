@@ -14,16 +14,18 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script> 
-		function initialize() {
+function initialize() {
 		var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
 		var kerrisdaleFarm  = new google.maps.LatLng(49.238694, -123.154812);
 		var kitsilanoFarm   = new google.maps.LatLng(49.261453, -123.162453);
 		var brantVillaComm  = new google.maps.LatLng(49.248384, -123.058292);
 		var cullodenComm    = new google.maps.LatLng(49.228060, -123.078110);
-		var communityIcon = 'Images/CommunityMarket.png';
-		var farmerIcon = 'Sejong/static/Images/FarmerMarket.png';
+		var communityIcon = 'static/Images/CommunityMarket.png';
+		var farmerIcon = 'static/Images/FarmerMarket.png';
+		var currentIcon = 'static/Images/CurrentLocation.png';
 		
 		var mapCanvas = document.getElementById('map_canvas');
+		
 		var mapOptions = {
 			center: currentLocation,
 			zoom: 11,
@@ -31,35 +33,40 @@
 		}
 		var map = new google.maps.Map(mapCanvas, mapOptions);
 		
+		
 		var userMarker = new google.maps.Marker( {
 			position: currentLocation,
 			map: map,
-			title: 'Current Location'
+			title: 'Current Location',
+			icon: currentIcon
 			});
-		
 	
 		var kerrisdaleMarker = new google.maps.Marker( {
 			position: kerrisdaleFarm,
 			map: map,
 			title: 'Kerrisdale Farm Market',
+			icon: farmerIcon
 			});
 			
 		var kitsilanoMarker = new google.maps.Marker( {
 			position: kitsilanoFarm,
 			map: map,
-			title: 'Kitsilano Farm Market'
+			title: 'Kitsilano Farm Market',
+			icon: farmerIcon
 			});
 			
 		var brantMarker = new google.maps.Marker( {
 			position: brantVillaComm,
 			map: map,
-			title: 'Brant Villa Community Market'
+			title: 'Brant Villa Community Market',
+			icon: communityIcon
 			});
 		
 		var cullodenMarker = new google.maps.Marker( {
 			position: cullodenComm,
 			map: map,
-			title: 'Culloden Community Market'
+			title: 'Culloden Community Market',
+			icon: communityIcon
 			});
 		
 		} 
@@ -134,121 +141,130 @@ $('.fullstar').fadeTo('fast',0);
 
 <div class="list">
 	<div class="tabs">
-		<ul class="tab-links">
-			<li class="active"><a href="#tab1">All Markets</a></li>
-			<li><a href="#tab2">Open</a></li>
-			<li><a href="#tab3">Closed</a></li>
-			<li><a href="#tab4">Upcoming</a></li>
-		</ul>
-
-		<div class="tab-content">
-			<div id="tab1" class="tab active">
-				<p>
-				<table>
-					<tr style="border-bottom: 1px solid darkgray">
-						<td style="width: 50%; text-align: left; color: darkolivegreen"><strong>Name</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Date</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Address
-						</strong></td>
-					{% for market in markets %}
-					</tr>
-					<tr style="border-bottom: 1px dotted darkgray">
-						<td style="text-align: left">{{ market.name }}</td>
-						<td style="border-left: 1px solid darkgray">{{ market.open_month }}</td>
-						<td style="border-left: 1px solid darkgray">{{ market.address }}</td>
-					</tr>
-					{% endfor %}
-					<tr>
-						<td style="text-align: left">Culloden Court Mobile Produce
-							Market</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-				</table>
-				</p>
-			</div>
-
-			<div id="tab2" class="tab">
-				<p>
-				<table>
-					<tr style="border-bottom: 1px solid darkgray">
-						<td style="width: 50%; text-align: left; color: darkolivegreen"><strong>Name</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Date</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Address
-						</strong></td>
-					</tr>
-					<tr style="border-bottom: 1px dotted darkgray">
-						<td style="text-align: left">Market 1</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-					<tr>
-						<td style="text-align: left">Market 2</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-				</table>
-				</p>
-
-			</div>
-
-			<div id="tab3" class="tab">
-				<p>
-				<table>
-					<tr style="border-bottom: 1px solid darkgray">
-						<td style="width: 50%; text-align: left; color: darkolivegreen"><strong>Name</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Date</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Address
-						</strong></td>
-					</tr>
-					<tr style="border-bottom: 1px dotted darkgray">
-						<td style="text-align: left">Market 3</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-					<tr>
-						<td style="text-align: left">Market 4</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-				</table>
-				</p>
-
-			</div>
-
-			<div id="tab4" class="tab">
-				<p>
-				<table>
-					<tr style="border-bottom: 1px solid darkgray">
-						<td style="width: 50%; text-align: left; color: darkolivegreen"><strong>Name</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Date</strong></td>
-						<td
-							style="width: 25%; border-left: 1px solid darkgray; color: darkolivegreen"><strong>Address
-						</strong></td>
-					</tr>
-					<tr style="border-bottom: 1px dotted darkgray">
-						<td style="text-align: left">Market 5</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-					<tr>
-						<td style="text-align: left">Market 6</td>
-						<td style="border-left: 1px solid darkgray">date</td>
-						<td style="border-left: 1px solid darkgray">address</td>
-					</tr>
-				</table>
-				</p>
-
-			</div>
-		</div>
-	</div>
+    <ul class="tab-links">
+        <li class="active"><a href="#tab1">All Markets</a></li>
+        <li><a href="#tab2">Open</a></li>
+        <li><a href="#tab3">Closed</a></li>
+        <li><a href="#tab4">Upcoming</a></li>
+        <li><a href="#tab5">Favourite</a></li>
+    </ul>
+ 
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
+        <p>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Brant Villa Mobile Produce Market</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Culloden Court Mobile Produce Market</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+        </p>
+        </div>
+ 
+        <div id="tab2" class="tab">
+            <p>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 1</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 2</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+            </p>
+            
+        </div>
+ 
+        <div id="tab3" class="tab">
+            <p>
+             <table>
+             <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 3</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 4</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+            </p>
+            
+        </div>
+ 
+        <div id="tab4" class="tab">
+            <p>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">Market 5</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">Market 6</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+            </p>
+            
+        </div>
+        <div id="tab5" class="tab">
+            <p>
+            <table>
+            <tr style="border-bottom:1px solid darkgray">
+            <td style="width:50%; text-align:left; color:darkolivegreen"><strong>Name</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Date</strong></td>
+            <td style="width:25%; border-left:1px solid darkgray; color:darkolivegreen"><strong>Address	</strong></td>
+            </tr>
+            <tr style="border-bottom:1px dotted darkgray">
+            <td style="text-align:left">7 Market</td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            <tr>
+            <td style="text-align:left">8 Market </td>
+            <td style="border-left:1px solid darkgray">date</td>
+            <td style="border-left:1px solid darkgray">address</td>
+            </tr>
+            </table>
+            </p>
+            
+        </div>
+        
+    </div>
+</div>
 
 </div>
 
