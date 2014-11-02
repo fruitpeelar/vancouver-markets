@@ -1,6 +1,7 @@
 import csv
 import urllib2
 import re
+# from pip.basecommand import open_logfile
 
 # Retrieve CSV file from the Vancouver OpenData url
 url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
@@ -83,62 +84,81 @@ def getUpdateDate(updaterow):
     return updaterow[1]
 
 # Parses the required market information into the corresponding lists
-def parseMarketInfo(cr):
+def parseMarketInfo():
     
     # Create lists to store market info
-    marketNameList = []
-    marketTypeList = []
-    managingOrgList = []
-    marketAddressList = []
-    marketWebsiteList = []
-    marketDayOpenList = []
-    marketOpenTimeList = []
-    marketCloseTimeList = []
-    marketOpenMonthsList = []
-    marketVendorNumberList = []
-    marketOfferingsList = []
+    names = []
+    types = []
+    organizations = []
+    addresses = []
+    websites = []
+    open_days = []
+    open_times = []
+    close_times = []
+    open_month_ints = []
+    vendor_numbers = []
+    offerings = []
     
     # Remove field title row
+    # exception here please fix
     cr.next()
     
     for row in cr:
         # Only iterate and parse when the name field is not empty
         if row[1] != '':
-            marketNameList.append(row[1])
-            marketTypeList.append(row[0])
-            managingOrgList.append(row[2])
-            marketAddressList.append(row[7])
-            marketWebsiteList.append(row[9])
-            marketDayOpenList.append(row[10])
-            marketOpenTimeList.append(row[11])
-            marketCloseTimeList.append(row[12])
-            marketOpenMonthsList.append(row[13])
-            marketVendorNumberList.append(row[14])
-            marketOfferingsList.append(row[15])
+            names.append(row[1])
+            types.append(row[0])
+            organizations.append(row[2])
+            addresses.append(row[7])
+            websites.append(row[9])
+            open_days.append(row[10])
+            open_times.append(row[11])
+            close_times.append(row[12])
+            open_month_ints.append(row[13])
+            vendor_numbers.append(row[14])
+            offerings.append(row[15])
     
     # Retrieved parsed information    
-    marketOpenIntList = convertTimeTo24Hr(marketOpenTimeList)
-    marketCloseIntList = convertTimeTo24Hr(marketCloseTimeList)
-    marketOpenCloseMonthLists = getOpenCloseMonths(marketOpenMonthsList)
+    open_time_ints = convertTimeTo24Hr(open_times)
+    close_close_ints = convertTimeTo24Hr(close_times)
+    open_month_ints, close_month_ints = getOpenCloseMonths(open_month_ints)
     
     # Check if there are empty fields
-    checkEmpty(marketOfferingsList)
+    checkEmpty(offerings)
     
     # This is used as a test to check if info are getting parsed correctly
-    print marketTypeList
-    print marketNameList
-    print managingOrgList
-    print marketAddressList
-    print marketWebsiteList
-    print marketDayOpenList
-    print marketOpenTimeList
-    print marketCloseTimeList
-    print marketOpenMonthsList
-    print marketVendorNumberList
-    print marketOfferingsList
-    print marketOpenIntList
-    print marketCloseIntList
-    print marketOpenCloseMonthLists
+    print types
+    print names
+    print organizations
+    print addresses
+    print websites
+    print open_days
+    print open_times
+    print close_times
+    print open_month_ints
+    print vendor_numbers
+    print offerings
+    print open_time_ints
+    print close_close_ints
+    print open_month_ints
+    print close_month_ints
+    
+    return {'names':names,
+        'types':types,
+        'organizations': organizations,
+        'addresses': addresses,
+        'urls': websites,
+        'open_days': open_days,
+        'open_times': open_times,
+        'close_times': close_times,
+        'open_months': open_month_ints,
+        'vendors': vendor_numbers,
+        'offerings': offerings,
+        'open_time_ints': open_time_ints,
+        'close_time_ints': close_close_ints,
+        'open_month_ints': open_month_ints,
+        'close_month_ints': close_month_ints
+        }
 
 # Testing
-parseMarketInfo(cr)
+parseMarketInfo()
