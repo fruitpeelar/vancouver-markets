@@ -100,6 +100,35 @@ body {
 	overflow: visible
 	
 }
+
+.td1 {
+	border-bottom: solid darkgray 1px;
+	color: darkolivegreen;
+	font-weight: bold;
+	text-align: left;
+	width: 50%
+}
+
+.td2 {
+	border-left: solid darkgray 1px;
+	border-bottom: solid darkgray 1px;
+	color: darkolivegreen;
+	font-weight: bold;
+	width: 25%;
+}
+
+.td3 {
+	border-top: dotted darkgray 1px;
+	text-align: left;
+	width: 50%;
+}
+
+.td4 {
+	border-left: solid darkgray 1px;
+	border-top: dotted darkgray 1px;
+	width: 25%;	
+}
+
 .twt{
 	float: left;
 	width: 25%;
@@ -116,11 +145,6 @@ p {
 
 span {
 	font-size: 12px;
-}
-
-tr, td {
-	font-family: Arial;
-	color: saddlebrown;
 }
 
 table {
