@@ -6,6 +6,8 @@ from google.appengine.api import users
 
 from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME, Market
 
+from datetime import date
+
 import urllib
 
 def main_page(request):
@@ -19,8 +21,21 @@ def main_page(request):
     greetings_query = Greeting.query(ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
     greetings = greetings_query.fetch(10)
     
+    today = date.today()
+    current_month = today.month
+    
     markets_query = Market.query()
+    markets_open_query = Market.query(Market.open_month <= current_month)
+    markets_closed_query = markets_query.filter(Market.close_month < current_month)
+    markets_upcoming_query = markets_query.filter(Market.open_month > current_month)
+    
     markets = markets_query.fetch()
+    markets_open = markets_open_query.fetch()
+    markets_closed = markets_closed_query.fetch()
+    markets_upcoming = markets_upcoming_query.fetch()
+    
+    print markets_open
+    markets_open[:] = [market for market in markets_open if current_month <= market.close_month]
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -35,6 +50,9 @@ def main_page(request):
         'url': url,
         'url_linktext': url_linktext,
         'markets': markets,
+        'markets_open': markets_open,
+        'markets_closed': markets_closed,
+        'markets_upcoming': markets_upcoming,
     }
     #return direct_to_template(request, 'guestbook/main_page.html', template_values)
     return render(request, 'mainpage/main_page.html', template_values)
@@ -74,4 +92,12 @@ def market_put(request):
         create_marketstub()
         
     return HttpResponseRedirect('/')
+
+def filter_market_lessthan(mr, month):
+    print mr
+    for m in mr:
+        mr.remove(m)
+        print mr
+        
+    return mr
     

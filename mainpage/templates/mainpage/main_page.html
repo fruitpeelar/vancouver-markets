@@ -183,11 +183,13 @@ $('.fullstar').fadeTo('fast',0);
             			<td class="td2">Date</td>
             			<td class="td2">Address</td>
             		</tr>
+            		{% for market in markets_open %}
             		<tr>
-            			<td class="td3">A Mobile Produce Market</td>
-            			<td class="td4">date</td>
-            			<td class="td4">address</td>
+            			<td class="td3">{{ market.name }}</td>
+            			<td class="td4">{{ market.open_month }}</td>
+            			<td class="td4">{{ market.address }}</td>
             		</tr>
+            		{% endfor %}
             		<tr>
             			<td class="td3">B Mobile Produce Market</td>
             			<td class="td4">date</td>
@@ -205,11 +207,13 @@ $('.fullstar').fadeTo('fast',0);
             			<td class="td2">Date</td>
             			<td class="td2">Address</td>
             		</tr>
+            		{% for market in markets_closed %}
             		<tr>
-            			<td class="td3">C Mobile Produce Market</td>
-            			<td class="td4">date</td>
-            			<td class="td4">address</td>
+            			<td class="td3">{{ market.name }}</td>
+            			<td class="td4">{{ market.open_month }}</td>
+            			<td class="td4">{{ market.address }}</td>
             		</tr>
+            		{% endfor %}
             		<tr>
             			<td class="td3">D Mobile Produce Market</td>
             			<td class="td4">date</td>
@@ -227,11 +231,13 @@ $('.fullstar').fadeTo('fast',0);
             			<td class="td2">Date</td>
             			<td class="td2">Address</td>
             		</tr>
+            		{% for market in markets_upcoming %}
             		<tr>
-            			<td class="td3">E Mobile Produce Market</td>
-            			<td class="td4">date</td>
-            			<td class="td4">address</td>
+            			<td class="td3">{{ market.name }}</td>
+            			<td class="td4">{{ market.open_month }}</td>
+            			<td class="td4">{{ market.address }}</td>
             		</tr>
+            		{% endfor %}
             		<tr>
             			<td class="td3">F Mobile Produce Market</td>
             			<td class="td4">date</td>
@@ -303,6 +309,15 @@ $('.fullstar').fadeTo('fast',0);
 				<br> asdas
 				<br>
 			</ul>
+			<form action="/signin/" method="post">
+				{% csrf_token %}
+				<div>
+					<textarea name="content" rows="3" cols="60"></textarea>
+				</div>
+				<div>
+					<input type="submit" value="Post the comment!">
+				</div>
+			</form>
 		</div>
 		<div class="fbtwt">
 			<div class="twt")>
@@ -320,9 +335,6 @@ $('.fullstar').fadeTo('fast',0);
 	<div class="bottompanel">
 		<form action="/stubmaker/" method="post">
 			{% csrf_token %}
-			<div>
-				<textarea name="content" rows="3" cols="60"></textarea>
-			</div>
 			<div>
 				<input type="submit" value="Let's put a stub market!">
 			</div>
