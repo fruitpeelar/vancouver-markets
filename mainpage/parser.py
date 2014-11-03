@@ -1,11 +1,13 @@
 import csv
 import urllib2
 import re
+import time
 # from pip.basecommand import open_logfile
 
 class MarketParser:
     def __init__(self, url):
         response = urllib2.urlopen(url)
+        time.sleep(2)
         self.cr = csv.reader(response, quotechar='"', delimiter=',',
                      quoting=csv.QUOTE_ALL, skipinitialspace=True) 
                
@@ -23,10 +25,12 @@ class MarketParser:
 
     # If the field is empty, then return the list with empty field filled as 'N/A'
     def checkEmpty(self, fieldlist):
+        checkedOfferings = []
         for field in fieldlist:
-            if(field == ''):
+            if(not field):
                 field = 'N/A'
-        return fieldlist
+            checkedOfferings.append(field)
+        return checkedOfferings
 
     # If the stored date of the updated date is different than the current date, then parse the information again
     def checkUpdate(self, cr, storeddate, updatedate):
@@ -52,6 +56,7 @@ class MarketParser:
         open_month_ints = []
         vendor_numbers = []
         offerings = []
+        checkedOfferings = []
         
         for row in cr:
             # Only iterate and parse when the name field is not empty
@@ -67,14 +72,16 @@ class MarketParser:
                 open_month_ints.append(row[13])
                 vendor_numbers.append(row[14])
                 offerings.append(row[15])
+       
+        # Check if there are empty fields
+        print 'Before check: ' + ', '.join(offerings)
+        checkedOfferings = self.checkEmpty(offerings)
+        print 'After check: ' + ', '.join(checkedOfferings)
         
         # Retrieved parsed information    
         open_time_ints = self.convertTimeTo24Hr(open_times)
         close_time_ints = self.convertTimeTo24Hr(close_times)
         open_month_ints, close_month_ints = self.getOpenCloseMonths(open_month_ints)
-        
-        # Check if there are empty fields
-        self.checkEmpty(offerings)
         
         # This is used as a test to check if info are getting parsed correctly
         return {'names':names,
