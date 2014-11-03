@@ -36,6 +36,7 @@ def main_page(request):
     markets_upcoming = markets_upcoming_query.fetch()
     
     print markets_open
+    populate_markets()
     markets_open[:] = [market for market in markets_open if current_month <= market.close_month]
 
     if users.get_current_user():
@@ -88,14 +89,14 @@ def create_marketstub():
                     close_time = 16)
     market.put()
     
-# def populate_markets():
-# #     csv = getCSV()
-#     market_dict = testRun()
-#     
-#     names = market_dict['names']
-#     organizations = market_dict['organizations']
-#     print names
-#     print organizations
+def populate_markets():
+#    csv = getCSV()
+    market_dict = testRun()
+     
+    names = market_dict['names']
+    organizations = market_dict['organizations']
+    print names
+    print organizations
     
     
 def market_put(request):
