@@ -156,5 +156,3 @@ def testRun():
     getUpdateDate(updateRow)
     removeFieldNames(cr)
     return parseMarketInfo(cr)
-    
-testRun()

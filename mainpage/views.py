@@ -95,8 +95,11 @@ def populate_markets():
      
     names = market_dict['names']
     organizations = market_dict['organizations']
+    addresses = market_dict['addresses']
+    
     print names
     print organizations
+    print addresses
     
     
 def market_put(request):
