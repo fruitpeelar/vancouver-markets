@@ -5,7 +5,7 @@ from django.shortcuts import render
 from google.appengine.api import users
 
 from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME, Market
-from mainpage.parser import parseMarketInfo, getCSV, testRun
+from mainpage.parser import MarketParser
 
 from datetime import date
 
@@ -36,7 +36,7 @@ def main_page(request):
     markets_upcoming = markets_upcoming_query.fetch()
     
     print 'start'
-#     populate_markets()
+    populate_markets()
     markets_open[:] = [market for market in markets_open if current_month <= market.close_month]
     print markets_closed
 
@@ -98,17 +98,19 @@ def create_marketstub():
                     close_time = 16)
     market.put()
     
-# def populate_markets():
-# #    csv = getCSV()
-#     market_dict = testRun()
-#      
-#     names = market_dict['names']
-#     organizations = market_dict['organizations']
-#     addresses = market_dict['addresses']
-#     
-#     print names
-#     print organizations
-#     print addresses
+def populate_markets():
+    print 'in pop market'
+    url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
+    market_dict = MarketParser(url).testRun()
+    names = market_dict['names']   
+       
+    names = market_dict['names']
+    organizations = market_dict['organizations']
+    addresses = market_dict['addresses']
+         
+    print names
+    print organizations
+    print addresses
     
     
 def market_put(request):
