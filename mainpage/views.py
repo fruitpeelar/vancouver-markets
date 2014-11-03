@@ -35,9 +35,10 @@ def main_page(request):
     markets_closed = markets_closed_query.fetch()
     markets_upcoming = markets_upcoming_query.fetch()
     
-    print markets_open
-    populate_markets()
+    print 'start'
+#     populate_markets()
     markets_open[:] = [market for market in markets_open if current_month <= market.close_month]
+    print markets_closed
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -72,6 +73,14 @@ def sign_post(request):
         return HttpResponseRedirect('/?' + urllib.urlencode({'guestbook_name': guestbook_name}))
     return HttpResponseRedirect('/')
 
+def view_detail(request):
+    if request.method == 'POST':
+       return 
+    template_values = {'id': id,
+                       }
+    
+    return render(request, 'mainpage/detail.html', template_values)
+
 def create_marketstub():
     market = Market(name = 'This Market Name Is This Market',
                     address = 'Address of this Market',
@@ -89,17 +98,17 @@ def create_marketstub():
                     close_time = 16)
     market.put()
     
-def populate_markets():
-#    csv = getCSV()
-    market_dict = testRun()
-     
-    names = market_dict['names']
-    organizations = market_dict['organizations']
-    addresses = market_dict['addresses']
-    
-    print names
-    print organizations
-    print addresses
+# def populate_markets():
+# #    csv = getCSV()
+#     market_dict = testRun()
+#      
+#     names = market_dict['names']
+#     organizations = market_dict['organizations']
+#     addresses = market_dict['addresses']
+#     
+#     print names
+#     print organizations
+#     print addresses
     
     
 def market_put(request):

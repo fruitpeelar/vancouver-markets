@@ -313,45 +313,8 @@ $('.fullstar').fadeTo('fast',0);
 	</div>
 
 	<div class="details">
-
-
-		<div class="detailtitle">
-			<p>Brant Villa Mobile Produce Market</p>
-		</div>
-		<div class="favourite">
-			<div class="emptystar">★</div>
-			<div class="fullstar">★</div>
-		</div>
-
-
-
-		<div class="detailwords">
-			<ul>
-				<li>Date:</li>
-				<li>Website:</li>
-				<li>Number of venders:</li>
-				<li>Offerings:</li>
-				<li>Type:</li>
-				<li>Organization:</li> Comments: asdas
-				<br> asdas
-				<br> asdas
-				<br> asdas
-				<br> asdas
-				<br> asdas
-				<br> asdas
-				<br> asdas
-				<br>
-			</ul>
-			<form action="/signin/" method="post">
-				{% csrf_token %}
-				<div>
-					<textarea name="content" rows="3" cols="60"></textarea>
-				</div>
-				<div>
-					<input type="submit" value="Post the comment!">
-				</div>
-			</form>
-		</div>
+	{% block content %}
+	{% endblock %}
 		<div class="fbtwt">
 			<div class="twt")>
 				<a class="twitter-share-button" href="http://eatlocal.org/">
