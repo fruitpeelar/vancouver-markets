@@ -4,16 +4,20 @@ import re
 # from pip.basecommand import open_logfile
 
 # Retrieve CSV file from the Vancouver OpenData url
-url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
-response = urllib2.urlopen(url)
-cr = csv.reader(response, quotechar='"', delimiter=',',
+def getCSV(): 
+    url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
+    response = urllib2.urlopen(url)
+    cr = csv.reader(response, quotechar='"', delimiter=',',
                      quoting=csv.QUOTE_ALL, skipinitialspace=True)
+    return cr
 
 # First row has the last updated time of this data       
-updateRow = cr.next()
+def getUpdateRow(cr):
+    return cr.next()
 
 # Remove the row with field names
-cr.next()
+def removeFieldNames(cr):
+    return cr.next()
 
 # If the field is empty, then return the list with empty field filled as 'N/A'
 def checkEmpty(fieldlist):
@@ -23,7 +27,7 @@ def checkEmpty(fieldlist):
     return fieldlist
 
 # If the stored date of the updated date is different than the current date, then parse the information again
-def checkUpdate(storeddate, updatedate):
+def checkUpdate(cr, storeddate, updatedate):
     if(storeddate != updatedate):
         parseMarketInfo(cr)
         
@@ -84,7 +88,7 @@ def getUpdateDate(updaterow):
     return updaterow[1]
 
 # Parses the required market information into the corresponding lists
-def parseMarketInfo():
+def parseMarketInfo(cr):
     
     # Create lists to store market info
     names = []
@@ -120,7 +124,7 @@ def parseMarketInfo():
     
     # Retrieved parsed information    
     open_time_ints = convertTimeTo24Hr(open_times)
-    close_close_ints = convertTimeTo24Hr(close_times)
+    close_time_ints = convertTimeTo24Hr(close_times)
     open_month_ints, close_month_ints = getOpenCloseMonths(open_month_ints)
     
     # Check if there are empty fields
@@ -139,7 +143,7 @@ def parseMarketInfo():
     print vendor_numbers
     print offerings
     print open_time_ints
-    print close_close_ints
+    print close_time_ints
     print open_month_ints
     print close_month_ints
     
@@ -155,10 +159,17 @@ def parseMarketInfo():
         'vendors': vendor_numbers,
         'offerings': offerings,
         'open_time_ints': open_time_ints,
-        'close_time_ints': close_close_ints,
+        'close_time_ints': close_time_ints,
         'open_month_ints': open_month_ints,
         'close_month_ints': close_month_ints
         }
 
 # Testing
-parseMarketInfo()
+def testRun():
+    cr = getCSV()
+    updateRow = getUpdateRow(cr)
+    getUpdateDate(updateRow)
+    removeFieldNames(cr)
+    parseMarketInfo(cr)
+    
+testRun()
