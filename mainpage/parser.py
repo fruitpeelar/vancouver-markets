@@ -131,21 +131,6 @@ def parseMarketInfo(cr):
     checkEmpty(offerings)
     
     # This is used as a test to check if info are getting parsed correctly
-    print types
-    print names
-    print organizations
-    print addresses
-    print websites
-    print open_days
-    print open_times
-    print close_times
-    print open_month_ints
-    print vendor_numbers
-    print offerings
-    print open_time_ints
-    print close_time_ints
-    print open_month_ints
-    print close_month_ints
     
     return {'names':names,
         'types':types,
@@ -170,6 +155,6 @@ def testRun():
     updateRow = getUpdateRow(cr)
     getUpdateDate(updateRow)
     removeFieldNames(cr)
-    parseMarketInfo(cr)
+    return parseMarketInfo(cr)
     
 testRun()

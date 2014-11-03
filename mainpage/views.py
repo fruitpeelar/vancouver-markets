@@ -5,7 +5,7 @@ from django.shortcuts import render
 from google.appengine.api import users
 
 from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME, Market
-from mainpage.parser import parseMarketInfo
+from mainpage.parser import parseMarketInfo, getCSV, testRun
 
 from datetime import date
 
@@ -88,13 +88,14 @@ def create_marketstub():
                     close_time = 16)
     market.put()
     
-def populate_markets():
-    market_dict = parseMarketInfo()
-    
-    names = market_dict['names']
-    organizations = market_dict['organizations']
-    print names
-    print organizations
+# def populate_markets():
+# #     csv = getCSV()
+#     market_dict = testRun()
+#     
+#     names = market_dict['names']
+#     organizations = market_dict['organizations']
+#     print names
+#     print organizations
     
     
 def market_put(request):
