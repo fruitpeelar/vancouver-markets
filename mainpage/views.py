@@ -10,6 +10,7 @@ from mainpage.parser import MarketParser
 from datetime import date
 
 import urllib
+from pickle import MARK
 
 def main_page(request):
     guestbook_name = request.GET.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
@@ -26,19 +27,16 @@ def main_page(request):
     current_month = today.month
     
     markets_query = Market.query()
-    markets_open_query = Market.query(Market.open_month <= current_month)
-    markets_closed_query = markets_query.filter(Market.close_month < current_month)
-    markets_upcoming_query = markets_query.filter(Market.open_month > current_month)
+    markets_open_query = Market.query(Market.open_month_int <= current_month)
+    markets_closed_query = markets_query.filter(Market.close_month_int < current_month)
+    markets_upcoming_query = markets_query.filter(Market.open_month_int > current_month)
     
     markets = markets_query.fetch()
     markets_open = markets_open_query.fetch()
     markets_closed = markets_closed_query.fetch()
     markets_upcoming = markets_upcoming_query.fetch()
     
-    print 'start'
-    populate_markets()
-    markets_open[:] = [market for market in markets_open if current_month <= market.close_month]
-    print markets_closed
+    markets_open[:] = [market for market in markets_open if current_month <= market.close_month_int]
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -75,7 +73,7 @@ def sign_post(request):
 
 def view_detail(request):
     if request.method == 'POST':
-       return 
+        return 
     template_values = {'id': id,
                        }
     
@@ -88,34 +86,72 @@ def create_marketstub():
                     market_type = 'No Type',
                     organization = 'No Org',
                     url = 'no url',
-                    products = ['this', 'that', 'it'],
+                    products = 'this, that, it',
                     open_day = 'Monday',
-                    open_month_string = '6-8',
-                    open_time_string = '2pm - 4pm',
-                    open_month = 6,
-                    close_month = 8,
-                    open_time = 14,
-                    close_time = 16)
+                    open_month = '6-8',
+                    open_time = '2pm',
+                    cloase_time = '6pm',
+                    open_month_int = 6,
+                    close_month_int = 8,
+                    open_time_int = 14,
+                    close_time_int = 16)
     market.put()
     
 def populate_markets():
     print 'in pop market'
+    
     url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
     market_dict = MarketParser(url).testRun()
-    names = market_dict['names']   
        
     names = market_dict['names']
+    types = market_dict['types']
     organizations = market_dict['organizations']
     addresses = market_dict['addresses']
-         
-    print names
-    print organizations
-    print addresses
+    urls = market_dict['urls']
+    open_days = market_dict['open_days']
+    open_times = market_dict['open_times']
+    close_times = market_dict['close_times']
+    open_months = market_dict['open_months']
+    vendors = market_dict['vendors']
+    offerings = market_dict['vendors']
+    open_times_ints = market_dict['open_time_ints']
+    close_time_ints = market_dict['close_time_ints']
+    open_month_ints = market_dict['open_month_ints']
+    close_month_ints = market_dict['close_month_ints']
+    
+    print len(names)
+    
+    # close time not in database yet
+    for x in range (0, len(names)):
+            market = Market(name = names[x],
+                    address = addresses[x],
+                    num_vendors = vendors[x],
+                    market_type = types[x],
+                    organization = organizations[x],
+                    url = urls[x],
+                    products = offerings[x],
+                    open_day = open_days[x],
+                    open_month = open_months[x],
+                    open_time = open_times[x],
+                    close_time = close_times[x],
+                    open_month_int = open_month_ints[x],
+                    close_month_int = close_month_ints[x],
+                    open_time_int = open_times_ints[x],
+                    close_time_int = close_time_ints[x])
+            market.put()
+
+    print market_dict
     
     
 def market_put(request):
     if request.method == 'POST':
         create_marketstub()
+        
+    return HttpResponseRedirect('/')
+
+def populate(request):
+    if request.method == 'POST':
+        populate_markets()
         
     return HttpResponseRedirect('/')
     

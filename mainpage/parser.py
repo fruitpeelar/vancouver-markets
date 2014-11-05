@@ -53,7 +53,7 @@ class MarketParser:
         open_days = []
         open_times = []
         close_times = []
-        open_month_ints = []
+        open_months = []
         vendor_numbers = []
         offerings = []
         checkedOfferings = []
@@ -69,7 +69,7 @@ class MarketParser:
                 open_days.append(row[10])
                 open_times.append(row[11])
                 close_times.append(row[12])
-                open_month_ints.append(row[13])
+                open_months.append(row[13])
                 vendor_numbers.append(row[14])
                 offerings.append(row[15])
        
@@ -81,7 +81,7 @@ class MarketParser:
         # Retrieved parsed information    
         open_time_ints = self.convertTimeTo24Hr(open_times)
         close_time_ints = self.convertTimeTo24Hr(close_times)
-        open_month_ints, close_month_ints = self.getOpenCloseMonths(open_month_ints)
+        open_month_ints, close_month_ints = self.getOpenCloseMonths(open_months)
         
         # This is used as a test to check if info are getting parsed correctly
         return {'names':names,
@@ -92,7 +92,7 @@ class MarketParser:
                 'open_days': open_days,
                 'open_times': open_times,
                 'close_times': close_times,
-                'open_months': open_month_ints,
+                'open_months': open_months,
                 'vendors': vendor_numbers,
                 'offerings': offerings,
                 'open_time_ints': open_time_ints,

@@ -349,6 +349,12 @@ $('.fullstar').fadeTo('fast',0);
 				<input type="submit" value="Let's put a stub market!">
 			</div>
 		</form>
+		<form action="/populate/" method="post">
+			{% csrf_token %}
+			<div>
+				<input type="submit" value="Populate the database with real data">
+			</div>
+		</form>
 		<span>Our Team: King Sejong <br> | JOL | GYP | JOP | EJK |
 			JHC |
 		</span>
