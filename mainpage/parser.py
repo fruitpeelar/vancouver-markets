@@ -33,75 +33,84 @@ class MarketParser:
         return checkedOfferings
 
     # If the stored date of the updated date is different than the current date, then parse the information again
-    def checkUpdate(self, cr, storeddate, updatedate):
+    def checkUpdate(self, cr, storeddate, updatedate, i):
         if(storeddate != updatedate):
-            self.parseMarketInfo(self, cr)
+            return self.parseMarketInfo(self, cr)
+            # Keep how many updates have happened
+            i += 1
     
     # Get updated date from the first row of the csv file
     def getUpdateDate(self, updaterow):
         return updaterow[1]
 
     # Parses the required market information into the corresponding lists
-    def parseMarketInfo(self, cr):
-    
-        # Create lists to store market info
-        names = []
-        types = []
-        organizations = []
-        addresses = []
-        websites = []
-        open_days = []
-        open_times = []
-        close_times = []
-        open_months = []
-        vendor_numbers = []
-        offerings = []
-        checkedOfferings = []
-        
-        for row in cr:
-            # Only iterate and parse when the name field is not empty
-            if row[1] != '':
-                names.append(row[1])
-                types.append(row[0])
-                organizations.append(row[2])
-                addresses.append(row[7])
-                websites.append(row[9])
-                open_days.append(row[10])
-                open_times.append(row[11])
-                close_times.append(row[12])
-                open_months.append(row[13])
-                vendor_numbers.append(row[14])
-                offerings.append(row[15])
-       
-        # Check if there are empty fields
-        print 'Before check: ' + ', '.join(offerings)
-        checkedOfferings = self.checkEmpty(offerings)
-        print 'After check: ' + ', '.join(checkedOfferings)
-        
-        # Retrieved parsed information    
-        open_time_ints = self.convertTimeTo24Hr(open_times)
-        close_time_ints = self.convertTimeTo24Hr(close_times)
-        open_month_ints, close_month_ints = self.getOpenCloseMonths(open_months)
-        
-        # This is used as a test to check if info are getting parsed correctly
-        return {'names':names,
-                'types':types,
-                'organizations': organizations,
-                'addresses': addresses,
-                'urls': websites,
-                'open_days': open_days,
-                'open_times': open_times,
-                'close_times': close_times,
-                'open_months': open_months,
-                'vendors': vendor_numbers,
-                'offerings': offerings,
-                'open_time_ints': open_time_ints,
-                'close_time_ints': close_time_ints,
-                'open_month_ints': open_month_ints,
-                'close_month_ints': close_month_ints
-                }
-        # Splice the OpenMonths into the month it opens and the month it closes
-        
+    def parseMarketInfo(self, cr, lastUpdateDate, updatedate, updateCount):
+        # Check if updated date has changed
+        if (lastUpdateDate != updatedate):
+            # Increment update count
+            updateCount += 1
+            
+            # Change last update time to the newly changed date
+            lastUpdateDate = updatedate
+            
+            # Create lists to store market info
+            names = []
+            types = []
+            organizations = []
+            addresses = []
+            websites = []
+            open_days = []
+            open_times = []
+            close_times = []
+            open_months = []
+            vendor_numbers = []
+            offerings = []
+            checkedOfferings = []
+            
+            for row in cr:
+                # Only iterate and parse when the name field is not empty
+                if row[1] != '':
+                    names.append(row[1])
+                    types.append(row[0])
+                    organizations.append(row[2])
+                    addresses.append(row[7])
+                    websites.append(row[9])
+                    open_days.append(row[10])
+                    open_times.append(row[11])
+                    close_times.append(row[12])
+                    open_months.append(row[13])
+                    vendor_numbers.append(row[14])
+                    offerings.append(row[15])
+           
+            # Check if there are empty fields
+            print 'Before check: ' + ', '.join(offerings)
+            checkedOfferings = self.checkEmpty(offerings)
+            print 'After check: ' + ', '.join(checkedOfferings)
+            
+            # Retrieved parsed information    
+            open_time_ints = self.convertTimeTo24Hr(open_times)
+            close_time_ints = self.convertTimeTo24Hr(close_times)
+            open_month_ints, close_month_ints = self.getOpenCloseMonths(open_months)
+            
+            # This is used as a test to check if info are getting parsed correctly
+            return {'names':names,
+                    'types':types,
+                    'organizations': organizations,
+                    'addresses': addresses,
+                    'urls': websites,
+                    'open_days': open_days,
+                    'open_times': open_times,
+                    'close_times': close_times,
+                    'open_months': open_months,
+                    'vendors': vendor_numbers,
+                    'offerings': checkedOfferings,
+                    'open_time_ints': open_time_ints,
+                    'close_time_ints': close_time_ints,
+                    'open_month_ints': open_month_ints,
+                    'close_month_ints': close_month_ints
+                    }
+      
+    # Splice the OpenMonths into the month it opens and the month it closes     
     def getOpenCloseMonths(self, monthlist):
         openMonths = []
         closeMonths = []
@@ -127,7 +136,7 @@ class MarketParser:
                 closeMonths.append(monthDict.get(months[1].split()[2]))
         return openMonths, closeMonths
 
-     # Convert the open and close time of the markets
+    # Convert the open and close time of the markets
     def convertTimeTo24Hr(self, timelist):
         market24Time = []
         # Iterate all the times given in the timelist
@@ -138,7 +147,7 @@ class MarketParser:
             # Take off am and pm and convert time to int
             ampmtime = re.findall(r'\d+', twelvetime) 
             ampmtime = int(''.join(ampmtime))
-        
+            
             # 12pm = 1200
             if(ampmtime == 12 and re.search('pm', stringTime)):
                 ampmtime = 12
@@ -153,10 +162,14 @@ class MarketParser:
             market24Time.append(ampmtime)
         return market24Time   
     
+    # TESTING UPDATE
+    testingdate = " "
+    numUpdate = 0
+    
     # Testing
     def testRun(self):
         cr = self.getCSV()
         updateRow = self.getUpdateRow(cr)
-        self.getUpdateDate(updateRow)
+        updateDate = self.getUpdateDate(updateRow)
         self.removeFieldNames(cr)
-        return self.parseMarketInfo(cr)
+        return self.parseMarketInfo(cr, self.testingdate, updateDate, self.numUpdate)

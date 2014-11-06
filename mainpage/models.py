@@ -33,4 +33,9 @@ class Market(ndb.Model):
     close_month_int = ndb.IntegerProperty(required = True)
     open_time_int = ndb.IntegerProperty(required = True)
     close_time_int = ndb.IntegerProperty(required = True)
+
+class Update(ndb.model):
+    '''Models a update property entry.'''
+    lastUpdateDate = ndb.StringProperty(required = True)
+    updateCount = ndb.IntegerProperty(required = True)
     
