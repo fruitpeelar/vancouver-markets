@@ -42,11 +42,7 @@ var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
 var communityIcon = 'static/Images/CommunityMarket.png';
 var farmerIcon = 'static/Images/FarmerMarket.png';
 var currentIcon = 'static/Images/CurrentLocation.png';
-var markets = [
-	[49.238694, -123.154812, "farmer"],
-	[49.261453, -123.162453, "farmer"],
-	[49.248384, -123.058292, "community"],
-	[49.228060, -123.078110, "community"]];
+var markets = [];
 	
 //Precondition: Database has data (or result will be empy)
 //Purpose: Pull market latlon/ marketType from database 
@@ -55,7 +51,17 @@ var markets = [
 //			      [lat, lon, marketType, marketName]
 //				   ...  ...      ...   ]   
 
-function retrieveMarkets() {};
+function retrieveMarkets() {
+"{% for market in markets %}"
+	var oneMarket = [];
+	oneMarket.push("{{ market.lat }}");            //lat
+	oneMarket.push("{{ market.lon }}");             //lon
+	oneMarket.push("{{ market.market_type }}");                //market_type
+	oneMarket.push("{{ market.name }}");                       //market_name
+	
+	markets.push(oneMarket);
+"{% endfor %}"
+}
 
 //Precondition: marker is valid
 //Purpose: add functionality to marker when clicked (i.e. zoom and centre)
@@ -84,12 +90,14 @@ function addClickEvent(map, marker, lat, long, infowindow) {
 
 function createMarkers(listOfMarkets, map) {
 	var infowindow = new google.maps.InfoWindow();
+	//populates markets field with each market's properties
+	retrieveMarkets();
 	for (var i = 0; i < listOfMarkets.length; i++) {
 		var lat = listOfMarkets[i][0];
 		var long = listOfMarkets[i][1];
 		var latlong = new google.maps.LatLng(listOfMarkets[i][0], listOfMarkets[i][1]);
 		var marker;
-		if (listOfMarkets[i][2] == "farmer")
+		if (listOfMarkets[i][2] == "Farmers Market")
 			marker = new google.maps.Marker( {
 					position: latlong,
 					map: map,
@@ -107,6 +115,8 @@ function createMarkers(listOfMarkets, map) {
 		}	
 		addClickEvent(map, marker, lat, long, infowindow);
 	}
+	//reset Market size to 0
+	markets.length = 0;
 }
 
 //Precondition: google map api is loaded
