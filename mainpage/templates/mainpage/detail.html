@@ -6,20 +6,13 @@
 	
 	<div class="detailwords">
 		<ul>
-			<li>Date:</li>
-			<li>Website:</li>
-			<li>Number of venders:</li>
-			<li>Offerings:</li>
-			<li>Type:</li>
-			<li>Organization:</li> Comments: asdas
-			<br> asdas
-			<br> asdas
-			<br> asdas
-			<br> asdas
-			<br> asdas
-			<br> asdas
-			<br> asdas
-			<br>
+			<li>Date: {{ market.open_month }}</li>
+			<li>Website: {{ market.url }}</li>
+			<li>Number of venders: {{ market.num_vendors }}</li>
+			<li>Products: {{ market.products }}</li>
+			<li>Type: {{ market.type }}</li>
+			<li>Organization: {{ market.organization }}</li>
+			Comments: comment stub
 		</ul>
 		<form action="/signin/" method="post">
 			{% csrf_token %}

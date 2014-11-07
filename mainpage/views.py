@@ -17,30 +17,17 @@ from pickle import MARK
 # gmaps = GoogleMaps(api_key)
 
 def main_page(request):
-    guestbook_name = request.GET.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
+#     guestbook_name = request.GET.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
     
     # Ancestor Queries, as shown here, are strongly consistent with the High
     # Replication Datastore. Queries that span entity groups are eventually
     # consistent. If we omitted the ancestor from this query there would be
     # a slight chance that Greeting that had just been written would not
     # show up in a query.
-    greetings_query = Greeting.query(ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-    greetings = greetings_query.fetch(10)
+#     greetings_query = Greeting.query(ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+#     greetings = greetings_query.fetch(10)
     
-    today = date.today()
-    current_month = today.month
-    
-    markets_query = Market.query()
-    markets_open_query = Market.query(Market.open_month_int <= current_month)
-    markets_closed_query = markets_query.filter(Market.close_month_int < current_month)
-    markets_upcoming_query = markets_query.filter(Market.open_month_int > current_month)
-    
-    markets = markets_query.fetch()
-    markets_open = markets_open_query.fetch()
-    markets_closed = markets_closed_query.fetch()
-    markets_upcoming = markets_upcoming_query.fetch()
-    
-    markets_open[:] = [market for market in markets_open if current_month <= market.close_month_int]
+    markets, markets_open, markets_closed, markets_upcoming = get_markets()
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -50,8 +37,8 @@ def main_page(request):
         url_linktext = 'Login'
 
     template_values = {
-        'greetings': greetings,
-        'guestbook_name': guestbook_name,
+#         'greetings': greetings,
+#         'guestbook_name': guestbook_name,
         'url': url,
         'url_linktext': url_linktext,
         'markets': markets,
@@ -75,11 +62,20 @@ def sign_post(request):
         return HttpResponseRedirect('/?' + urllib.urlencode({'guestbook_name': guestbook_name}))
     return HttpResponseRedirect('/')
 
+# renders detail page of a selected market given market's id
 def view_detail(request, detail):
     id_int = int(detail)
+    markets, markets_open, markets_closed, markets_upcoming = get_markets()
+    
     if request.method == 'GET':
         market = Market.get_by_id(id_int)
-    template_values = {'market': market,}
+        
+    template_values = {'market': market,
+                       'markets': markets,
+                       'markets_open': markets_open,
+                       'markets_close': markets_closed,
+                       'markets_upcoming': markets_upcoming,}
+    
     return render(request, 'mainpage/detail.html', template_values)
 
 def create_marketstub():
@@ -158,4 +154,22 @@ def populate(request):
         populate_markets()
         
     return HttpResponseRedirect('/')
+
+def get_markets():
+    today = date.today()
+    current_month = today.month
+    
+    markets_query = Market.query()
+    markets_open_query = Market.query(Market.open_month_int <= current_month)
+    markets_closed_query = markets_query.filter(Market.close_month_int < current_month)
+    markets_upcoming_query = markets_query.filter(Market.open_month_int > current_month)
+    
+    markets = markets_query.fetch()
+    markets_open = markets_open_query.fetch()
+    markets_closed = markets_closed_query.fetch()
+    markets_upcoming = markets_upcoming_query.fetch()
+    
+    markets_open[:] = [market for market in markets_open if current_month <= market.close_month_int]
+    
+    return markets, markets_open, markets_closed, markets_upcoming
     
