@@ -2,6 +2,7 @@ import csv
 import urllib2
 import re
 import time
+import json
 # from pip.basecommand import open_logfile
 
 class MarketParser:
@@ -66,6 +67,8 @@ class MarketParser:
             vendor_numbers = []
             offerings = []
             checkedOfferings = []
+            lats = []
+            lons = []
             
             for row in cr:
                 # Only iterate and parse when the name field is not empty
@@ -81,7 +84,21 @@ class MarketParser:
                     open_months.append(row[13])
                     vendor_numbers.append(row[14])
                     offerings.append(row[15])
-           
+                
+                #take address string and geocode it into a json object
+                    addressString = row[7] 
+                    addressString = urllib2.quote(addressString)
+                    url="https://maps.googleapis.com/maps/api/geocode/json?address=%s" % addressString
+
+                    response = urllib2.urlopen(url)
+                    jsongeocode = json.loads(response.read())
+                    
+                #parse json to extract lat/lon
+                    lat = jsongeocode['results'][0]['geometry']['location']['lat']
+                    lon = jsongeocode['results'][0]['geometry']['location']['lng']
+                #append lat/lon to lists    
+                    lats.append(lat)
+                    lons.append(lon)
             # Check if there are empty fields
             print 'Before check: ' + ', '.join(offerings)
             checkedOfferings = self.checkEmpty(offerings)
@@ -107,7 +124,9 @@ class MarketParser:
                     'open_time_ints': open_time_ints,
                     'close_time_ints': close_time_ints,
                     'open_month_ints': open_month_ints,
-                    'close_month_ints': close_month_ints
+                    'close_month_ints': close_month_ints,
+                    'lats': lats,
+                    'lons': lons
                     }
       
     # Splice the OpenMonths into the month it opens and the month it closes     
@@ -160,7 +179,7 @@ class MarketParser:
             # otherwise am time stays the same
             # Add the converted time to the new list and return the list
             market24Time.append(ampmtime)
-        return market24Time   
+        return market24Time 
     
     # TESTING UPDATE
     testingdate = " "

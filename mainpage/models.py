@@ -33,6 +33,8 @@ class Market(ndb.Model):
     close_month_int = ndb.IntegerProperty(required = True)
     open_time_int = ndb.IntegerProperty(required = True)
     close_time_int = ndb.IntegerProperty(required = True)
+    lat = ndb.FloatProperty(required = True)     #added lat/lon properties
+    lon = ndb.FloatProperty(required = True)
 
 # class Update_Date(ndb.model):
 #     '''Models a update property entry.'''

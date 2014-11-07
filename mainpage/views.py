@@ -85,6 +85,8 @@ def view_detail(request, detail):
 def create_marketstub():
     market = Market(name = 'This Market Name Is This Market',
                     address = 'Address of this Market',
+                    lat = 49.287092,                       #added currentLocation as stub
+                    lon = -123.117703,                     #lat/lon
                     num_vendors = '5',
                     market_type = 'No Type',
                     organization = 'No Org',
@@ -121,7 +123,8 @@ def populate_markets():
     close_time_ints = market_dict['close_time_ints']
     open_month_ints = market_dict['open_month_ints']
     close_month_ints = market_dict['close_month_ints']
-    
+    lats = market_dict['lats']       #added lat/lon 
+    lons = market_dict['lons']
     print len(names)
     
     # close time not in database yet
@@ -141,7 +144,9 @@ def populate_markets():
                     open_month_int = open_month_ints[x],
                     close_month_int = close_month_ints[x],
                     open_time_int = open_times_ints[x],
-                    close_time_int = close_time_ints[x])
+                    close_time_int = close_time_ints[x],
+                    lat = lats[x],                  #added lat/lon for each market
+                    lon = lons[x])
         market.put()
 
     print market_dict
