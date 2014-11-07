@@ -161,8 +161,11 @@ def market_put(request):
 def populate(request):
     if request.method == 'POST':
         populate_markets()
-        
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
+    
+    if request.method == 'GET':
+        return render (request, 'mainpage/populate.html')
+    
 
 def get_markets():
     today = date.today()
