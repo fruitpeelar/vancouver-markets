@@ -86,7 +86,7 @@ class MarketParser:
                     offerings.append(row[15])
                 
                 #take address string and geocode it into a json object
-                    addressString = row[7] 
+                    addressString = row[7] + ", Vancouver, B.C."
                     addressString = urllib2.quote(addressString)
                     url="https://maps.googleapis.com/maps/api/geocode/json?address=%s" % addressString
 
