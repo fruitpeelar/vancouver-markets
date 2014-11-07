@@ -31,10 +31,10 @@
 <title>Vancouver Markets</title>
 
 <!-- Load Google Maps -->
-<script
-	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true">
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWLMNHOpkHQnyBKZdjyzA_22R20VZ36_E">
 </script>
-
+    
 <script>
 //variables
 
@@ -47,13 +47,12 @@ var markets = [
 	[49.261453, -123.162453, "farmer"],
 	[49.248384, -123.058292, "community"],
 	[49.228060, -123.078110, "community"]];
-
-
+	
 //Precondition: Database has data (or result will be empy)
 //Purpose: Pull market latlon/ marketType from database 
 //		-Generate an array of array of markets where 
-//		array = [ [lat, lon, marketType]
-//			      [lat, lon, marketType]
+//		array = [ [lat, lon, marketType, marketName]
+//			      [lat, lon, marketType, marketName]
 //				   ...  ...      ...   ]   
 
 function retrieveMarkets() {};
@@ -61,11 +60,21 @@ function retrieveMarkets() {};
 //Precondition: marker is valid
 //Purpose: add functionality to marker when clicked (i.e. zoom and centre)
 
-function addClickEvent(map, marker, latlong) {
+function addClickEvent(map, marker, lat, long, infowindow) {
 	google.maps.event.addListener(marker, 'click', function() {
-		map.setCenter(latlong);
+		map.setCenter(marker.position);
 		map.setZoom(13);
 		
+		var latString = lat.toString();
+		var longString = long.toString();
+		var link = "http://www.google.com/maps?q=" + latString + ",+" + longString;
+		var contentString = 
+      '<a href=' + link + '>'+
+      'Find Directions</a> '
+      
+		infowindow.setContent(contentString);
+		infowindow.setPosition(marker.position)
+		infowindow.open(map);
 	});
 }
 
@@ -73,15 +82,18 @@ function addClickEvent(map, marker, latlong) {
 //Purpose:  generate all google map markers given an array 
 //		   (of array) of market information          
 
-function createMarkers(markets, map, farmerIcon, communityIcon) {
-	
-	for (var i = 0; i < markets.length; i++) {
-		var latlong = new google.maps.LatLng(markets[i][0], markets[i][1]);
+function createMarkers(listOfMarkets, map) {
+	var infowindow = new google.maps.InfoWindow();
+	for (var i = 0; i < listOfMarkets.length; i++) {
+		var lat = listOfMarkets[i][0];
+		var long = listOfMarkets[i][1];
+		var latlong = new google.maps.LatLng(listOfMarkets[i][0], listOfMarkets[i][1]);
 		var marker;
-		if (markets[i][2] == "farmer")
+		if (listOfMarkets[i][2] == "farmer")
 			marker = new google.maps.Marker( {
 					position: latlong,
 					map: map,
+					title: listOfMarkets[i][3],
 					icon: farmerIcon
 				});
 			
@@ -89,10 +101,11 @@ function createMarkers(markets, map, farmerIcon, communityIcon) {
 			marker = new google.maps.Marker( {
 					position: latlong,
 					map: map,
+					title: listOfMarkets[i][3],
 					icon: communityIcon
 			});
 		}	
-		addClickEvent(map, marker, latlong);
+		addClickEvent(map, marker, lat, long, infowindow);
 	}
 }
 
@@ -101,7 +114,6 @@ function createMarkers(markets, map, farmerIcon, communityIcon) {
 //		    to initialize the markers           
 	
 function initializeMap() {
-	
 	//create the map 		
 	var mapCanvas = document.getElementById('map_canvas');
 	var mapOptions = {
@@ -112,16 +124,14 @@ function initializeMap() {
 	var map = new google.maps.Map(mapCanvas, mapOptions);
 	
 	//create the markers
-	new google.maps.Marker( {"main.py"
+	new google.maps.Marker( {
 		position: currentLocation,
 		map: map,
 		icon: currentIcon
 	});
-	
-	createMarkers(markets, map, farmerIcon, communityIcon);
+	createMarkers(markets, map);
 } 
 google.maps.event.addDomListener(window, 'load', initializeMap);
-
 </script>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <script type=text/javascript
