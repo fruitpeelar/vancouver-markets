@@ -213,7 +213,7 @@ $('.fullstar').fadeTo('fast',0);
             		</tr>
             		{% for market in markets %}
             		<tr>
-            			<td class="td3">{{ market.name }}</td>
+            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
             			<td class="td4">{{ market.open_month }}</td>
             			<td class="td4">{{ market.address }}</td>
             		</tr>
