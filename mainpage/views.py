@@ -118,7 +118,7 @@ def populate_markets():
     close_times = market_dict['close_times']
     open_months = market_dict['open_months']
     vendors = market_dict['vendors']
-    offerings = market_dict['vendors']
+    offerings = market_dict['offerings']
     open_times_ints = market_dict['open_time_ints']
     close_time_ints = market_dict['close_time_ints']
     open_month_ints = market_dict['open_month_ints']
