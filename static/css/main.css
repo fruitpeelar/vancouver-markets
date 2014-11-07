@@ -17,6 +17,10 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
+	.title a {
+		color: darkolivegreen;
+    	text-decoration: none;
+	}
 
 .list {
 	width: 800px;
@@ -122,12 +126,26 @@ body {
 	text-align: left;
 	width: 50%;
 }
+	.td3 a  {
+		color: #333;
+		text-decoration: none;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
 
 .td4 {
 	border-left: solid darkgray 1px;
 	border-top: dotted darkgray 1px;
 	width: 25%;	
 }
+	.td4 a  {
+		color: #333;
+		text-decoration: none;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
 
 .twt{
 	float: left;

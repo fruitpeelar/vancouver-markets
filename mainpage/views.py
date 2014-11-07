@@ -28,6 +28,10 @@ def main_page(request):
 #     greetings = greetings_query.fetch(10)
     
     markets, markets_open, markets_closed, markets_upcoming = get_markets()
+    print markets
+    print markets_open
+    print markets_closed
+    
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
@@ -66,14 +70,14 @@ def sign_post(request):
 def view_detail(request, detail):
     id_int = int(detail)
     markets, markets_open, markets_closed, markets_upcoming = get_markets()
-    
+
     if request.method == 'GET':
         market = Market.get_by_id(id_int)
         
     template_values = {'market': market,
                        'markets': markets,
                        'markets_open': markets_open,
-                       'markets_close': markets_closed,
+                       'markets_closed': markets_closed,
                        'markets_upcoming': markets_upcoming,}
     
     return render(request, 'mainpage/detail.html', template_values)

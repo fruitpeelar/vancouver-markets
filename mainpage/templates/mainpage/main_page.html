@@ -139,7 +139,7 @@ google.maps.event.addDomListener(window, 'load', initializeMap);
 </head>
 
 
-<div class="title">Vancouver Community and Farmers Markets</div>
+<div class="title"><a href="/">Vancouver Community and Farmers Markets</a></div>
 
 
 
@@ -222,9 +222,9 @@ $('.fullstar').fadeTo('fast',0);
             		</tr>
             		{% for market in markets %}
             		<tr>
-            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-            			<td class="td4">{{ market.open_month }}</td>
-            			<td class="td4">{{ market.address }}</td>
+            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.address }}</a></td>
             		</tr>
             		{% endfor %}
             	</table>
@@ -241,9 +241,9 @@ $('.fullstar').fadeTo('fast',0);
             		</tr>
             		{% for market in markets_open %}
             		<tr>
-            			<td class="td3">{{ market.name }}</td>
-            			<td class="td4">{{ market.open_month }}</td>
-            			<td class="td4">{{ market.address }}</td>
+            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.address }}</a></td>
             		</tr>
             		{% endfor %}
             	</table>
@@ -260,9 +260,9 @@ $('.fullstar').fadeTo('fast',0);
             		</tr>
             		{% for market in markets_closed %}
             		<tr>
-            			<td class="td3">{{ market.name }}</td>
-            			<td class="td4">{{ market.open_month }}</td>
-            			<td class="td4">{{ market.address }}</td>
+            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.address }}</a></td>
             		</tr>
             		{% endfor %}
             	</table>
@@ -279,11 +279,12 @@ $('.fullstar').fadeTo('fast',0);
             		</tr>
             		{% for market in markets_upcoming %}
             		<tr>
-            			<td class="td3">{{ market.name }}</td>
-            			<td class="td4">{{ market.open_month }}</td>
-            			<td class="td4">{{ market.address }}</td>
+            			<td class="td3"><a href="/detail/{{ market.key.id }}">{{ market.name }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</a></td>
+            			<td class="td4"><a href="/detail/{{ market.key.id }}">{{ market.address }}</a></td>
             		</tr>
             		{% endfor %}
+            		</table>
 				</p>
 
 			</div>
