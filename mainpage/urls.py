@@ -6,5 +6,5 @@ urlpatterns = patterns('',
     (r'^$', main_page),
     (r'^stubmaker/$', market_put),
     (r'^populate/$', populate),
-    (r'^detail/([0-9]+)/$', view_detail),
+    (r'^detail/(?P<detail>\d+)/$', view_detail),
 )

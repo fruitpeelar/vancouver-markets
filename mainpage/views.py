@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from google.appengine.api import users
+# from googlemaps import GoogleMaps
 
 from mainpage.models import Greeting, guestbook_key, DEFAULT_GUESTBOOK_NAME, Market
 from mainpage.parser import MarketParser
@@ -11,6 +12,9 @@ from datetime import date
 
 import urllib
 from pickle import MARK
+
+# api_key = "AIzaSyAWLMNHOpkHQnyBKZdjyzA_22R20VZ36_E"
+# gmaps = GoogleMaps(api_key)
 
 def main_page(request):
     guestbook_name = request.GET.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
@@ -71,12 +75,11 @@ def sign_post(request):
         return HttpResponseRedirect('/?' + urllib.urlencode({'guestbook_name': guestbook_name}))
     return HttpResponseRedirect('/')
 
-def view_detail(request):
-    if request.method == 'POST':
-        return 
-    template_values = {'id': id,
-                       }
-    
+def view_detail(request, detail):
+    id_int = int(detail)
+    if request.method == 'GET':
+        market = Market.get_by_id(id_int)
+    template_values = {'market': market,}
     return render(request, 'mainpage/detail.html', template_values)
 
 def create_marketstub():
@@ -123,7 +126,8 @@ def populate_markets():
     
     # close time not in database yet
     for x in range (0, len(names)):
-            market = Market(name = names[x],
+        
+        market = Market(name = names[x],
                     address = addresses[x],
                     num_vendors = vendors[x],
                     market_type = types[x],
@@ -138,7 +142,7 @@ def populate_markets():
                     close_month_int = close_month_ints[x],
                     open_time_int = open_times_ints[x],
                     close_time_int = close_time_ints[x])
-            market.put()
+        market.put()
 
     print market_dict
     
