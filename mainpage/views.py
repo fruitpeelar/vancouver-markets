@@ -89,7 +89,7 @@ def create_marketstub():
                     open_day = 'Monday',
                     open_month = '6-8',
                     open_time = '2pm',
-                    cloase_time = '6pm',
+                    close_time = '6pm',
                     open_month_int = 6,
                     close_month_int = 8,
                     open_time_int = 14,
