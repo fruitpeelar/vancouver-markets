@@ -130,9 +130,15 @@ function initializeMap() {
 	}
 	var map = new google.maps.Map(mapCanvas, mapOptions);
 	
+	// Try HTML5 geolocation
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      	}
+	}
 	//create the markers
 	new google.maps.Marker( {
-		position: currentLocation,
+		position: pos,
 		map: map,
 		icon: currentIcon
 	});
