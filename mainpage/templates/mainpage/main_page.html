@@ -7,6 +7,12 @@
 <!-- Bootstrap -->
 <link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" />
 
+<!-- Font Awesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Social Buttons for Bootstrap -->
+<link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css" />
+
 <style>
 #map_canvas {
 	width: 100%;
@@ -141,7 +147,7 @@ google.maps.event.addDomListener(window, 'load', initializeMap);
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
 
-<!-- Fixed navbar -->
+<!-- Fixed top navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -161,6 +167,15 @@ google.maps.event.addDomListener(window, 'load', initializeMap);
             <li><a href="#">Closed</a></li>
             <li><a href="#">Upcoming</a></li>      
             <li><a href="#">Favourite</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a class="btn btn-social-icon btn-twitter btn-default navbar-btn"><i class="fa fa-twitter"></i></a>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a class="btn btn-social-icon btn-facebook btn-default navbar-btn"><i class="fa fa-facebook" ></i></a>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a class="btn btn-block btn-social btn-google-plus navbar-btn"><i class="fa fa-google-plus"></i> Sign in with Google</a>
           </ul>
         </div><!-- .navbar-collapse -->
       </div>
@@ -381,6 +396,14 @@ $('.fullstar').fadeTo('fast',0);
 		</span>
 	</div>
 </div>
+
+<!-- Fixed bottom navbar -->
+    <div class="navbar navbar-default navbar-bottom" role="navigation">
+      <div class="container-fluid">
+      Our Team: King Sejong<br>
+      | JOL | GYP | JOP | EJK | JHC |
+      </div>
+    </div>
 
 </body>
 
