@@ -16,6 +16,7 @@ from pickle import MARK
 # api_key = "AIzaSyAWLMNHOpkHQnyBKZdjyzA_22R20VZ36_E"
 # gmaps = GoogleMaps(api_key)
 
+# renders the main_page.html upon request
 def main_page(request):
 #     guestbook_name = request.GET.get('guestbook_name', DEFAULT_GUESTBOOK_NAME)
     
@@ -82,6 +83,7 @@ def view_detail(request, detail):
     
     return render(request, 'mainpage/detail.html', template_values)
 
+# (helper) create a stub market and put it into the database
 def create_marketstub():
     market = Market(name = 'This Market Name Is This Market',
                     address = 'Address of this Market',
@@ -101,13 +103,15 @@ def create_marketstub():
                     open_time_int = 14,
                     close_time_int = 16)
     market.put()
-    
+
+# populate the database with real market data
 def populate_markets():
     print 'in pop market'
     
     url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
     market_dict = MarketParser(url).testRun()
-       
+    
+    # put returned values to the corresponding variables
     names = market_dict['names']
     types = market_dict['types']
     organizations = market_dict['organizations']
@@ -127,7 +131,7 @@ def populate_markets():
     lons = market_dict['lons']
     print len(names)
     
-    # close time not in database yet
+    # put market data into the database
     for x in range (0, len(names)):
         
         market = Market(name = names[x],
@@ -151,13 +155,14 @@ def populate_markets():
 
     print market_dict
     
-    
+# create stub market upon request
 def market_put(request):
     if request.method == 'POST':
         create_marketstub()
         
     return HttpResponseRedirect('/')
 
+# populate the database with real data upon request
 def populate(request):
     if request.method == 'POST':
         populate_markets()
