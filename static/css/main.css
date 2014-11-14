@@ -62,6 +62,7 @@ body {
 	background: burlywood;
 	padding-left: 1%;
 	overflow: visible;
+	position: relative;
 }
 .detailtitle{
 	width: 70%;
@@ -100,8 +101,8 @@ body {
 }
 .fbtwt {
 	padding-top: 3px;
-	bottom:0;
-	overflow: visible
+	bottom:3;
+	position: absolute;
 	
 }
 
