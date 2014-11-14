@@ -99,10 +99,9 @@ class MarketParser:
                 #append lat/lon to lists    
                     lats.append(lat)
                     lons.append(lon)
-            # Check if there are empty fields
-            print 'Before check: ' + ', '.join(offerings)
+                    
+            # Check if there are empty fields and change empty fields to N/A
             checkedOfferings = self.checkEmpty(offerings)
-            print 'After check: ' + ', '.join(checkedOfferings)
             
             # Retrieved parsed information    
             open_time_ints = self.convertTimeTo24Hr(open_times)
