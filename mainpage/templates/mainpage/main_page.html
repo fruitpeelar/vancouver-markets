@@ -76,16 +76,9 @@ function addClickEvent(map, marker, lat, long, infowindow) {
 	});
 }
 
-//Precondition: map, and icons are initialized
-//Purpose:  generate all google map markers given an array 
-//		   (of array) of market information          
-
-function createMarkers(listOfMarkets, map) {
-	var infowindow = new google.maps.InfoWindow();
-	//populates markets field with each market's properties
-	retrieveMarkets();
+function createMarkers(listOfMarkets, map, infoWindow) {
 	for (var i = 0; i < listOfMarkets.length; i++) {
-		var lat = listOfMarkets[i][0];
+		var lat  = listOfMarkets[i][0];
 		var long = listOfMarkets[i][1];
 		var latlong = new google.maps.LatLng(listOfMarkets[i][0], listOfMarkets[i][1]);
 		var marker;
@@ -96,7 +89,6 @@ function createMarkers(listOfMarkets, map) {
 					title: listOfMarkets[i][3],
 					icon: farmerIcon
 				});
-			
 		else {
 			marker = new google.maps.Marker( {
 					position: latlong,
@@ -105,11 +97,24 @@ function createMarkers(listOfMarkets, map) {
 					icon: communityIcon
 			});
 		}	
-		addClickEvent(map, marker, lat, long, infowindow);
+		addClickEvent(map, marker, lat, long, infoWindow);
 	}
+}
+
+//Precondition: map, and icons are initialized
+//Purpose:  generate all google map markers given an array 
+//		   (of array) of market information          
+
+function initializeMarkers(listOfMarkets, map) {
+	var infowindow = new google.maps.InfoWindow();
+	//pull market information from database
+	retrieveMarkets();
+	//create Markers on the google maps
+	createMarkers(listOfMarkets, map, infowindow);
 	//reset Market size to 0
 	markets.length = 0;
 }
+
 
 //Precondition: google map api is loaded
 //Purpose:  generate a google map and call helpers
@@ -131,7 +136,7 @@ function initializeMap() {
 		map: map,
 		icon: currentIcon
 	});
-	createMarkers(markets, map);
+	initializeMarkers(markets, map);
 } 
 google.maps.event.addDomListener(window, 'load', initializeMap);
 </script>
