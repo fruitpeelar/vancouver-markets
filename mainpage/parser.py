@@ -43,7 +43,24 @@ class MarketParser:
     # Get updated date from the first row of the csv file
     def getUpdateDate(self, updaterow):
         return updaterow[1]
+    
+    # Geocode address string to get google maps 
+    def geocodeMarket(self, listOflat, listOflon, address):
+        #take address string and geocode it into a json object
+        addressString = address + ", Vancouver, B.C."
+        addressString = urllib2.quote(addressString)
+        url="https://maps.googleapis.com/maps/api/geocode/json?address=%s" % addressString
 
+        response = urllib2.urlopen(url)
+        jsongeocode = json.loads(response.read())
+                    
+        #parse json to extract lat/lon
+        lat = jsongeocode['results'][0]['geometry']['location']['lat']
+        lon = jsongeocode['results'][0]['geometry']['location']['lng']
+        #append lat/lon to lists    
+        listOflat.append(lat)
+        listOflon.append(lon)
+        
     # Parses the required market information into the corresponding lists
     def parseMarketInfo(self, cr, lastUpdateDate, updatedate, updateCount):
         # Check if updated date has changed
@@ -84,22 +101,9 @@ class MarketParser:
                     open_months.append(row[13])
                     vendor_numbers.append(row[14])
                     offerings.append(row[15])
+                    # Geocode address string into lat/lon and put into lats/lons list
+                    self.geocodeMarket(lats, lons, row[7])
                 
-                #take address string and geocode it into a json object
-                    addressString = row[7] + ", Vancouver, B.C."
-                    addressString = urllib2.quote(addressString)
-                    url="https://maps.googleapis.com/maps/api/geocode/json?address=%s" % addressString
-
-                    response = urllib2.urlopen(url)
-                    jsongeocode = json.loads(response.read())
-                    
-                #parse json to extract lat/lon
-                    lat = jsongeocode['results'][0]['geometry']['location']['lat']
-                    lon = jsongeocode['results'][0]['geometry']['location']['lng']
-                #append lat/lon to lists    
-                    lats.append(lat)
-                    lons.append(lon)
-                    
             # Check if there are empty fields and change empty fields to N/A
             checkedOfferings = self.checkEmpty(offerings)
             
