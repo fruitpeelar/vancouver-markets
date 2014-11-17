@@ -1,7 +1,6 @@
 <html>
 
 <head>
-
 <!-- Load this page's CSS -->
 <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
 
@@ -54,7 +53,6 @@ function retrieveMarkets() {
 	oneMarket.push("{{ market.lon }}");             //lon
 	oneMarket.push("{{ market.market_type }}");                //market_type
 	oneMarket.push("{{ market.name }}");                       //market_name
-	
 	markets.push(oneMarket);
 "{% endfor %}"
 }
@@ -149,7 +147,6 @@ function initializeMap() {
 	var map = new google.maps.Map(mapCanvas, mapOptions);
 	//pos gets dummy coordinate Downtown Vancouver
 	var pos;
-	
 	// Try HTML5 geolocation
   	if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
