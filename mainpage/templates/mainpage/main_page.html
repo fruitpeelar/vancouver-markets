@@ -1,6 +1,7 @@
 <html>
 
 <head>
+
 <!-- Load this page's CSS -->
 <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
 
@@ -38,6 +39,12 @@ var communityIcon = 'static/Images/CommunityMarket.png';
 var farmerIcon = 'static/Images/FarmerMarket.png';
 var currentIcon = 'static/Images/CurrentLocation.png';
 var markets = [];
+//Dummy coordinate (if GeoLocation is not supported)
+var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
+//For Google Maps Directions
+var vStrokeColor = "#0DFF00";
+var vzIndex = 1;
+var directionsService = new google.maps.DirectionsService();
 
 //Precondition: Database has data (or result will be empy)
 //Purpose: Pull market latlon/ marketType from database 
@@ -53,32 +60,42 @@ function retrieveMarkets() {
 	oneMarket.push("{{ market.lon }}");             //lon
 	oneMarket.push("{{ market.market_type }}");                //market_type
 	oneMarket.push("{{ market.name }}");                       //market_name
+	
 	markets.push(oneMarket);
 "{% endfor %}"
 }
 
+function calcRoute(map, markerPosition) {
+	var request = {
+		origin: currentLocation,
+		destination: markerPosition,
+		travelMode: google.maps.TravelMode.DRIVING
+		}
+
+   var directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{suppressPolylines:true, 
+   																geodesic:true,  strokeColor:vStrokeColor, 
+   																strokeWeight: 4, strokeOpacity: 1, zIndex: vzIndex}});
+   directionsDisplay.setMap(map);
+
+   directionsService.route(request, function(response, status) {
+     if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+     }
+   });
+}
 //Precondition: marker is valid
 //Purpose: add functionality to marker when clicked (i.e. zoom and centre)
 
-function addClickEvent(map, marker, lat, long, infowindow) {
+function addClickEvent(map, marker, markerPosition) {
 	google.maps.event.addListener(marker, 'click', function() {
 		map.setCenter(marker.position);
-		map.setZoom(12);
+		map.setZoom(13);
 		
-		var latString = lat.toString();
-		var longString = long.toString();
-		var link = "http://www.google.com/maps?q=" + latString + ",+" + longString;
-		var contentString = 
-      '<a href=' + link + '>'+
-      'Directions</a> '
-      
-		infowindow.setContent(contentString);
-		infowindow.setPosition(marker.position)
-		infowindow.open(map);
+		calcRoute(map, markerPosition);
 	});
 }
 
-function createMarkers(map, infoWindow) {
+function createMarkers(map) {
 	for (var i = 0; i < markets.length; i++) {
 		var lat  = markets[i][0];
 		var long = markets[i][1];
@@ -99,7 +116,7 @@ function createMarkers(map, infoWindow) {
 					icon: communityIcon
 			});
 		}	
-		addClickEvent(map, marker, lat, long, infoWindow);
+		addClickEvent(map, marker, latlong);
 	}
 }
 
@@ -108,11 +125,10 @@ function createMarkers(map, infoWindow) {
 //		   (of array) of market information          
 
 function initializeMarkers(map) {
-	var infowindow = new google.maps.InfoWindow();
 	//pull market information from database
 	retrieveMarkets();
 	//create Markers on the google maps
-	createMarkers(map, infowindow);
+	createMarkers(map);
 	//reset Market size to 0
 	markets.length = 0;
 }
@@ -126,7 +142,7 @@ function handleNoGeolocation(errorFlag) {
 
   var options = {
     map: map,
-    position: new google.maps.LatLng(49.287092, -123.117703),
+    position: new google.maps.LatLng(60, 105),
     content: content
   };
   var infowindow = new google.maps.InfoWindow(options);
@@ -145,27 +161,25 @@ function initializeMap() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 	var map = new google.maps.Map(mapCanvas, mapOptions);
-	//pos gets dummy coordinate Downtown Vancouver
-	var pos;
 	// Try HTML5 geolocation
-  	if(navigator.geolocation) {
+  if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
     	function(position) {
     		//Success: pos gets currentLocation
-      		pos = new google.maps.LatLng(position.coords.latitude,
-                                     	position.coords.longitude);
-            map.setCenter(pos);
-  			//create the geolocation marker
+      		currentLocation = new google.maps.LatLng(position.coords.latitude,
+                                     				position.coords.longitude);
+      		map.setCenter(currentLocation);
+      		//create the geolocation marker
 			new google.maps.Marker( {
-				position: pos,
+				position: currentLocation,
 				map: map,
 				title: "Current Location",
 				icon: currentIcon
-			});       	                        
+			});    
     	}, 
     	function() {
-    		//Error: handle with error message
-      		handleNoGeolocation(true);
+    	//Error: handle with error message
+      	handleNoGeolocation(true);
     	});
   } else {
   		// Browser doesn't support Geolocation:
