@@ -65,7 +65,7 @@ function retrieveMarkets() {
 function addClickEvent(map, marker, lat, long, infowindow) {
 	google.maps.event.addListener(marker, 'click', function() {
 		map.setCenter(marker.position);
-		map.setZoom(13);
+		map.setZoom(12);
 		
 		var latString = lat.toString();
 		var longString = long.toString();
@@ -80,24 +80,24 @@ function addClickEvent(map, marker, lat, long, infowindow) {
 	});
 }
 
-function createMarkers(listOfMarkets, map, infoWindow) {
-	for (var i = 0; i < listOfMarkets.length; i++) {
-		var lat  = listOfMarkets[i][0];
-		var long = listOfMarkets[i][1];
-		var latlong = new google.maps.LatLng(listOfMarkets[i][0], listOfMarkets[i][1]);
+function createMarkers(map, infoWindow) {
+	for (var i = 0; i < markets.length; i++) {
+		var lat  = markets[i][0];
+		var long = markets[i][1];
+		var latlong = new google.maps.LatLng(markets[i][0], markets[i][1]);
 		var marker;
-		if (listOfMarkets[i][2] == "Farmers Market")
+		if (markets[i][2] == "Farmers Market")
 			marker = new google.maps.Marker( {
 					position: latlong,
 					map: map,
-					title: listOfMarkets[i][3],
+					title: markets[i][3],
 					icon: farmerIcon
 				});
 		else {
 			marker = new google.maps.Marker( {
 					position: latlong,
 					map: map,
-					title: listOfMarkets[i][3],
+					title: markets[i][3],
 					icon: communityIcon
 			});
 		}	
@@ -109,12 +109,12 @@ function createMarkers(listOfMarkets, map, infoWindow) {
 //Purpose:  generate all google map markers given an array 
 //		   (of array) of market information          
 
-function initializeMarkers(listOfMarkets, map) {
+function initializeMarkers(map) {
 	var infowindow = new google.maps.InfoWindow();
 	//pull market information from database
 	retrieveMarkets();
 	//create Markers on the google maps
-	createMarkers(listOfMarkets, map, infowindow);
+	createMarkers(map, infowindow);
 	//reset Market size to 0
 	markets.length = 0;
 }
@@ -128,7 +128,7 @@ function handleNoGeolocation(errorFlag) {
 
   var options = {
     map: map,
-    position: new google.maps.LatLng(60, 105),
+    position: new google.maps.LatLng(49.287092, -123.117703),
     content: content
   };
   var infowindow = new google.maps.InfoWindow(options);
@@ -147,35 +147,35 @@ function initializeMap() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 	var map = new google.maps.Map(mapCanvas, mapOptions);
+	//pos gets dummy coordinate Downtown Vancouver
 	var pos;
+	
 	// Try HTML5 geolocation
-  if(navigator.geolocation) {
+  	if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
     	function(position) {
-    	//Success: pos gets currentLocation
-      	pos = new google.maps.LatLng(position.coords.latitude,
-                                     position.coords.longitude);
-      	map.setCenter(pos);    
+    		//Success: pos gets currentLocation
+      		pos = new google.maps.LatLng(position.coords.latitude,
+                                     	position.coords.longitude);
+            map.setCenter(pos);
+  			//create the geolocation marker
+			new google.maps.Marker( {
+				position: pos,
+				map: map,
+				title: "Current Location",
+				icon: currentIcon
+			});       	                        
     	}, 
     	function() {
-    	//Error: handle with error message
-      	handleNoGeolocation(true);
+    		//Error: handle with error message
+      		handleNoGeolocation(true);
     	});
   } else {
   		// Browser doesn't support Geolocation:
-  		// pos gets dummy coordinate in DT Vancouver
-  		pos = new google.maps.LatLng(49.287092, -123.117703);
    		handleNoGeolocation(false);
   }
-  //create the geolocation marker
-	new google.maps.Marker( {
-		position: pos,
-		map: map,
-		title: "me",
-		icon: currentIcon
-	});
   //create the market markers
-	initializeMarkers(markets, map);
+  initializeMarkers(map);
 } 
 google.maps.event.addDomListener(window, 'load', initializeMap);
 </script>
