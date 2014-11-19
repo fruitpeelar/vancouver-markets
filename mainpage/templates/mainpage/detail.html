@@ -4,7 +4,9 @@
 	<div class="panel-heading">{{ market.name }}</div>
 		<ul class="list-group">
 			<li class="list-group-item">Date: {{ market.open_month }}</li>
-			<li class="list-group-item">Website: {{ market.url }}</li>
+			<li class="list-group-item">Website: 
+				<a href="{{ market.url }}">{{ market.url }}</a>
+			</li>
 			<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
 			<li class="list-group-item">Products: {{ market.products }}</li>
 			<li class="list-group-item">Type: {{ market.market_type }}</li>
