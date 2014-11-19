@@ -1,27 +1,24 @@
 {% extends "mainpage/main_page.html" %}
 {% block content %}
-	<div class="detailtitle">
-		<p>{{ market.name }}</p>
-	</div>
-	
-	<div class="detailwords">
-		<ul>
-			<li>Date: {{ market.open_month }}</li>
-			<li>Website: {{ market.url }}</li>
-			<li>Number of venders: {{ market.num_vendors }}</li>
-			<li>Products: {{ market.products }}</li>
-			<li>Type: {{ market.market_type }}</li>
-			<li>Organization: {{ market.organization }}</li>
-			Comments: comment stub
+	<div class="panel panel-default">
+	<div class="panel-heading">{{ market.name }}</div>
+		<ul class="list-group">
+			<li class="list-group-item">Date: {{ market.open_month }}</li>
+			<li class="list-group-item">Website: {{ market.url }}</li>
+			<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
+			<li class="list-group-item">Products: {{ market.products }}</li>
+			<li class="list-group-item">Type: {{ market.market_type }}</li>
+			<li class="list-group-item">Organization: {{ market.organization }}</li>
+			<li class="list-group-item">Comments: Comment stub</li>
 		</ul>
-		<form action="/signin/" method="post">
-			{% csrf_token %}
+	</div>
+	<form action="/signin/" method="post">
+		{% csrf_token %}
 			<div>
 				<textarea name="content" rows="3" cols="45"></textarea>
 			</div>
 			<div>
 				<input type="submit" value="Post the comment!">
 			</div>
-		</form>
-	</div>
+	</form>
 {% endblock %}

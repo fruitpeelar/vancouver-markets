@@ -1,248 +1,69 @@
 body {
-  font-family: Arial, Verdana, Helvetica;
-  color: saddlebrown;
-  background-color: cornsilk;
+	/* adds space under navbar-fixed-top */
+	padding-top: 50px;
+	/* adds space under navbar-fixed-bottom */
+	padding-bottom: 50px;
 }
 
-.title {
-	width:800px;
-	font-size: 30px;
-	background: cornsilk;
-	font-family: Arial;
-	font-weight: bold;
-	color: darkolivegreen;
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin-left: auto;
-	margin-right: auto;
+.btn .fa-star,
+.btn:hover .fa-star-o {
+	display: none;
 }
-	.title a {
-		color: darkolivegreen;
-    	text-decoration: none;
-	}
 
-.list {
-	width: 800px;
-	height: 200px;
-	margin-left: auto;
-	margin-right: auto;
-	background: burlywood;
-	/*border: solid 1px black;*/
-
-	
+.btn:hover .fa-star {
+	display: inline;
 }
+
 .container {
-   
-    margin-left: auto;
-    margin-right: auto;
-    width: 800px;
-    height: 650px;
-    margin-top: 10px;
-    clear: right; /*clears float*/
-    margin-bottom: 5px;
-    overflow: visible;
-}
-.map {
-	width: 49%;
-	height: 50%;
-	/*border: red solid 1px;*/
-	float: left;
-	margin-right: 1%;
-	
-	
+	overflow: auto;
 }
 
 .details {
-	width: 49%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 50%;
 	height: 50%;
-	color: saddlebrown;
-	/*border: blue solid 1px;*/
-	float: left;
-	background: burlywood;
-	padding-left: 1%;
-	overflow: visible;
-	position: relative;
-}
-.detailtitle{
-	width: 70%;
-	float: left;
-}
-
-
-.favourite{
-	float: left;
-	width: 19%;
-	font-size: 40px;
-	padding-top: 0%;
-}
-.emptystar{
-	position: absolute;
-	z-index: 2;
-	color: #A9A9A9;
-}
-.emptystar:hover{
-	content: "a";
-	color: yellow;
-	transition-duration: 0.5s;
-	
-}
-.fullstar{
-	position: absolute;
-	color: yellow;
-	text-shadow:2px 2px #DAA520;
-}
-
-
-.detailwords{
-	width: 100%;
-	height: 75%;
+	float: right;
 	overflow: auto;
 }
-.fbtwt {
-	padding-top: 3px;
-	bottom:3;
-	position: absolute;
-	
+
+.fa-thumbs-o-up {
+	color: Black;
 }
 
-.td1 {
-	border-bottom: solid darkgray 1px;
-	color: darkolivegreen;
-	font-weight: bold;
-	text-align: left;
-	width: 50%
+.fa-thumbs-o-up:hover {
+	color: CornflowerBlue;
 }
 
-.td2 {
-	border-left: solid darkgray 1px;
-	border-bottom: solid darkgray 1px;
-	color: darkolivegreen;
-	font-weight: bold;
-	width: 25%;
+.fa-star {
+	color: Gold;
 }
 
-.td3 {
-	border-top: dotted darkgray 1px;
-	text-align: left;
+.fa-star-o {
+	color: DarkGray;
+}
+
+.list {
+	margin-right: auto;
+	margin-left: auto;
+	width: 940px;
+	height: 245px;
+	overflow: auto;
+}
+
+.map {
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
 	width: 50%;
-}
-	.td3 a  {
-		color: #333;
-		text-decoration: none;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-.td4 {
-	border-left: solid darkgray 1px;
-	border-top: dotted darkgray 1px;
-	width: 25%;	
-}
-	.td4 a  {
-		color: #333;
-		text-decoration: none;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-.twt{
+	height: 50%;
 	float: left;
-	width: 25%;
-}
-.fb{
-	float: left;
-	width: 70%;
 }
 
-p {
-	color: darkolivegreen;
-	font-weight: bold;
+.tab-active {
+	display: block;
 }
 
-span {
-	font-size: 12px;
-}
-
-table {
-	border-collapse: collapse;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-}
-
-li {
-	margin-bottom: 5px;
-}
-
-/*----- Tabs -----*/
-.tabs {
-    width:100%;
-    display:inline-block;
-    overflow: auto;
-}
- 
-    /*----- Tab Links -----*/
-    /* Clearfix */
-    .tab-links:after {
-        display:block;
-        clear:both;
-        content:'';
-    }
- 
-    .tab-links li {
-        margin:-7px 5px;
-        float:left;
-        list-style:none;
-    }
- 
-        .tab-links a {
-            padding:3px 15px;
-            display:inline-block;
-            border-radius:3px 3px 0px 0px;
-            background:cornsilk;
-            font-size:15px;
-            font-weight:600;
-            color:darkolivegreen;
-            transition:all linear 0.15s;
-        }
- 
-        .tab-links a:hover {
-            background:#D7D4A6;
-            text-decoration:none;
-        }
- 
-    li.active a, li.active a:hover {
-        background:#D7D4A6;
-        color:#4c4c4c;
-    }
- 
-    /*----- Content of Tabs -----*/
-    .tab-content {
-        padding: 0px 15px;
-        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-        background: cornsilk;
-        overflow: auto;
-        height: 75%;
-     
-    }
- 
-        .tab {
-            display:none;
-            
-        }
- 
-        .tab.active {
-            display:block;
-            
-        }
-        
-.bottompanel{
-	
-	width: 800px;
-	clear: both;
-    text-align: center;
-    padding-top: 20px;
+.tab-hide {
+	display: none;
 }
