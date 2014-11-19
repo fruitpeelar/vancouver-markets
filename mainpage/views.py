@@ -1,11 +1,11 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 #from django.views.generic.simple import direct_to_template
 from django.shortcuts import render
 
 from google.appengine.api import users
 # from googlemaps import GoogleMaps
 
-from mainpage.models import Market
+from mainpage.models import Market, Comment
 from mainpage.parser import MarketParser
 
 from datetime import date
@@ -69,6 +69,43 @@ def populate(request):
     
     if request.method == 'GET':
         return render (request, 'mainpage/populate.html')
+    
+def add_comment(request):
+    if request.POST.has_key('content') == False:
+        return HttpResponse('You must have content.')
+    else:
+        if len(request.POST['content']) == 0:
+            return HttpResponse('You must write content')
+        else:
+            comment_content = request.POST['content']
+    
+    if request.POST.has_key('market_id') == False:
+        return HttpResponse('You must select a market to comment on.')
+    else:
+        try:
+            got_id = int(request.POST['market_id'])
+            market = Market.get_by_id(got_id)
+            existing_comments = market.comments
+        except:
+            return HttpResponse('No market by that id.')
+            
+    try:
+        comment = Comment(content = comment_content)
+        comment.put()
+        print comment
+        if len(existing_comments) == 0:
+            market.comments = [comment]
+            market.put()
+        else:
+            existing_comments.append(comment)
+            market.comments = existing_comments
+            market.put()
+        return HttpResponse('Successfully added your comment.')
+    except:
+        return HttpResponse('Failed adding your comment.')
+    
+        
+    
 
 # (helper) create a stub market and put it into the database
 def create_marketstub():

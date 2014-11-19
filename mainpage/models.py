@@ -15,7 +15,13 @@ class Greeting(ndb.Model):
     author = ndb.UserProperty()
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
-    
+
+class Comment(ndb.Model):
+    '''Models an individual Comment.'''
+    content = ndb.TextProperty(required = True)
+    author = ndb.UserProperty()
+    date = ndb.DateTimeProperty(auto_now_add = True)
+   
 class Market(ndb.Model):
     '''Models an individual Market entry.'''
     name = ndb.StringProperty(required = True)
@@ -35,6 +41,8 @@ class Market(ndb.Model):
     close_time_int = ndb.IntegerProperty(required = True)
     lat = ndb.FloatProperty(required = True)     #added lat/lon properties
     lon = ndb.FloatProperty(required = True)
+    comments = ndb.StructuredProperty(Comment, repeated = True)
+    
 
 # class Update_Date(ndb.model):
 #     '''Models a update property entry.'''

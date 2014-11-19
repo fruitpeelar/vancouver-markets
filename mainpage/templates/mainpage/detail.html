@@ -10,12 +10,16 @@
 			<li class="list-group-item">Type: {{ market.market_type }}</li>
 			<li class="list-group-item">Organization: {{ market.organization }}</li>
 			<li class="list-group-item">Comments: Comment stub</li>
+			{% for comment in market.comments %}
+			<li class="list-group-item">{{ comment.content }}</li>
+			{% endfor %}
 		</ul>
 	</div>
-	<form action="/signin/" method="post">
+	<form action="/comment/" method="post">
 		{% csrf_token %}
+		<input type="hidden" name="market_id" value="{{ market.key.id }}">
 			<div>
-				<textarea name="content" rows="3" cols="45"></textarea>
+				<textarea name="content" rows="6" cols="45"></textarea>
 			</div>
 			<div>
 				<input type="submit" value="Post the comment!">
