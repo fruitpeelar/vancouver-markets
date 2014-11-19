@@ -4,7 +4,9 @@
 	<div class="panel-heading">{{ market.name }}</div>
 		<ul class="list-group">
 			<li class="list-group-item">Date: {{ market.open_month }}</li>
-			<li class="list-group-item">Website: {{ market.url }}</li>
+			<li class="list-group-item">Website: 
+				<a href="{{ market.url }}">{{ market.url }}</a>
+			</li>
 			<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
 			<li class="list-group-item">Products: {{ market.products }}</li>
 			<li class="list-group-item">Type: {{ market.market_type }}</li>
@@ -25,4 +27,14 @@
 				<input type="submit" value="Post the comment!">
 			</div>
 	</form>
+	<a class="btn">
+		<i class="fa fa-thumbs-o-up fa-2x"></i>
+	</a>
+	<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+		<i class="fa fa-facebook"></i>
+	</a>
+	<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+		<i class="fa fa-twitter"></i>
+	</a>
+	</div>
 {% endblock %}
