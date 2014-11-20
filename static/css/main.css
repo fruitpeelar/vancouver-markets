@@ -14,17 +14,11 @@ body {
 	display: inline;
 }
 
-.container {
-	overflow: auto;
-}
-
 .details {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	width: 50%;
-	height: 50%;
+	height: 100%;
 	float: right;
 	overflow: auto;
+	width: 40%;
 }
 
 .fa-thumbs-o-up {
@@ -44,20 +38,17 @@ body {
 }
 
 .list {
-	margin-right: auto;
-	margin-left: auto;
-	width: 940px;
-	height: 245px;
+	height: 40%;
 	overflow: auto;
 }
 
-.map {
-	padding-top: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	width: 50%;
-	height: 50%;
+.list-map {
 	float: left;
+	width: 60%;
+}
+
+.map {
+	height: 60%;
 }
 
 .tab-active {

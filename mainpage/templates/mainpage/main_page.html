@@ -273,6 +273,8 @@ jQuery(document).ready(function() {
 });
 </script> <!-- javascript for navigation bar and tabs -->
 
+<div class="list-map">
+
 <!-- Market List -->
 <div class="list">
 
@@ -283,7 +285,6 @@ jQuery(document).ready(function() {
             	<th></th>
                 <th>Name</th>
                 <th>Open Date</th>
-                <th>Address</th>
             </tr>
         </thead>
         <tbody>
@@ -297,7 +298,6 @@ jQuery(document).ready(function() {
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
-                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -311,7 +311,6 @@ jQuery(document).ready(function() {
             	<th></th>
                 <th>Name</th>
                 <th>Open Date</th>
-                <th>Address</th>
             </tr>
         </thead>
         <tbody>
@@ -325,7 +324,6 @@ jQuery(document).ready(function() {
             	</td>
                 <td><a href="/detail/{{ market.key.id }}" onclick= "clickOnMarket({{ market.lat }}, {{ market.lon }});return false;"> {{ market.name }}</a></td>
                 <td>{{ market.open_month }}</td>
-                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -339,7 +337,6 @@ jQuery(document).ready(function() {
             	<th></th>
                 <th>Name</th>
                 <th>Open Date</th>
-                <th>Address</th>
             </tr>
         </thead>
         <tbody>
@@ -353,7 +350,6 @@ jQuery(document).ready(function() {
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
-                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -367,7 +363,6 @@ jQuery(document).ready(function() {
             	<th></th>
                 <th>Name</th>
                 <th>Open Date</th>
-                <th>Address</th>
             </tr>
         </thead>
         <tbody>
@@ -381,7 +376,6 @@ jQuery(document).ready(function() {
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
-                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -395,7 +389,6 @@ jQuery(document).ready(function() {
             	<th></th>
                 <th>Name</th>
                 <th>Open Date</th>
-                <th>Address</th>
             </tr>
         </thead>
         <tbody>
@@ -408,7 +401,6 @@ jQuery(document).ready(function() {
             	</td>
                 <td>Some market</td>
                 <td>Some date</td>
-                <td>Some address</td>
             </tr>
         </tbody>
     </table>
@@ -416,16 +408,15 @@ jQuery(document).ready(function() {
 
 </div>
 
-<div class="container">
-
 	<div class="map">
 		<div id="map_canvas"></div>
 	</div>
 
-	<div class="details">
+</div>
+
+<div class="details">
 	{% block content %}
 	{% endblock %}
-	
 </div>
 
 <!-- Bottom navbar -->
