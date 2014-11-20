@@ -17,16 +17,9 @@
 			{% endfor %}
 		</ul>
 	</div>
-	<form action="/comment/" method="post">
-		{% csrf_token %}
-		<input type="hidden" name="market_id" value="{{ market.key.id }}">
-			<div>
-				<textarea name="content" rows="6" cols="45"></textarea>
-			</div>
-			<div>
-				<input type="submit" value="Post the comment!">
-			</div>
-	</form>
+	
+	{% include 'mainpage/comment_form.html' %}
+	
 	<a class="btn">
 		<i class="fa fa-thumbs-o-up fa-2x"></i>
 	</a>

@@ -83,8 +83,8 @@ def add_comment(request):
         return HttpResponse('You must select a market to comment on.')
     else:
         try:
-            got_id = int(request.POST['market_id'])
-            market = Market.get_by_id(got_id)
+            received_id = int(request.POST['market_id'])
+            market = Market.get_by_id(received_id)
             existing_comments = market.comments
         except:
             return HttpResponse('No market by that id.')
@@ -104,7 +104,17 @@ def add_comment(request):
     except:
         return HttpResponse('Failed adding your comment.')
     
-        
+def get_details(request, market_id=None):
+    if request.is_ajax():
+        with_layout = False
+    else:
+        with_layout = True
+    received_id = int(market_id)
+    market = Market.get_by_id(received_id)
+    
+    template_values = {'market': market,
+                       }
+    return render(request, 'mainpage/detail.html', template_values)
     
 
 # (helper) create a stub market and put it into the database
