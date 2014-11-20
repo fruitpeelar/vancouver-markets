@@ -34,19 +34,23 @@
 <title>Vancouver Markets</title>
 
 <script>
-//variables
-
+//Images
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
 var communityIcon = 'static/Images/CommunityMarket.png';
 var farmerIcon = 'static/Images/FarmerMarket.png';
 var currentIcon = 'static/Images/CurrentLocation.png';
-var markets = [];
+
+var markets = [];    //list of Markets
+var map;             //Google Map
+
 //Dummy coordinate (if GeoLocation is not supported)
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
-//For Google Maps Directions
+
+//Direction Routing Properties
 var vStrokeColor = "#0DFF00";
 var vzIndex = 1;
 var directionsService = new google.maps.DirectionsService();
+var directionsDisplay;
 
 //Precondition: Database has data (or result will be empy)
 //Purpose: Pull market latlon/ marketType from database 
@@ -73,11 +77,15 @@ function calcRoute(map, markerPosition) {
 		destination: markerPosition,
 		travelMode: google.maps.TravelMode.DRIVING
 		}
-
-   var directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{suppressPolylines:true, 
+   if(directionsDisplay){
+      directionsDisplay.setMap(null);
+     }
+ 
+   directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{suppressPolylines:true, 
    																geodesic:true,  strokeColor:vStrokeColor, 
    																strokeWeight: 4, strokeOpacity: 1, zIndex: vzIndex}});
    directionsDisplay.setMap(map);
+   directionsDisplay.setOptions( { suppressMarkers: true } );
 
    directionsService.route(request, function(response, status) {
      if (status == google.maps.DirectionsStatus.OK) {
@@ -150,6 +158,12 @@ function handleNoGeolocation(errorFlag) {
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
 }
+//centres and zooms on a market when it is clicked on the table
+function clickOnMarket(lat, lon) {
+	var marketPosition = new google.maps.LatLng(lat, lon)
+	map.setCenter(marketPosition);
+	map.setZoom(13);
+}
 
 //Precondition: google map api is loaded
 //Purpose:  generate a google map and call helpers
@@ -162,7 +176,7 @@ function initializeMap() {
 		zoom: 10,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
-	var map = new google.maps.Map(mapCanvas, mapOptions);
+	map = new google.maps.Map(mapCanvas, mapOptions);
 	// Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -190,7 +204,7 @@ function initializeMap() {
   //create the market markers
   initializeMarkers(map);
 } 
-google.maps.event.addDomListener(window, 'load', initializeMap);
+google.maps.event.addDomListener(window, 'load', initializeMap)
 </script>
 
 </head>
@@ -282,8 +296,8 @@ jQuery(document).ready(function() {
             	</a>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.address }}</td>
+                <td>{{ market.open_month }}</td>
+                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -309,9 +323,9 @@ jQuery(document).ready(function() {
             	<i class="fa fa-star fa-lg"></i>
             	</a>
             	</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.address }}</td>
+                <td><a href="/detail/{{ market.key.id }}" onclick= "clickOnMarket({{ market.lat }}, {{ market.lon }});return false;"> {{ market.name }}</a></td>
+                <td>{{ market.open_month }}</td>
+                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -338,8 +352,8 @@ jQuery(document).ready(function() {
             	</a>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.address }}</td>
+                <td>{{ market.open_month }}</td>
+                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -366,8 +380,8 @@ jQuery(document).ready(function() {
             	</a>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.open_month }}</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.address }}</td>
+                <td>{{ market.open_month }}</td>
+                <td>{{ market.address }}</td>
             </tr>
             {% endfor %}
         </tbody>
