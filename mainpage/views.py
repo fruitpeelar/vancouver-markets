@@ -184,10 +184,14 @@ def get_markets():
     today = date.today()
     current_month = today.month
     
-    markets_query = Market.query()
-    markets_open_query = Market.query(Market.open_month_int <= current_month)
-    markets_closed_query = markets_query.filter(Market.close_month_int < current_month)
-    markets_upcoming_query = markets_query.filter(Market.open_month_int > current_month)
+    #all markets - ordered by name
+    markets_query = Market.query().order(Market.name)
+    #open markets - ordered by open month
+    markets_open_query = Market.query(Market.open_month_int <= current_month).order(Market.open_month_int)
+    #closed markets - ordered by close month
+    markets_closed_query = Market.query(Market.close_month_int < current_month).order(Market.close_month_int)
+    #upcoming markets - ordered by open month
+    markets_upcoming_query = Market.query(Market.open_month_int > current_month).order(Market.open_month_int)
     
     markets = markets_query.fetch()
     markets_open = markets_open_query.fetch()
