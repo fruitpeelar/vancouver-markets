@@ -1,9 +1,19 @@
 {% extends "mainpage/main_page.html" %}
 {% block content %}
 	<div class="panel panel-default">
-	<div class="panel-heading">{{ market.name }}</div>
+	<div class="panel-heading">{{ market.name }}
+		<a class="btn">
+			<i class="fa fa-thumbs-o-up fa-2x"></i>
+		</a>
+		<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+			<i class="fa fa-facebook"></i>
+		</a>
+		<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+			<i class="fa fa-twitter"></i>
+		</a>
+	</div>
 		<ul class="list-group">
-			<li class="list-group-item">Date: {{ market.open_month }}</li>
+			<li class="list-group-item">Address: {{ market.address }}</li>
 			<li class="list-group-item">Website: 
 				<a href="{{ market.url }}">{{ market.url }}</a>
 			</li>
@@ -20,14 +30,6 @@
 	
 	{% include 'mainpage/comment_form.html' %}
 	
-	<a class="btn">
-		<i class="fa fa-thumbs-o-up fa-2x"></i>
-	</a>
-	<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
-		<i class="fa fa-facebook"></i>
-	</a>
-	<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
-		<i class="fa fa-twitter"></i>
-	</a>
+	
 	</div>
 {% endblock %}
