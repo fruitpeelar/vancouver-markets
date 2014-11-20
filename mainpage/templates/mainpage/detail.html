@@ -1,35 +1,34 @@
-{% extends "mainpage/main_page.html" %}
-{% block content %}
-	<div class="panel panel-default">
-	<div class="panel-heading">{{ market.name }}
-		<a class="btn">
-			<i class="fa fa-thumbs-o-up fa-2x"></i>
-		</a>
-		<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
-			<i class="fa fa-facebook"></i>
-		</a>
-		<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
-			<i class="fa fa-twitter"></i>
-		</a>
-	</div>
-		<ul class="list-group">
-			<li class="list-group-item">Address: {{ market.address }}</li>
-			<li class="list-group-item">Website: 
-				<a href="{{ market.url }}">{{ market.url }}</a>
-			</li>
-			<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
-			<li class="list-group-item">Products: {{ market.products }}</li>
-			<li class="list-group-item">Type: {{ market.market_type }}</li>
-			<li class="list-group-item">Organization: {{ market.organization }}</li>
-			<li class="list-group-item">Comments: Comment stub</li>
-			{% for comment in market.comments %}
-			<li class="list-group-item">{{ comment.content }}</li>
-			{% endfor %}
-		</ul>
-	</div>
-	
-	{% include 'mainpage/comment_form.html' %}
-	
-	
-	</div>
-{% endblock %}
+{% if with_layout %}{% include 'mainpage/header.html' %}{% endif %}
+<div class="panel panel-default">
+<div class="panel-heading">{{ market.name }}
+	<a class="btn">
+		<i class="fa fa-thumbs-o-up fa-2x"></i>
+	</a>
+	<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+		<i class="fa fa-facebook"></i>
+	</a>
+	<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+		<i class="fa fa-twitter"></i>
+	</a>
+</div>
+	<ul class="list-group">
+		<li class="list-group-item">Address: {{ market.address }}</li>
+		<li class="list-group-item">Website: 
+			<a href="{{ market.url }}">{{ market.url }}</a>
+		</li>
+		<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
+		<li class="list-group-item">Products: {{ market.products }}</li>
+		<li class="list-group-item">Type: {{ market.market_type }}</li>
+		<li class="list-group-item">Organization: {{ market.organization }}</li>
+		<li class="list-group-item">Comments: Comment stub</li>
+		{% for comment in market.comments %}
+		<li class="list-group-item">{{ comment.content }}</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% include 'mainpage/comment_form.html' %}
+
+{% if with_layout %}
+    {% include 'mainpage/footer.html' %}
+{% endif %}
