@@ -28,8 +28,12 @@ thead {
 	color: CornflowerBlue;
 }
 
-.fa-star-o {
-	color: DarkGray;
+.fa-star {
+	color: LightGray;
+}
+
+.fa-star:hover {
+	color: Gold;
 }
 
 .list {

@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
             <tr>
             {% for market in markets %}
             	<td>
-            	<i class="fa fa-star-o fa-lg"></i>
+            	<i class="fa fa-star fa-lg"></i>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
@@ -98,7 +98,7 @@ jQuery(document).ready(function() {
             <tr>
             {% for market in markets_open %}
             	<td>
-            	<i class="fa fa-star-o fa-lg"></i>
+            	<i class="fa fa-star fa-lg"></i>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}" onclick= "toggle_detail_box(this.href, '');
                 clickOnMarket({{ market.lat }}, {{ market.lon }});return false;">{{ market.name }}</a></td>
@@ -122,7 +122,7 @@ jQuery(document).ready(function() {
             <tr>
             {% for market in markets_closed %}
             	<td>
-            	<i class="fa fa-star-o fa-lg"></i>
+            	<i class="fa fa-star fa-lg"></i>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
@@ -145,7 +145,7 @@ jQuery(document).ready(function() {
             <tr>
             {% for market in markets_upcoming %}
             	<td>
-            	<i class="fa fa-star-o fa-lg"></i>
+            	<i class="fa fa-star fa-lg"></i>
             	</td>
                 <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
                 <td>{{ market.open_month }}</td>
@@ -167,7 +167,7 @@ jQuery(document).ready(function() {
         <tbody>
             <tr>
             	<td>
-            	<i class="fa fa-star-o fa-lg"></i>
+            	<i class="fa fa-star fa-lg"></i>
             	</td>
                 <td>Some market</td>
                 <td>Some date</td>
