@@ -87,7 +87,7 @@ jQuery(document).ready(function() {
         </tbody>
     </table>
     </div>
-    
+
     <div id="open" class="tab-hide">
     <table class="table table-striped">
         <thead>
@@ -106,8 +106,7 @@ jQuery(document).ready(function() {
             	<i class="fa fa-star fa-lg"></i>
             	</a>
             	</td>
-                <td><a href="/detail/{{ market.key.id }}" onclick= "toggle_detail_box(this.href, '');
-                clickOnMarket({{ market.lat }}, {{ market.lon }});return false;">{{ market.name }}</a></td>
+                <td><a href="/detail/{{ market.key.id }}" onclick= "toggle_detail_box(this.href, '{{ market.key.id }}')clickOnMarket({{ market.lat }}, {{ market.lon }});return false;">{{ market.name }}</a></td>
                 <td>{{ market.open_month }}</td>
             </tr>
             {% endfor %}
