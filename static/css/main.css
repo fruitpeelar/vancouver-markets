@@ -5,13 +5,17 @@ body {
 	padding-bottom: 50px;
 }
 
-.btn .fa-star,
-.btn:hover .fa-star-o {
-	display: none;
+tbody {
+	font-family: 'Roboto', sans-serif;
 }
 
-.btn:hover .fa-star {
-	display: inline;
+thead {
+	font-family: 'Roboto', sans-serif;
+}
+
+
+.container-fluid{
+	text-align: center;
 }
 
 .details {
@@ -30,11 +34,11 @@ body {
 }
 
 .fa-star {
-	color: Gold;
+	color: LightGray;
 }
 
-.fa-star-o {
-	color: DarkGray;
+.fa-star:hover {
+	color: Gold;
 }
 
 .list {
