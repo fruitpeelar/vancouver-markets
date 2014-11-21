@@ -5,13 +5,12 @@ body {
 	padding-bottom: 50px;
 }
 
-.btn .fa-star,
-.btn:hover .fa-star-o {
-	display: none;
+tbody {
+	font-family: 'Roboto', sans-serif;
 }
 
-.btn:hover .fa-star {
-	display: inline;
+thead {
+	font-family: 'Roboto', sans-serif;
 }
 
 .details {
@@ -29,16 +28,12 @@ body {
 	color: CornflowerBlue;
 }
 
-.fa-star {
-	color: Gold;
-}
-
 .fa-star-o {
 	color: DarkGray;
 }
 
 .list {
-	height: 34.5%;
+	height: 40%;
 	overflow: auto;
 }
 
@@ -48,7 +43,7 @@ body {
 }
 
 .map {
-	height: 65.5%;
+	height: 60%;
 }
 
 .tab-active {
