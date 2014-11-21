@@ -13,6 +13,11 @@ thead {
 	font-family: 'Roboto', sans-serif;
 }
 
+
+.container-fluid{
+	text-align: center;
+}
+
 .details {
 	height: 100%;
 	float: right;
