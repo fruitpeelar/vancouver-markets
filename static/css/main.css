@@ -38,7 +38,7 @@ body {
 }
 
 .list {
-	height: 40%;
+	height: 34.5%;
 	overflow: auto;
 }
 
@@ -48,7 +48,7 @@ body {
 }
 
 .map {
-	height: 60%;
+	height: 65.5%;
 }
 
 .tab-active {
