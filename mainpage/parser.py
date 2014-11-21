@@ -3,6 +3,7 @@ import urllib2
 import re
 import time
 import json
+import datetime
 # from pip.basecommand import open_logfile
 
 class MarketParser:
@@ -15,7 +16,20 @@ class MarketParser:
     # Retrieve CSV file from the Vancouver OpenData url
     def getCSV(self): 
         return self.cr
-
+    
+    # Check if time is 1AM or not and return boolean
+    def isTimeToUpdate(self):
+        print "in update"
+        now = datetime.datetime.now()
+        
+        today1am = now.replace(hour=1, minute=0, second=0, microsecond=0)
+        print today1am
+        today1am5 = now.replace(hour=1 , minute=5, second=0, microsecond=0)
+        print today1am5
+        print now
+        print (now >= today1am or now <= today1am5)
+        return (now >= today1am or now <= today1am5)
+        
     # First row has the last updated time of this data
     def getUpdateRow(self, cr):
         return cr.next()
@@ -63,8 +77,11 @@ class MarketParser:
         
     # Parses the required market information into the corresponding lists
     def parseMarketInfo(self, cr, lastUpdateDate, updatedate, updateCount):
-        # Check if updated date has changed
+        # Check if updated date has changed (FOR NOW)
         if (lastUpdateDate != updatedate):
+        
+        # Check if it's time to update
+        # if(self.isTimeToUpdate()):
             # Increment update count
             updateCount += 1
             
@@ -191,7 +208,9 @@ class MarketParser:
     # Testing
     def testRun(self):
         cr = self.getCSV()
+        # --Can be taken out after--
         updateRow = self.getUpdateRow(cr)
         updateDate = self.getUpdateDate(updateRow)
+        # --------------------------
         self.removeFieldNames(cr)
         return self.parseMarketInfo(cr, self.testingdate, updateDate, self.numUpdate)
