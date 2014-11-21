@@ -9,7 +9,7 @@ import datetime
 class MarketParser:
     def __init__(self, url):
         response = urllib2.urlopen(url)
-        time.sleep(2)
+        time.sleep(3)
         self.cr = csv.reader(response, quotechar='"', delimiter=',',
                      quoting=csv.QUOTE_ALL, skipinitialspace=True) 
                
@@ -123,11 +123,14 @@ class MarketParser:
                 
             # Check if there are empty fields and change empty fields to N/A
             checkedOfferings = self.checkEmpty(offerings)
+            vendor_numbers = self.checkEmpty(vendor_numbers)
             
             # Retrieved parsed information    
             open_time_ints = self.convertTimeTo24Hr(open_times)
             close_time_ints = self.convertTimeTo24Hr(close_times)
             open_month_ints, close_month_ints = self.getOpenCloseMonths(open_months)
+            
+            print vendor_numbers
             
             # This is used as a test to check if info are getting parsed correctly
             return {'names':names,
