@@ -1,11 +1,12 @@
 //Images
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
-var communityIcon = 'static/Images/CommunityMarket.png';
-var farmerIcon = 'static/Images/FarmerMarket.png';
-var currentIcon = 'static/Images/CurrentLocation.png';
+var communityIcon   = 'static/Images/CommunityMarket.png';
+var farmerIcon      = 'static/Images/FarmerMarket.png';
+var currentIcon     = 'static/Images/CurrentLocation.png';
 
-var markets = [];    //list of Markets
-var map;             //Google Map
+//Map Variables
+var markets = [];  
+var map;             
 
 //Dummy coordinate (if GeoLocation is not supported)
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
@@ -16,53 +17,92 @@ var vzIndex = 1;
 var directionsService = new google.maps.DirectionsService();
 var directionsDisplay;
 
-//Precondition: Database has data (or result will be empy)
-//Purpose: Pull market latlon/ marketType from database 
-//		-Generate an array of array of markets where 
-//		array = [ [lat, lon, marketType, marketName]
-//			      [lat, lon, marketType, marketName]
-//				   ...  ...      ...   ]
+//<--------------------------- Google Map Initialization ------------------------------------->
 
-function calcRoute(map, markerPosition) {
-	var request = {
-		origin: currentLocation,
-		destination: markerPosition,
-		travelMode: google.maps.TravelMode.DRIVING
-		}
-   if(directionsDisplay){
-      directionsDisplay.setMap(null);
-     }
- 
-   directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{suppressPolylines:true, 
-   																geodesic:true,  strokeColor:vStrokeColor, 
-   																strokeWeight: 4, strokeOpacity: 1, zIndex: vzIndex}});
-   directionsDisplay.setMap(map);
-   directionsDisplay.setOptions( { suppressMarkers: true } );
+//Precondition: google map API is loaded
+//Purpose:  generate a google map and call helpers
+//		    to initialize the map and its markers           
+function initializeMap() {		
+	var mapCanvas = document.getElementById('map_canvas');
+	//map properties 
+	var mapOptions = {
+		zoom: 10,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}
+	//define map variable
+	map = new google.maps.Map(mapCanvas, mapOptions);
+	// Try HTML5 geolocation
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+				function(position) {
+					//Success: currentLocation holds location value
+					currentLocation = new google.maps.LatLng(position.coords.latitude,
+                                     					position.coords.longitude);
+					//set map's center to currentLocation
+					map.setCenter(currentLocation);
+					//create currentLocation marker
+					new google.maps.Marker( {
+						position: currentLocation,
+						map: map,
+						title: "Current Location",
+						icon: currentIcon
+					});    
+				}, 
+				function() {
+					//Error: handle with error message
+					handleNoGeolocation(true);
+				});
+  } else {
+  	// Browser doesn't support Geolocation:
+   	handleNoGeolocation(false);
+  }
+  //create the market markers
+  initializeMarkers();
+} 
+google.maps.event.addDomListener(window, 'load', initializeMap);
 
-   directionsService.route(request, function(response, status) {
-     if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-     }
-   });
+
+//<-------------------------------- Helper Functions ------------------------------------->
+
+//Purpose: handle situations where GeoLocation fails
+//if so, center the map at the default location on downtown Vancouver
+function handleNoGeolocation(errorFlag) {
+	if (errorFlag) {
+		var content = 'Error: The Geolocation service failed.';
+	} else {
+		var content = 'Error: Your browser doesn\'t support geolocation.';
+	}
+	var options = {
+			map: map,
+			position: new google.maps.LatLng(60, 105),
+			content: content
+	};
+	var infowindow = new google.maps.InfoWindow(options);
+	map.setCenter(options.position);
 }
-//Precondition: marker is valid
-//Purpose: add functionality to marker when clicked (i.e. zoom and centre)
 
-function addClickEvent(map, marker, markerPosition) {
-	google.maps.event.addListener(marker, 'click', function() {
-		map.setCenter(marker.position);
-		map.setZoom(13);
-		
-		calcRoute(map, markerPosition);
-	});
+//Precondition: map is initialized. markets variable is empty
+//Purpose:  generate all google map markers from markets stored in the database     
+function initializeMarkers() {
+	//pull market information from database (the function is in main_page.html)
+	retrieveMarkets();
+	//create Markers on the google maps
+	createMarkers();
+	//reset Market size to 0
+	markets.length = 0;
 }
 
-function createMarkers(map) {
+//Precondition: markets variable holds all the markets that were pulled from the database
+//Purpose: create markers for each market.
+function createMarkers() {
 	for (var i = 0; i < markets.length; i++) {
+		//for each market, get location information
 		var lat  = markets[i][0];
 		var long = markets[i][1];
 		var latlong = new google.maps.LatLng(markets[i][0], markets[i][1]);
 		var marker;
+		//create an appropriate marker at that location
+		//          "appropriate"refers to farmer or community icon
 		if (markets[i][2] == "Farmers Market")
 			marker = new google.maps.Marker( {
 					position: latlong,
@@ -78,82 +118,47 @@ function createMarkers(map) {
 					icon: communityIcon
 			});
 		}	
-		addClickEvent(map, marker, latlong);
+		//add click event for each marker
+		addClickEvent(marker, latlong);
 	}
 }
 
-//Precondition: map, and icons are initialized
-//Purpose:  generate all google map markers given an array 
-//		   (of array) of market information          
-
-function initializeMarkers(map) {
-	//pull market information from database
-	retrieveMarkets();
-	//create Markers on the google maps
-	createMarkers(map);
-	//reset Market size to 0
-	markets.length = 0;
+//Precondition: marker is valid
+//Purpose: zooms/centres/calculates route to market that is clicked.
+function addClickEvent(marker, markerPosition) {
+	google.maps.event.addListener(marker, 'click', function() {
+		map.setCenter(marker.position);
+		map.setZoom(13);
+		//display the route from the currentlocation to the clicked market
+		calcRoute(markerPosition);
+	});
 }
 
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
-  } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
-  }
-
-  var options = {
-    map: map,
-    position: new google.maps.LatLng(60, 105),
-    content: content
-  };
-  var infowindow = new google.maps.InfoWindow(options);
-  map.setCenter(options.position);
+//Precondition: map has been initialized. 
+//Purpose: calculate route and display route on the map for the given market marker position
+function calcRoute(markerPosition) {
+	//request for google maps route
+	var request = {
+		origin: currentLocation,
+		destination: markerPosition,
+		travelMode: google.maps.TravelMode.DRIVING
+		}
+	//if route has already been shown on map, set it to null
+	if(directionsDisplay){
+		directionsDisplay.setMap(null);
+   }
+	//directions display characteristics
+	directionsDisplay = new google.maps.DirectionsRenderer({polylineOptions:{suppressPolylines:true, 
+ 																geodesic:true,  strokeColor:vStrokeColor, 
+ 																strokeWeight: 4, strokeOpacity: 1, zIndex: vzIndex}});
+	///set directionsDiplay to the map
+	directionsDisplay.setMap(map);
+	directionsDisplay.setOptions( { suppressMarkers: true } );
+	
+	//set the directions
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+		}
+	});
 }
-//centres and zooms on a market when it is clicked on the table
-function clickOnMarket(lat, lon) {
-	var marketPosition = new google.maps.LatLng(lat, lon)
-	map.setCenter(marketPosition);
-	map.setZoom(13);
-}
-
-//Precondition: google map api is loaded
-//Purpose:  generate a google map and call helpers
-//		    to initialize the markers           
-
-function initializeMap() {
-	//create the map 		
-	var mapCanvas = document.getElementById('map_canvas');
-	var mapOptions = {
-		zoom: 10,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}
-	map = new google.maps.Map(mapCanvas, mapOptions);
-	// Try HTML5 geolocation
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-    	function(position) {
-    		//Success: pos gets currentLocation
-      		currentLocation = new google.maps.LatLng(position.coords.latitude,
-                                     				position.coords.longitude);
-      		map.setCenter(currentLocation);
-      		//create the geolocation marker
-			new google.maps.Marker( {
-				position: currentLocation,
-				map: map,
-				title: "Current Location",
-				icon: currentIcon
-			});    
-    	}, 
-    	function() {
-    	//Error: handle with error message
-      	handleNoGeolocation(true);
-    	});
-  } else {
-  		// Browser doesn't support Geolocation:
-   		handleNoGeolocation(false);
-  }
-  //create the market markers
-  initializeMarkers(map);
-} 
-google.maps.event.addDomListener(window, 'load', initializeMap)
