@@ -13,6 +13,11 @@ thead {
 	font-family: 'Roboto', sans-serif;
 }
 
+
+.container-fluid{
+	text-align: center;
+}
+
 .details {
 	height: 100%;
 	float: right;
@@ -28,8 +33,12 @@ thead {
 	color: CornflowerBlue;
 }
 
-.fa-star-o {
-	color: DarkGray;
+.fa-star {
+	color: LightGray;
+}
+
+.fa-star:hover {
+	color: Gold;
 }
 
 .list {
