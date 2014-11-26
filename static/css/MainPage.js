@@ -162,3 +162,11 @@ function calcRoute(markerPosition) {
 		}
 	});
 }
+
+//Precondition: Supplied lat,lon is correct
+//Purpose:  when a link for a market (in the table) is clicked, zoom/center on the market
+function clickOnMarket(lat, lon) {
+	var marketPosition = new google.maps.LatLng(lat, lon)
+	map.setCenter(marketPosition);
+	map.setZoom(13);
+}
