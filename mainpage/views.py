@@ -29,10 +29,10 @@ def main_page(request):
 
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
-        url_linktext = 'Logout'
+        url_linktext = ' Sign out of Google'
     else:
         url = users.create_login_url(request.get_full_path())
-        url_linktext = 'Login'
+        url_linktext = ' Sign in with Google'
 
     template_values = {
         'url': url,
