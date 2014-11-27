@@ -13,8 +13,7 @@ thead {
 	font-family: 'Roboto', sans-serif;
 }
 
-
-.container-fluid{
+.container-fluid {
 	text-align: center;
 }
 
@@ -41,6 +40,12 @@ thead {
 	color: Gold;
 }
 
+.gm-style-iw {
+	min-height: 40px;
+	min-width: 60px; 
+	text-align: center;
+}
+
 .list {
 	height: 40%;
 	overflow: auto;
@@ -53,6 +58,10 @@ thead {
 
 .map {
 	height: 60%;
+}
+
+.panel-title {
+  	padding-top: 16px;
 }
 
 .tab-active {

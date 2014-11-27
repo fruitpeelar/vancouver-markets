@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import *
-from mainpage.views import main_page, market_put, view_detail, populate, add_comment
+from mainpage.views import main_page, market_put, view_detail, populate, add_comment, get_details, ajax
 
 urlpatterns = patterns('',
     (r'^$', main_page),
     (r'^stubmaker/$', market_put),
     (r'^populate/$', populate),
-    (r'^detail/(?P<detail>\d+)/$', view_detail),
-    (r'^comment/$', add_comment)
+    (r'^detail/(?P<market_id>\d+)/$', view_detail),
+    (r'^detail/$', get_details),
+    (r'^comment/$', add_comment),
+    (r'^ajax/$', ajax)
 )
