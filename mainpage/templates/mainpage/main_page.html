@@ -28,14 +28,14 @@
 					<a href="{{ url }}" class="btn btn-block btn-social btn-google-plus navbar-btn">
             			<i class="fa fa-google-plus"></i>{{ url_linktext }}
             		</a>
-				</ul>
+            	</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+					<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
 						<i class="fa fa-facebook"></i>
 					</a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+					<a href="http://twitter.com/share?url=http://vancouver-markets.appspot.com/&text=Vancouver Markets" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
 						<i class="fa fa-twitter"></i>
 					</a>
 				</ul>
@@ -89,7 +89,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets %}
-							<td><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -116,7 +116,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_open %}
-							<td><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -143,7 +143,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_closed %}
-							<td><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -170,7 +170,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_upcoming %}
-							<td><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -197,7 +197,7 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
 							<td>Some market</td>
 							<td>Some date</td>
 						</tr>
