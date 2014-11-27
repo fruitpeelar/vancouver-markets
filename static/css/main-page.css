@@ -40,6 +40,12 @@ thead {
 	color: Gold;
 }
 
+.gm-style-iw {
+	min-width: 60px; 
+	min-height: 37px;
+	text-align: center;
+}
+
 .list {
 	height: 40%;
 	overflow: auto;
