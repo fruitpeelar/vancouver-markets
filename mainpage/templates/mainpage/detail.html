@@ -1,4 +1,3 @@
-{% if with_layout %}{% include 'mainpage/header.html' %}{% endif %}
 <div class="panel panel-default">
 <div class="panel-heading">{{ market.name }}
 	<a class="btn">
@@ -25,10 +24,5 @@
 		<li class="list-group-item">{{ comment.content }}</li>
 		{% endfor %}
 	</ul>
+	{% include 'mainpage/comment_form.html' %}
 </div>
-
-{% include 'mainpage/comment_form.html' %}
-
-{% if with_layout %}
-    {% include 'mainpage/footer.html' %}
-{% endif %}

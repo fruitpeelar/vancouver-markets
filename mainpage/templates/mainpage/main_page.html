@@ -1,47 +1,52 @@
 {% include 'mainpage/header.html' %}
 <body>
 
-<!-- Fixed top navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <!-- Button menu for small window -->
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Vancouver Markets</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#all">All</a></li>       
-            <li><a href="#open">Open</a></li>
-            <li><a href="#closed">Closed</a></li>
-            <li><a href="#upcoming">Upcoming</a></li>      
-            <li><a href="#favourite">Favourite</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <a class="btn btn-block btn-social btn-google-plus navbar-btn">
-            <i class="fa fa-google-plus"></i> Sign in with Google
-            </a>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
-            <i class="fa fa-facebook"></i>
-            </a>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
-            <i class="fa fa-twitter"></i>
-            </a>
-          </ul>
-        </div><!-- .navbar-collapse -->
-      </div>
-    </div>
+	<!-- Fixed top navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<!-- Button menu for small window -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Vancouver Markets</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#all">All</a></li>
+					<li><a href="#open">Open</a></li>
+					<li><a href="#closed">Closed</a></li>
+					<li><a href="#upcoming">Upcoming</a></li>
+					<li><a href="#favourite">Favourite</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<a class="btn btn-block btn-social btn-google-plus navbar-btn">
+						<i class="fa fa-google-plus"></i> Sign in with Google
+					</a>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<a
+						href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com"
+						target="_blank"
+						class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+						<i class="fa fa-facebook"></i>
+					</a>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<a href="https://twitter.com/share" target="_blank"
+						class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+						<i class="fa fa-twitter"></i>
+					</a>
+				</ul>
+			</div>
+			<!-- .navbar-collapse -->
+		</div>
+	</div>
 
-<script type=text/javascript> 
+<script type=text/javascript>
 jQuery(document).ready(function() {
     jQuery('.navbar-collapse .nav > li > a').on('click', function(e)  {
         var currentAttrValue = jQuery(this).attr('href');
@@ -55,9 +60,11 @@ jQuery(document).ready(function() {
         e.preventDefault();
     });
 });
-</script> <!-- javascript for navigation bar and tabs -->
+</script>
 
-<script>
+	<!-- javascript for navigation bar and tabs -->
+
+	<script>
 $(document).ready(function(){
 	$('i').toggle(function(){
 		$('.fa-star').attr("color", "Gold");
@@ -67,138 +74,123 @@ $(document).ready(function(){
 	});
 </script>
 
+	<div class="list-map">
 
-<div class="list-map">
+		<!-- Market List -->
+		<div class="list">
 
-<!-- Market List -->
-<div class="list">
+			<div id="all" class="tab-active">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Open Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{% for market in markets %}
+							<td><i class="fa fa-star fa-lg"></i></td>
+							<td><a href="#"
+								onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</td>
+							<td>{{ market.open_month }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-	<div id="all" class="tab-active">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>Open Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            {% for market in markets %}
-            	<td>
-            	<i class="fa fa-star fa-lg"></i>
-            	</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td>{{ market.open_month }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
+			<div id="open" class="tab-hide">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Open Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{% for market in markets_open %}
+							<td><i class="fa fa-star fa-lg"></i></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td>{{ market.open_month }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-    <div id="open" class="tab-hide">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>Open Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            {% for market in markets_open %}
-            	<td>
-            	<i class="fa fa-star fa-lg"></i>
-            	</td>
-                <td><a href="/detail/{{ market.key.id }}" onclick= "toggle_detail_box(this.href, '{{ market.key.id }}')clickOnMarket({{ market.lat }}, {{ market.lon }});return false;">{{ market.name }}</a></td>
-                <td>{{ market.open_month }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
-    
-    <div id="closed" class="tab-hide">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>Open Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            {% for market in markets_closed %}
-            	<td>
-            	<i class="fa fa-star fa-lg"></i>
-            	</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td>{{ market.open_month }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
-    
-    <div id="upcoming" class="tab-hide">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>Open Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            {% for market in markets_upcoming %}
-            	<td>
-            	<i class="fa fa-star fa-lg"></i>
-            	</td>
-                <td><a href="/detail/{{ market.key.id }}">{{ market.name }}</td>
-                <td>{{ market.open_month }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
-    
-    <div id="favourite" class="tab-hide">
-    <table class="table table-striped table-condensed">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>Open Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            	<td>
-            	<i class="fa fa-star fa-lg"></i>
-            	</td>
-                <td>Some market</td>
-                <td>Some date</td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
+			<div id="closed" class="tab-hide">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Open Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{% for market in markets_closed %}
+							<td><i class="fa fa-star fa-lg"></i></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td>{{ market.open_month }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-</div>
+			<div id="upcoming" class="tab-hide">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Open Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{% for market in markets_upcoming %}
+							<td><i class="fa fa-star fa-lg"></i></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td>{{ market.open_month }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-	<div class="map">
-		<div id="map_canvas"></div>
+			<div id="favourite" class="tab-hide">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Open Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><i class="fa fa-star fa-lg"></i></td>
+							<td>Some market</td>
+							<td>Some date</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="map">
+			<div id="map_canvas"></div>
+		</div>
+
 	</div>
-
-</div>
-
-<div id="detail_box_" style="display: none;"></div>
-
-<!-- <div class="details">
-	{% block content %}
-	{% endblock %}
-</div>
- -->
-{% include 'mainpage/footer.html' %}
+	
+	<div id="details" class="details">{% include 'mainpage/detail.html' %}</div>
+	
+	{% include 'mainpage/footer.html' %}
