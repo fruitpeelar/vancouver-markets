@@ -90,8 +90,13 @@ $(document).ready(function(){
 						<tr>
 							{% for market in markets %}
 							<td><i class="fa fa-star fa-lg"></i></td>
-							<td><a href="#"
-								onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
+													 toggle_details('/detail/{{ market.key.id }}/');
+													 return false;
+													 ">
+													 {{ market.name }}
+								</a>
+							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -112,7 +117,13 @@ $(document).ready(function(){
 						<tr>
 							{% for market in markets_open %}
 							<td><i class="fa fa-star fa-lg"></i></td>
-							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
+													 toggle_details('/detail/{{ market.key.id }}/');
+													 return false;
+													 ">
+													 {{ market.name }}
+								</a>
+							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -133,7 +144,13 @@ $(document).ready(function(){
 						<tr>
 							{% for market in markets_closed %}
 							<td><i class="fa fa-star fa-lg"></i></td>
-							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
+													 toggle_details('/detail/{{ market.key.id }}/');
+													 return false;
+													 ">
+													 {{ market.name }}
+								</a>
+							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -154,7 +171,13 @@ $(document).ready(function(){
 						<tr>
 							{% for market in markets_upcoming %}
 							<td><i class="fa fa-star fa-lg"></i></td>
-							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }});toggle_details('/detail/{{ market.key.id }}/');return false;">{{ market.name }}</a></td>
+							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
+													 toggle_details('/detail/{{ market.key.id }}/');
+													 return false;
+													 ">
+													 {{ market.name }}
+								</a>
+							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
