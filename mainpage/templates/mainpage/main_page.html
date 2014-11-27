@@ -16,10 +16,10 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#all">All</a></li>
-					<li><a href="#open">Open</a></li>
-					<li><a href="#closed">Closed</a></li>
-					<li><a href="#upcoming">Upcoming</a></li>
+					<li class="active"><a href="#all" onclick="initializeFilter(); retrieveAllMarkets();     createMarkers(); return false;">All     </a></li>
+					<li>              <a href="#open" onclick="initializeFilter(); retrieveOpenMarkets();    createMarkers(); return false;">Open    </a></li>
+					<li>            <a href="#closed" onclick="initializeFilter(); retrieveClosedMarkets();  createMarkers(); return false;">Closed  </a></li>
+					<li>          <a href="#upcoming" onclick="initializeFilter(); retrieveUpcomingMarkets();createMarkers(); return false;">Upcoming</a></li>
 					{% if user.is_authenticated %}
 					<li><a href="#favourite">Favourite</a></li>
 					{% endif %}

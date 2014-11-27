@@ -8,7 +8,7 @@ var currentIcon     = 'static/Images/CurrentLocation.png';
 var markets = [];  
 var map;             
 var infoWindow = new google.maps.InfoWindow();
-
+var markers = [];
 //Dummy coordinate (if GeoLocation is not supported)
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
 
@@ -60,10 +60,11 @@ function initializeMap() {
   	// Browser doesn't support Geolocation:
    	handleNoGeolocation(false);
   }
-  //create the market markers
-  initializeMarkers();
+	//create the market markers
+	initializeMarkers();
 } 
 google.maps.event.addDomListener(window, 'load', initializeMap);
+
 
 
 //<-------------------------------- Helper Functions ------------------------------------->
@@ -112,7 +113,7 @@ function initializeInfoWindow(name, marketPosition) {
 //Purpose:  generate all google map markers from markets stored in the database     
 function initializeMarkers() {
 	//pull market information from database (the function is in main_page.html)
-	retrieveMarkets();
+	retrieveAllMarkets(markets);
 	//create Markers on the google maps
 	createMarkers();
 	//reset Market size to 0
@@ -147,6 +148,8 @@ function createMarkers() {
 					icon: communityIcon
 			});
 		}	
+		//add marker to listOfMarkers variable
+		markers.push(marker);
 		//add click event for each marker
 		addClickEvent(marker);
 	}
@@ -221,5 +224,34 @@ function clickOnMarket(lat, lon, name) {
    }
 	//initialize the infoWindow for the clicked Market
 	initializeInfoWindow(name, marketPosition);
+}
+
+//Sets the map on all markers in the array.
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+//Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
+
+//Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+
+//Initialize for filtering market markers
+function initializeFilter() {
+	deleteMarkers();
+	markets.length = 0;
+	if (isInfoWindowOpen(infoWindow)){
+		infoWindow.close();	
+	} 
+	if(directionsDisplay){
+		directionsDisplay.setMap(null);
+   }
 }
 
