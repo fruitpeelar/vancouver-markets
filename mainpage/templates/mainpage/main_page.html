@@ -20,24 +20,22 @@
 					<li><a href="#open">Open</a></li>
 					<li><a href="#closed">Closed</a></li>
 					<li><a href="#upcoming">Upcoming</a></li>
+					{% if user.is_authenticated %}
 					<li><a href="#favourite">Favourite</a></li>
+					{% endif %}
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a class="btn btn-block btn-social btn-google-plus navbar-btn">
-						<i class="fa fa-google-plus"></i> Sign in with Google
-					</a>
+					<a href="{{ url }}" class="btn btn-block btn-social btn-google-plus navbar-btn">
+            			<i class="fa fa-google-plus"></i>{{ url_linktext }}
+            		</a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a
-						href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com"
-						target="_blank"
-						class="btn btn-social-icon btn-facebook btn-default navbar-btn">
+					<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
 						<i class="fa fa-facebook"></i>
 					</a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a href="https://twitter.com/share" target="_blank"
-						class="btn btn-social-icon btn-twitter btn-default navbar-btn">
+					<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
 						<i class="fa fa-twitter"></i>
 					</a>
 				</ul>
@@ -163,7 +161,8 @@ $(document).ready(function(){
 					</tbody>
 				</table>
 			</div>
-
+			
+			{% if user.is_authenticated %}
 			<div id="favourite" class="tab-hide">
 				<table class="table table-striped table-condensed">
 					<thead>
@@ -182,6 +181,7 @@ $(document).ready(function(){
 					</tbody>
 				</table>
 			</div>
+			{% endif %}
 
 		</div>
 
