@@ -16,6 +16,7 @@ var vStrokeColor = "#0DFF00";
 var vzIndex = 1;
 var directionsService = new google.maps.DirectionsService();
 var directionsDisplay;
+var lastSelectedMarker = null;
 
 //<--------------------------- Google Map Initialization ------------------------------------->
 
@@ -45,6 +46,7 @@ function initializeMap() {
 						position: currentLocation,
 						map: map,
 						title: "Current Location",
+						animation: google.maps.Animation.DROP,
 						icon: currentIcon
 					});    
 				}, 
@@ -108,6 +110,7 @@ function createMarkers() {
 					position: latlong,
 					map: map,
 					title: markets[i][3],
+					animation: google.maps.Animation.DROP,
 					icon: farmerIcon
 				});
 		else {
@@ -115,6 +118,7 @@ function createMarkers() {
 					position: latlong,
 					map: map,
 					title: markets[i][3],
+					animation: google.maps.Animation.DROP,
 					icon: communityIcon
 			});
 		}	
@@ -130,19 +134,29 @@ function addClickEvent(marker, markerPosition) {
 		map.setCenter(marker.position);
 		map.setZoom(13);
 		//display the route from the currentlocation to the clicked market
-		calcRoute(markerPosition);
+		calcRoute(marker, markerPosition);
 	});
 }
 
 //Precondition: map has been initialized. 
 //Purpose: calculate route and display route on the map for the given market marker position
-function calcRoute(markerPosition) {
+function calcRoute(marker, markerPosition) {
+	//if the clicked marker is the last clicked one, then clear directionDisplay and exit 
+	if (lastSelectedMarker === marker) {
+		lastSelectedMarker = null;
+		directionsDisplay.setMap(null);
+		return;
+	}
+	//cache the last selected marker to variable
+	lastSelectedMarker = marker;
 	//request for google maps route
 	var request = {
 		origin: currentLocation,
 		destination: markerPosition,
 		travelMode: google.maps.TravelMode.DRIVING
 		}
+	//if same marker was selected prior/ toggle to get rid of directionsdisplay
+	
 	//if route has already been shown on map, set it to null
 	if(directionsDisplay){
 		directionsDisplay.setMap(null);
