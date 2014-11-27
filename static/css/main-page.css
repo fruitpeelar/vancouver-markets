@@ -54,6 +54,10 @@ thead {
 	height: 60%;
 }
 
+.panel-title {
+  	padding-top: 16px;
+}
+
 .tab-active {
 	display: block;
 }

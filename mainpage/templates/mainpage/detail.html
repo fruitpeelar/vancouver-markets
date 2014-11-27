@@ -1,15 +1,16 @@
 <div class="panel panel-default">
-<div class="panel-heading">{{ market.name }}
-	<a class="btn">
-		<i class="fa fa-thumbs-o-up fa-2x"></i>
-	</a>
-	<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
-		<i class="fa fa-facebook"></i>
-	</a>
-	<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-twitter btn-default navbar-btn">
-		<i class="fa fa-twitter"></i>
-	</a>
-</div>
+	<div class="panel-heading clearfix">
+		<h3 class="panel-title pull-left">{{ market.name }}</h3>
+		<div class="social-buttons pull-right">
+			<a href="https://www.facebook.com/sharer/sharer.php?u=vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-xs btn-facebook btn-default navbar-btn">
+				<i class="fa fa-facebook"></i>
+			</a>
+			<a href="https://twitter.com/share" target="_blank" class="btn btn-social-icon btn-xs btn-twitter btn-default navbar-btn">
+				<i class="fa fa-twitter"></i>
+			</a>
+			<i class="fa fa-thumbs-o-up fa-lg"></i>
+		</div>
+	</div>
 	<ul class="list-group">
 		<li class="list-group-item">Address: {{ market.address }}</li>
 		<li class="list-group-item">Website: 
