@@ -1,18 +1,18 @@
-<div class="panel panel-default">
+<div class="panel panel-success">
 	<div class="panel-heading clearfix">
 		<h3 class="panel-title pull-left">{{ market.name }}</h3>
 		<div class="social-buttons pull-right">
-			<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com/detail/{{ market.key.id }}"
-			target="_blank"
-			class="btn btn-social-icon btn-xs btn-facebook btn-default navbar-btn">
-				<i class="fa fa-facebook"></i>
-			</a>
 			<a href="http://twitter.com/share?url=http://vancouver-markets.appspot.com/detail/{{ market.key.id }}&text={{ market.name }}"
 			target="_blank"
 			class="btn btn-social-icon btn-xs btn-twitter btn-default navbar-btn">
 				<i class="fa fa-twitter"></i>
 			</a>
-			<i class="fa fa-thumbs-o-up fa-lg"></i>
+			<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com/detail/{{ market.key.id }}"
+			target="_blank"
+			class="btn btn-social-icon btn-xs btn-facebook btn-default navbar-btn">
+				<i class="fa fa-facebook"></i>
+			</a>
+			<i class="fa fa-thumbs-up fa-lg"></i>
 		</div>
 	</div>
 	<ul class="list-group">
@@ -29,7 +29,7 @@
 
 {% include 'mainpage/comment_form.html' %}
 
-<div class="panel panel-default">
+<div class="panel panel-success">
 	<ul class="list-group">
 		<li class="list-group-item">Comments: Comment stub</li>
 		{% for comment in market.comments %}
