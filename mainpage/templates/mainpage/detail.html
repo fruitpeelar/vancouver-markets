@@ -19,10 +19,18 @@
 		<li class="list-group-item">Products: {{ market.products }}</li>
 		<li class="list-group-item">Type: {{ market.market_type }}</li>
 		<li class="list-group-item">Organization: {{ market.organization }}</li>
+	</ul>
+</div>
+
+{% include 'mainpage/comment_form.html' %}
+
+<div class="panel panel-default">
+	<ul class="list-group">
 		<li class="list-group-item">Comments: Comment stub</li>
 		{% for comment in market.comments %}
 		<li class="list-group-item">{{ comment.content }}</li>
 		{% endfor %}
 	</ul>
-	{% include 'mainpage/comment_form.html' %}
 </div>
+	
+
