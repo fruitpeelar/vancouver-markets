@@ -106,7 +106,7 @@ function initializeInfoWindow(name, marketPosition) {
 	} 
 	//if closed, just initialize
 	infoWindow = new google.maps.InfoWindow({
-					pixelOffset: new google.maps.Size(10,0)
+					pixelOffset: new google.maps.Size(10,-25)
 				 });
 	infoWindow.setContent(name);
 	infoWindow.setPosition(marketPosition)
