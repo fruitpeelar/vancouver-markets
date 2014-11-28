@@ -43,6 +43,9 @@ class Market(ndb.Model):
     lon = ndb.FloatProperty(required = True)
     comments = ndb.StructuredProperty(Comment, repeated = True)
     
+class User(ndb.Model):
+    username = ndb.UserProperty()
+    favourites = ndb.KeyProperty(kind=Market, repeated = True)
 
 # class Update_Date(ndb.model):
 #     '''Models a update property entry.'''

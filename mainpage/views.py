@@ -1,23 +1,15 @@
 from django.http import HttpResponseRedirect, HttpResponse
-#from django.views.generic.simple import direct_to_template
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import simplejson
+from django.template import Context, loader
 
 from google.appengine.api import users
-# from googlemaps import GoogleMaps
 
 from mainpage.models import Market, Comment
 from mainpage.parser import MarketParser
 
 from datetime import date
-
-from django.views.decorators.csrf import csrf_exempt
-
-
-import json
-from django.template.context import RequestContext
-
-# api_key = "AIzaSyAWLMNHOpkHQnyBKZdjyzA_22R20VZ36_E"
-# gmaps = GoogleMaps(api_key)
 
 # renders the main_page.html upon request
 def main_page(request):
@@ -46,19 +38,17 @@ def main_page(request):
 
 # renders detail page of a selected market given market's id
 @csrf_exempt
-def view_detail(request, market_id):
-    id_int = int(market_id)
-    markets, markets_open, markets_closed, markets_upcoming = get_markets()
-
-    market = Market.get_by_id(id_int)
+def view_detail(request, market_id = None, is_inner = False):
+    market = Market.get_by_id(int(market_id))
         
     template_values = {'market': market,
-                       'markets': markets,
-                       'markets_open': markets_open,
-                       'markets_closed': markets_closed,
-                       'markets_upcoming': markets_upcoming,}
-    
-    return render(request, 'mainpage/detail.html', template_values)
+                       }
+    if is_inner:
+        template = loader.get_template('mainpage/detail.html')
+        context = Context({'market': market})
+        return template.render(context)
+    else:
+        return render(request, 'mainpage/detail.html', template_values)
 
 # create stub market upon request
 def market_put(request):
@@ -75,7 +65,8 @@ def populate(request):
     
     if request.method == 'GET':
         return render (request, 'mainpage/populate.html')
-    
+
+# add comment to a market
 def add_comment(request):
     if request.POST.has_key('content') == False:
         return HttpResponse('You must have content.')
@@ -94,7 +85,7 @@ def add_comment(request):
             existing_comments = market.comments
         except:
             return HttpResponse('No market by that id.')
-            
+
     try:
         comment = Comment(content = comment_content)
         comment.put()
@@ -106,12 +97,24 @@ def add_comment(request):
             existing_comments.append(comment)
             market.comments = existing_comments
             market.put()
-        return HttpResponse('Successfully added your comment.')
+        
+        if request.is_ajax():
+            return_data = {'msg': view_detail(request, received_id, True)}
+            return HttpResponse(simplejson.dumps(return_data))
+        else:
+            return HttpResponse('Successfully added your comment.')
     except:
         return HttpResponse('Failed adding your comment.')
     
+    return HttpResponse('Something wrong happened.')
+    
+def add_favourite(request):
+    if request.method == 'POST':
+        user_name = request.POST.get('user_name')
+        
+    pass
+    
 def get_details(request):
-    context = RequestContext(request)
     print "in get_details"
     market = None
     if request.method == 'GET':
@@ -126,15 +129,7 @@ def get_details(request):
             return HttpResponse("no market by the given id")
     template_values = {'market': market,
                        }
-#     return render_to_response('mainpage/detail.html', template_values, context)
     return render(request, 'mainpage/detail.html', template_values)
-
-def ajax(request):
-    print "in ajax_method"
-    if request.is_ajax():
-        print "in ajax"
-        message = "ajax is working!!!"
-        return HttpResponse(json.dumps({'message': message}))
 
 # (helper) create a stub market and put it into the database
 def create_marketstub():
