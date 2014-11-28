@@ -6,7 +6,7 @@ from django.template import Context, loader
 
 from google.appengine.api import users
 
-from mainpage.models import Market, Comment, User
+from mainpage.models import Market, Comment, User, Update
 from mainpage.parser import MarketParser
 
 from datetime import date
