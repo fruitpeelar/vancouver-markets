@@ -200,7 +200,9 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 					{% if markets_upcoming|length == 0 %}
-					<td>No markets opening in 2 months. Please check again!</td>
+					<td>No markets opening in 2 months.</td>
+					<td></td>
+					<td></td>
 					{% else %}
 						{% for market in markets_upcoming %}
 						<tr>
