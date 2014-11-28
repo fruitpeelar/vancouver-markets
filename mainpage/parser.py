@@ -12,7 +12,6 @@ class MarketParser:
         try:
             print "initialize using: " and url
             result = urllib2.urlopen(response, timeout=10)
-            time.sleep(3)
             self.cr = csv.reader(result, quotechar='"', delimiter=',',
             quoting=csv.QUOTE_ALL, skipinitialspace=True)
         except Exception:
@@ -53,6 +52,7 @@ class MarketParser:
         addressString = address + ", Vancouver, B.C."
         addressString = urllib2.quote(addressString)
         url="https://maps.googleapis.com/maps/api/geocode/json?address=%s" % addressString
+        
 
         response = urllib2.urlopen(url)
         jsongeocode = json.loads(response.read())
@@ -84,7 +84,7 @@ class MarketParser:
         offerings = []
         lats = []
         lons = []
-            
+        
         for row in cr:
             # Only iterate and parse when the name field is not empty
             # Assumption: if market data is filled out, then name must be always present
@@ -100,11 +100,10 @@ class MarketParser:
                 open_months.append(row[13])
                 vendor_numbers.append(row[14])
                 offerings.append(row[15])
-                # Geocode address string into lat/lon and put into lats/lons list
-            
-        for address in addresses:
-            self.geocodeMarket(lats, lons, address)
                 
+                # Geocode address string into lat/lon and put into lats/lons list
+                self.geocodeMarket(lats, lons, row[7])
+                         
         # Check if there are empty fields and change empty fields to N/A
         offerings = self.checkEmpty(offerings)
         vendor_numbers = self.checkEmpty(vendor_numbers)
@@ -159,7 +158,7 @@ class MarketParser:
     
         # Split the month range at '- or to'
         for monthrange in monthlist:
-            months = re.split(r'-|to', ''.join(monthrange))
+            months = re.split(r'-| to ', ''.join(monthrange))
             refinedMonthRange = []
             # Use the monthDict and get corresponding integer value of the opening and closing months
             for month in months:
