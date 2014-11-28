@@ -31,7 +31,7 @@ class User(ndb.Model):
     username = ndb.UserProperty(required = True)
     favourites = ndb.KeyProperty(kind=Market, repeated = True)
     
-class Udpate(ndb.Model):
+class Update(ndb.Model):
     late_update = ndb.DateProperty(auto_now_add = True)
     update_count = ndb.IntegerProperty(required = True)
 
