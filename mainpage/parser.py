@@ -3,8 +3,6 @@ import urllib2
 import re
 import time
 import json
-import datetime
-from datetime import date, timedelta
 # from pip.basecommand import open_logfile
 
 class MarketParser:
@@ -209,7 +207,6 @@ class MarketParser:
     Merge all the parsing and retrieve the info
     '''
     def ParseMarkets(self):
-        if (self.updateTime() is True):
-            cr = self.getCSV()
-            self.removeUpdateRowandFieldNames(cr)
-            return self.parseMarketInfo(cr)
+        cr = self.getCSV()
+        self.removeUpdateRowandFieldNames(cr)
+        return self.parseMarketInfo(cr)
