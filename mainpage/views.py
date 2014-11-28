@@ -152,10 +152,13 @@ def delete_favourite(request):
         current_user = users.get_current_user()
         market_id = request.POST['market_id']
         market_key = Market.get_by_id(int(market_id)).key
-        print "we got current user: "
+        print "we got current user in delete: "
         print current_user
-    
+        
         user = check_user(current_user)
+        user.favourites.remove(market_key)
+        user.put()
+        
         if request.is_ajax():
             return_data = {'msg': view_favourite(request, user)}
             return HttpResponse(simplejson.dumps(return_data))

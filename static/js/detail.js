@@ -35,7 +35,7 @@ var add_to_favourite = function(addfav_el) {
                         $('favourite').update(data['msg']);
                     }
                     else {
-                        alert(req.responseText);
+                        alert(request.responseText);
                     }
                 },
                 onFailure: function(req) {
@@ -43,19 +43,19 @@ var add_to_favourite = function(addfav_el) {
     });
 }
 
-var delete_from_favourite = function(addfav_el) {
-    var addfav_el = $(addfav_el);
+var delete_from_favourite = function(delfav_el) {
+    var delfav_el = $(delfav_el);
  
-    var ajax = new Ajax.Request(addfav_el.action, {
+    var ajax = new Ajax.Request(delfav_el.action, {
                 method: 'post',
-                parameters: addfav_el.serialize(),
+                parameters: delfav_el.serialize(),
                 onSuccess: function(request) {
                     if ( request.responseText.isJSON() == true ) {
                         var data = request.responseText.evalJSON(true);
                         $('favourite').update(data['msg']);
                     }
                     else {
-                        alert(req.responseText);
+                        alert(request.responseText);
                     }
                 },
                 onFailure: function(req) {

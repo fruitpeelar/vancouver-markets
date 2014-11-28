@@ -135,7 +135,13 @@ $(document).ready(function(){
 								</a>
 							</td>
 							{% if url_linktext = ' Sign out of Google' %}
-							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							<td style="vertical-align: middle">
+							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
+								{% csrf_token %}
+								<input type="hidden" name="market_id" value="{{ market.key.id }}">
+								<button class="btn btn-default btn-xs">Favourite</button>
+							</form>
+							</td>
 							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
@@ -166,7 +172,13 @@ $(document).ready(function(){
 								</a>
 							</td>
 							{% if url_linktext = ' Sign out of Google' %}
-							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							<td style="vertical-align: middle">
+							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
+								{% csrf_token %}
+								<input type="hidden" name="market_id" value="{{ market.key.id }}">
+								<button class="btn btn-default btn-xs">Favourite</button>
+							</form>
+							</td>
 							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
@@ -200,7 +212,13 @@ $(document).ready(function(){
 								</a>
 							</td>
 							{% if url_linktext = ' Sign out of Google' %}
-							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							<td style="vertical-align: middle">
+							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
+								{% csrf_token %}
+								<input type="hidden" name="market_id" value="{{ market.key.id }}">
+								<button class="btn btn-default btn-xs">Favourite</button>
+							</form>
+							</td>
 							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>

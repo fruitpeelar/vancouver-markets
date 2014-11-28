@@ -16,7 +16,7 @@
 										 return false;">{{ market.name }}</a>
 				</td>
 				<td style="vertical-align: middle">
-					<form method="post" action="/delete_from_favourite/" onsubmit="delete_from_favourite(this); return false">
+					<form method="post" action="/delete_from_favourite/" onsubmit="delete_from_favourite(this); return false;">
 						{% csrf_token %}
 						<input type="hidden" name="market_id" value="{{ market.key.id }}">
 						<button class="btn btn-default btn-xs">Unfavourite</button>
