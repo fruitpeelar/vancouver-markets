@@ -235,7 +235,7 @@ def populate_markets():
     
     url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
     # if(updateTime(late_update)):
-    market_dict = MarketParser(url).testRun()
+    market_dict = MarketParser(url).ParseMarkets()
     
     # put returned values to the corresponding variables
     names = market_dict['names']
