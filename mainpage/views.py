@@ -9,7 +9,8 @@ from google.appengine.api import users
 from mainpage.models import Market, Comment, User, Update
 from mainpage.parser import MarketParser
 
-from datetime import date
+import datetime
+from datetime import date, timedelta
 
 # renders the main_page.html upon request
 def main_page(request):
@@ -207,11 +208,33 @@ def create_marketstub():
                     close_time_int = 16)
     market.put()
 
+'''
+Check if a week has passed since last update and return boolean
+'''
+def updateTime(self, late_update):
+    # Compare time: set to 2014/11/05/ 00AM as reference
+    # If last updated time is not present, then set compareDate as given otherwise use last updated time
+    if(not late_update):
+        compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
+    else:
+        compareDate = late_update
+    now = date.today()
+    diff = now - timedelta(days=7)
+        
+    # if difference in time is greater than 7 days, then return true, else false
+    if (diff > compareDate):
+        # Update the last updated time with current time
+        late_update = now
+        return True
+    else:
+        return False
+
 # (helper) populate the database with real market data
 def populate_markets():
     print 'in pop market'
     
     url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
+    # if(updateTime(late_update)):
     market_dict = MarketParser(url).testRun()
     
     # put returned values to the corresponding variables

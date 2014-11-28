@@ -29,24 +29,6 @@ class MarketParser:
         except Exception:
             print "CSV file not present!"
     
-    '''
-    Check if a week has passed since last update and return boolean
-    '''
-    def updateTime(self):
-        # Compare time: set to 2014/11/05/ 00AM as reference
-        compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
-        now = date.today()
-        diff = now - timedelta(days=7)
-        
-        # if difference in time is greater than 7 days, then return true, else false
-        if (diff > compareDate):
-            compareDate = now
-            print "Let's Update!"
-            return True
-        else:
-            print "Not yet!"
-            return False
-    
     '''            
     Remove first row with update time and second row with fieldnames
     '''
