@@ -2,7 +2,7 @@
 <body>
 
 	<!-- Fixed top navbar -->
-	<div class="navbar navbar-danger navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<!-- Button menu for small window -->
@@ -25,11 +25,6 @@
 					{% endif %}
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a href="{{ url }}" class="btn btn-block btn-social btn-google-plus navbar-btn">
-            			<i class="fa fa-google-plus"></i>{{ url_linktext }}
-            		</a>
-            	</ul>
-				<ul class="nav navbar-nav navbar-right">
 					<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
 						<i class="fa fa-facebook"></i>
 					</a>
@@ -39,6 +34,11 @@
 						<i class="fa fa-twitter"></i>
 					</a>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<a href="{{ url }}" class="btn btn-block btn-social btn-google-plus navbar-btn">
+            			<i class="fa fa-google-plus"></i>{{ url_linktext }}
+            		</a>
+            	</ul>
 			</div>
 			<!-- .navbar-collapse -->
 		</div>
@@ -77,7 +77,7 @@ $(document).ready(function(){
 		<div class="list">
 
 			<div id="all" class="tab-active">
-				<table class="table table-warning-striped table-condensed">
+				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
 							<th></th>
@@ -88,7 +88,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets %}
-							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -104,7 +104,7 @@ $(document).ready(function(){
 			</div>
 
 			<div id="open" class="tab-hide">
-				<table class="table table-warning-striped table-condensed">
+				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
 							<th></th>
@@ -115,7 +115,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_open %}
-							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -131,7 +131,7 @@ $(document).ready(function(){
 			</div>
 
 			<div id="closed" class="tab-hide">
-				<table class="table table-warning-striped table-condensed">
+				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
 							<th></th>
@@ -142,7 +142,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_closed %}
-							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -158,7 +158,7 @@ $(document).ready(function(){
 			</div>
 
 			<div id="upcoming" class="tab-hide">
-				<table class="table table-warning-striped table-condensed">
+				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
 							<th></th>
@@ -169,7 +169,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							{% for market in markets_upcoming %}
-							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -183,10 +183,9 @@ $(document).ready(function(){
 					</tbody>
 				</table>
 			</div>
-			
-			{% if user.is_authenticated %}
+
 			<div id="favourite" class="tab-hide">
-				<table class="table table-warning-striped table-condensed">
+				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
 							<th></th>
@@ -196,14 +195,13 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td style="text-align: center; vertical-align: middle"><i class="fa fa-star fa-lg"></i></td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td>Some market</td>
 							<td>Some date</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			{% endif %}
 
 		</div>
 

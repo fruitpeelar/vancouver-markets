@@ -7,7 +7,9 @@ var currentIcon     = 'static/Images/CurrentLocation.png';
 //Map Variables 
 var markets = [];  
 var map;             
-var infoWindow = new google.maps.InfoWindow();
+var infoWindow = new google.maps.InfoWindow({
+						pixelOffset: new google.maps.Size(100,100)
+					});
 var markers = [];
 //Dummy coordinate (if GeoLocation is not supported)
 var currentLocation = new google.maps.LatLng(49.287092, -123.117703);
@@ -103,7 +105,9 @@ function initializeInfoWindow(name, marketPosition) {
 		infoWindow.close();	
 	} 
 	//if closed, just initialize
-	infoWindow = new google.maps.InfoWindow();
+	infoWindow = new google.maps.InfoWindow({
+					pixelOffset: new google.maps.Size(10,0)
+				 });
 	infoWindow.setContent(name);
 	infoWindow.setPosition(marketPosition)
 	infoWindow.open(map);
