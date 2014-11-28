@@ -19,7 +19,11 @@
 		<li class="list-group-item">Website: 
 			<a href="{{ market.url }}">{{ market.url }}</a>
 		</li>
+		{% if market.num_vendors == "" %}
+		<li class="list-group-item">Number of venders: N/A</li>
+		{% else %}
 		<li class="list-group-item">Number of venders: {{ market.num_vendors }}</li>
+		{% endif %}
 		<li class="list-group-item">Products: {{ market.products }}</li>
 		<li class="list-group-item">Type: {{ market.market_type }}</li>
 		<li class="list-group-item">Organization: {{ market.organization }}</li>
