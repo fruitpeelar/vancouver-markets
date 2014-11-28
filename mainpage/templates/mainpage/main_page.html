@@ -78,23 +78,23 @@ $(document).ready(function(){
 				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
-							<th></th>
 							<th>Name</th>
+							<th></th>
 							<th>Open Date</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for market in markets %}
 							<tr>
-							<td style="text-align: center; vertical-align: middle">
-							<button class="btn btn-default btn-xs" onclick="add_to_favourite()">Favourite</button>
-							</td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
 													 ">
 													 {{ market.name }}
 								</a>
+							</td>
+							<td style="text-align: center; vertical-align: middle">
+							<button class="btn btn-default btn-xs" onclick="add_to_favourite()">Favourite</button>
 							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>
@@ -107,15 +107,14 @@ $(document).ready(function(){
 				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
-							<th></th>
 							<th>Name</th>
+							<th></th>
 							<th>Open Date</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for market in markets_open %}
 						<tr>
-							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -123,6 +122,7 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -134,15 +134,14 @@ $(document).ready(function(){
 				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
-							<th></th>
 							<th>Name</th>
+							<th></th>
 							<th>Open Date</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for market in markets_closed %}
 						<tr>
-							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -150,6 +149,7 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -161,15 +161,14 @@ $(document).ready(function(){
 				<table class="table table-info-striped table-condensed">
 					<thead>
 						<tr>
-							<th></th>
 							<th>Name</th>
+							<th></th>
 							<th>Open Date</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for market in markets_upcoming %}
 						<tr>
-							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 													 toggle_details('/detail/{{ market.key.id }}/');
 													 return false;
@@ -177,6 +176,7 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							<td style="text-align: center; vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
