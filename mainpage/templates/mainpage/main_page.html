@@ -20,7 +20,9 @@
 					<li>              <a href="#open" onclick="initializeFilter(); retrieveOpenMarkets();    createMarkers(); return false;">Open    </a></li>
 					<li>            <a href="#closed" onclick="initializeFilter(); retrieveClosedMarkets();  createMarkers(); return false;">Closed  </a></li>
 					<li>          <a href="#upcoming" onclick="initializeFilter(); retrieveUpcomingMarkets();createMarkers(); return false;">Upcoming</a></li>
+					{% if url_linktext = ' Sign out of Google' %}
 					<li><a href="#favourite">Favourite</a></li>
+					{% endif %}
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
@@ -94,7 +96,11 @@ $(document).ready(function(){
 								</a>
 							</td>
 							<td style="vertical-align: middle">
-							<button class="btn btn-default btn-xs" onclick="add_to_favourite()">Favourite</button>
+							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
+								{% csrf_token %}
+								<input type="hidden" name="market_id" value="{{ market.key.id }}">
+								<button class="btn btn-default btn-xs">Favourite</button>
+							</form>
 							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>

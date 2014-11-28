@@ -259,22 +259,3 @@ function initializeFilter() {
    }
 }
 
-var add_favourite = function(market_id) {
-    var market_el = $(market_id);
- 
-    var ajax = new Ajax.Request(market_el.action, {
-                method: 'post',
-                parameters: market_el.serialize(),
-                onSuccess: function(request) {
-                    if ( request.responseText.isJSON() == true ) {
-                        var data = request.responseText.evalJSON(true);
-                        $('details').update(data['msg']);
-                    }
-                    else {
-                        alert(req.responseText);
-                    }
-                },
-                onFailure: function(req) {
-                }
-    });
-}
