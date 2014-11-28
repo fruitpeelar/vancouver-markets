@@ -9,7 +9,6 @@ from google.appengine.api import users
 from mainpage.models import Market, Comment, User, Update
 from mainpage.parser import MarketParser
 
-import datetime
 from datetime import date, timedelta
 
 # renders the main_page.html upon request
@@ -147,6 +146,24 @@ def add_favourite(request):
             return HttpResponse('Successfully added to your favourites.')
     else:
         return HttpResponse('Failed to add to your favourites.')
+    
+def delete_favourite(request):
+    if request.method == 'POST':
+        current_user = users.get_current_user()
+        market_id = request.POST['market_id']
+        market_key = Market.get_by_id(int(market_id)).key
+        print "we got current user: "
+        print current_user
+    
+        user = check_user(current_user)
+        if request.is_ajax():
+            return_data = {'msg': view_favourite(request, user)}
+            return HttpResponse(simplejson.dumps(return_data))
+        else:
+            return HttpResponse('Successfully deleted from your favourites.')
+    else:
+        return HttpResponse('Failed to delete from your favourites.')
+
 
 def view_favourite(request, user=None):
     markets_favourite = []
@@ -228,20 +245,17 @@ def updateTime():
     else:
         last_update = update_record.last_update
         
-#         if(not late_update):
-#             compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
-#         else:
-#             compareDate = late_update
-#         now = date.today()
-#         diff = now - timedelta(days=7)
-#             
-#         # if difference in time is greater than 7 days, then return true, else false
-#         if (diff > compareDate):
-#             # Update the last updated time with current time
-#             late_update = now
-#             return True
-#         else:
-#             return False
+        now = date.today()
+        diff = now - timedelta(days=7)
+             
+        # if difference in time is greater than 7 days, then return true, else false
+        if (diff > last_update):
+            # Update the last updated time with current time
+            update_record.last_update = now
+            update_record.put()
+            return True
+        else:
+            return False
 
 # (helper) populate the database with real market data
 def populate_markets():
@@ -297,10 +311,9 @@ def populate_markets():
 
 # (helper) organize markets into four categories
 def get_markets():
-    need_update = updateTime()
-    
-    if need_update:
-        populate_markets()
+
+#     if need_update:
+#         populate_markets()
     
     today = date.today()
     current_month = today.month

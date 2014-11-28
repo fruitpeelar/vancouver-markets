@@ -187,6 +187,9 @@ $(document).ready(function(){
 						</tr>
 					</thead>
 					<tbody>
+					{% if markets_upcoming|length == 0 %}
+					<td>No markets opening in 2 months. Please check again!</td>
+					{% else %}
 						{% for market in markets_upcoming %}
 						<tr>
 							<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
@@ -202,6 +205,7 @@ $(document).ready(function(){
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
+					{% endif %}
 					</tbody>
 				</table>
 			</div>
@@ -214,6 +218,6 @@ $(document).ready(function(){
 
 	</div>
 	
-	<div id="details" class="details">{% include 'mainpage/detail.html' %}</div>
+	<div id="details" class="details"></div>
 	
 	{% include 'mainpage/footer.html' %}
