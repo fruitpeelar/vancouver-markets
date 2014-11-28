@@ -44,7 +44,7 @@ class Market(ndb.Model):
     comments = ndb.StructuredProperty(Comment, repeated = True)
     
 class User(ndb.Model):
-    username = ndb.UserProperty()
+    username = ndb.UserProperty(required = True)
     favourites = ndb.KeyProperty(kind=Market, repeated = True)
 
 # class Update_Date(ndb.model):
