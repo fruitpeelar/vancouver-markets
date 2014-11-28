@@ -58,6 +58,10 @@ def view_detail(request, market_id = None, is_inner = False):
         context = Context({'market': market})
         return template.render(context)
     else:
+        if request.is_ajax():
+            template_values['with_layout'] = False
+        else:
+            template_values['with_layout'] = True
         return render(request, 'mainpage/detail.html', template_values)
 
 # create stub market upon request
@@ -211,23 +215,33 @@ def create_marketstub():
 '''
 Check if a week has passed since last update and return boolean
 '''
-def updateTime(self, late_update):
+def updateTime():
     # Compare time: set to 2014/11/05/ 00AM as reference
     # If last updated time is not present, then set compareDate as given otherwise use last updated time
-    if(not late_update):
-        compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
-    else:
-        compareDate = late_update
-    now = date.today()
-    diff = now - timedelta(days=7)
-        
-    # if difference in time is greater than 7 days, then return true, else false
-    if (diff > compareDate):
-        # Update the last updated time with current time
-        late_update = now
+    update_record = get_update()
+    
+    if update_record == None:
+        update_record = Update(update_count = 1)
+        print "Update created!"
+        print update_record.last_update
         return True
     else:
-        return False
+        last_update = update_record.last_update
+        
+#         if(not late_update):
+#             compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
+#         else:
+#             compareDate = late_update
+#         now = date.today()
+#         diff = now - timedelta(days=7)
+#             
+#         # if difference in time is greater than 7 days, then return true, else false
+#         if (diff > compareDate):
+#             # Update the last updated time with current time
+#             late_update = now
+#             return True
+#         else:
+#             return False
 
 # (helper) populate the database with real market data
 def populate_markets():
@@ -283,6 +297,11 @@ def populate_markets():
 
 # (helper) organize markets into four categories
 def get_markets():
+    need_update = updateTime()
+    
+    if need_update:
+        populate_markets()
+    
     today = date.today()
     current_month = today.month
     
@@ -304,3 +323,8 @@ def get_markets():
     markets_upcoming[:] = [market for market in markets_upcoming if current_month < market.open_month_int]
     
     return markets, markets_open, markets_closed, markets_upcoming
+
+# retrieve the Update entity, always have only one Update entity
+def get_update():
+    return Update.query().get()
+    

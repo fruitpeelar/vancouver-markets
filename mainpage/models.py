@@ -32,7 +32,7 @@ class User(ndb.Model):
     favourites = ndb.KeyProperty(kind=Market, repeated = True)
     
 class Update(ndb.Model):
-    late_update = ndb.DateProperty(auto_now_add = True)
+    last_update = ndb.DateProperty(auto_now_add = True)
     update_count = ndb.IntegerProperty(required = True)
 
 # class Update_Date(ndb.model):

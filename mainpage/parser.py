@@ -209,7 +209,6 @@ class MarketParser:
     Merge all the parsing and retrieve the info
     '''
     def ParseMarkets(self):
-        if (self.updateTime() is True):
-            cr = self.getCSV()
-            self.removeUpdateRowandFieldNames(cr)
-            return self.parseMarketInfo(cr)
+        cr = self.getCSV()
+        self.removeUpdateRowandFieldNames(cr)
+        return self.parseMarketInfo(cr)
