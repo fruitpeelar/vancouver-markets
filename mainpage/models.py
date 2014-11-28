@@ -1,21 +1,5 @@
 from google.appengine.ext import ndb
 
-DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
-
-# We set a parent key on the 'Greetings' to ensure that they are all in the same
-# entity group. Queries across the single entity group will be consistent.
-# However, the write rate should be limited to ~1/second.
-
-def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
-    '''Constructs a Datastore key for a Guestbook entity with guestbook_name.'''
-    return ndb.Key('Guestbook', guestbook_name)
-
-class Greeting(ndb.Model):
-    '''Models an individual Guestbook entry.'''
-    author = ndb.UserProperty()
-    content = ndb.StringProperty(indexed=False)
-    date = ndb.DateTimeProperty(auto_now_add=True)
-
 class Comment(ndb.Model):
     '''Models an individual Comment.'''
     content = ndb.TextProperty(required = True)
@@ -46,6 +30,10 @@ class Market(ndb.Model):
 class User(ndb.Model):
     username = ndb.UserProperty(required = True)
     favourites = ndb.KeyProperty(kind=Market, repeated = True)
+    
+class Udpate(ndb.Model):
+    late_update = ndb.DateProperty(auto_now_add = True)
+    update_count = ndb.IntegerProperty(required = True)
 
 # class Update_Date(ndb.model):
 #     '''Models a update property entry.'''
