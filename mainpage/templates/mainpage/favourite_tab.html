@@ -3,6 +3,7 @@
 		<thead>
 			<tr>
 				<th>Name</th>
+				<th></th>
 				<th>Open Date</th>
 			</tr>
 		</thead>
@@ -16,6 +17,7 @@
 										 {{ market.name }}
 					</a>
 				</td>
+				<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Unfavourite</button></td>
 				<td>{{ market.open_month }}</td>
 			</tr>
 			{% endfor %}
