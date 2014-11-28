@@ -21,8 +21,8 @@
 					<li>            <a href="#closed" onclick="initializeFilter(); retrieveClosedMarkets();  createMarkers(); return false;">Closed  </a></li>
 					<li>          <a href="#upcoming" onclick="initializeFilter(); retrieveUpcomingMarkets();createMarkers(); return false;">Upcoming</a></li>
 					{% if url_linktext = ' Sign out of Google' %}
-					<li><a href="#favourite">Favourite</a></li>
-					{% endif %}
+					<li>         <a href="#favourite" onclick="initializeFilter(); retrieveFavoriteMarkets();createMarkers(); return false;">Favourite</a></li>
+					{% endif %}		
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<a href="http://www.facebook.com/sharer.php?u=http://vancouver-markets.appspot.com" target="_blank" class="btn btn-social-icon btn-facebook btn-default navbar-btn">
