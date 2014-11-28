@@ -98,6 +98,18 @@ function retrieveUpcomingMarkets() {
 	markets.push(oneMarket);
 "{% endfor %}"
 }
+
+function retrieveFavoriteMarkets() {
+"{% for market in markets_favourite %}"
+	var oneMarket = [];
+	oneMarket.push("{{ market.lat }}");            
+	oneMarket.push("{{ market.lon }}");            
+	oneMarket.push("{{ market.market_type }}");                
+	oneMarket.push("{{ market.name }}");                      
+	
+	markets.push(oneMarket);
+"{% endfor %}"
+}
 </script>
 
 <title>Vancouver Markets</title>
