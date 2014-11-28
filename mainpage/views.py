@@ -22,9 +22,17 @@ def main_page(request):
     if users.get_current_user():
         url = users.create_logout_url(request.get_full_path())
         url_linktext = ' Sign out of Google'
+        curret_user = users.get_current_user()
+        user = check_user(curret_user)
+        print "got user in mainpage"
+        print user
+        markets_favourite = view_favourite(request, user)
+        print "got favourite markets in mainpage"
+        print markets_favourite
     else:
         url = users.create_login_url(request.get_full_path())
         url_linktext = ' Sign in with Google'
+        markets_favourite = None
 
     template_values = {
         'url': url,
@@ -33,6 +41,7 @@ def main_page(request):
         'markets_open': markets_open,
         'markets_closed': markets_closed,
         'markets_upcoming': markets_upcoming,
+        'markets_favourite': markets_favourite,
     }
     return render(request, 'mainpage/main_page.html', template_values)
 
@@ -116,41 +125,49 @@ def add_favourite(request):
         print "we got current user: "
         print current_user
         
-        if current_user:
-            user_query = User.query(User.username == current_user)
-            user = user_query.get()
-            print user_query
-            print user
-            if user == None:
-                user = User(username = current_user)
-                print "created a new user"
-            
-            if len(user.favourites) == 0:
-                user.favourites = [market_key]
-                user.put()
-            else:
-                if not market_key in user.favourites:
-                    user.favourites.append(market_key)
-                    user.put()
-                
-            if request.is_ajax():
-                return_data = {'msg': view_favourite(request, user)}
-                return HttpResponse(simplejson.dumps(return_data))
-            else:
-                return HttpResponse('Successfully added to your favourites.')
+        user = check_user(current_user)
+        
+        if len(user.favourites) == 0:
+            user.favourites = [market_key]
+            user.put()
         else:
-            return HttpResponse('Failed to add to your favourites.')
+            if not market_key in user.favourites:
+                user.favourites.append(market_key)
+                user.put()
+            
+        if request.is_ajax():
+            return_data = {'msg': view_favourite(request, user)}
+            return HttpResponse(simplejson.dumps(return_data))
+        else:
+            return HttpResponse('Successfully added to your favourites.')
+    else:
+        return HttpResponse('Failed to add to your favourites.')
 
 def view_favourite(request, user=None):
-    
     markets_favourite = []
-    for market_id in user.favourites:
-        markets_favourite.append(market_id.get())
-    
-    template = loader.get_template('mainpage/favourite_tab.html')
-    context = Context({'markets_favourite': markets_favourite})
-    return template.render(context)
-
+    if user:
+        for market_id in user.favourites:
+            markets_favourite.append(market_id.get())
+            
+        if request.is_ajax():
+            template = loader.get_template('mainpage/favourite_tab.html')
+            context = Context({'markets_favourite': markets_favourite})
+            return template.render(context)
+        else:
+            return markets_favourite
+    else:
+        return None
+        
+def check_user(current_user):
+    if current_user:
+        user_query = User.query(User.username == current_user)
+        user = user_query.get()
+        print user_query
+        print user
+        if user == None:
+            user = User(username = current_user)
+            print "created a new user"
+    return user
 # not in use right now
 # def get_details(request):
 #     print "in get_details"
@@ -264,7 +281,3 @@ def get_markets():
     markets_upcoming[:] = [market for market in markets_upcoming if current_month < market.open_month_int]
     
     return markets, markets_open, markets_closed, markets_upcoming
-
-def put_favourite_markets(market):
-    favourite = User(favourites = market)
-    favourite.put()
