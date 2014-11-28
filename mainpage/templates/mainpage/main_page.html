@@ -81,7 +81,9 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>Name</th>
+							{% if url_linktext = ' Sign out of Google' %}
 							<th></th>
+							{% endif %}
 							<th>Open Date</th>
 						</tr>
 					</thead>
@@ -95,6 +97,7 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							{% if url_linktext = ' Sign out of Google' %}
 							<td style="vertical-align: middle">
 							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
 								{% csrf_token %}
@@ -102,6 +105,7 @@ $(document).ready(function(){
 								<button class="btn btn-default btn-xs">Favourite</button>
 							</form>
 							</td>
+							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -114,7 +118,9 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>Name</th>
+							{% if url_linktext = ' Sign out of Google' %}
 							<th></th>
+							{% endif %}
 							<th>Open Date</th>
 						</tr>
 					</thead>
@@ -128,7 +134,9 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							{% if url_linktext = ' Sign out of Google' %}
 							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -141,7 +149,9 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>Name</th>
+							{% if url_linktext = ' Sign out of Google' %}
 							<th></th>
+							{% endif %}
 							<th>Open Date</th>
 						</tr>
 					</thead>
@@ -155,7 +165,9 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							{% if url_linktext = ' Sign out of Google' %}
 							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
@@ -168,7 +180,9 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>Name</th>
+							{% if url_linktext = ' Sign out of Google' %}
 							<th></th>
+							{% endif %}
 							<th>Open Date</th>
 						</tr>
 					</thead>
@@ -182,7 +196,9 @@ $(document).ready(function(){
 													 {{ market.name }}
 								</a>
 							</td>
+							{% if url_linktext = ' Sign out of Google' %}
 							<td style="vertical-align: middle"><button class="btn btn-default btn-xs">Favourite</button></td>
+							{% endif %}
 							<td>{{ market.open_month }}</td>
 						</tr>
 						{% endfor %}
