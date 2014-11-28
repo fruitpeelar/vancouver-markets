@@ -6,12 +6,7 @@ Created on Nov 26, 2014
 
 from mainpage.parser import MarketParser
 import unittest
-import urllib2
 import csv
-import re
-import time
-import json
-import datetime
 
 class TestParser(unittest.TestCase):
     def setUp(self):
@@ -37,7 +32,12 @@ class TestParser(unittest.TestCase):
         timelist = ['N/A', '1am', '2AM', '3am', '12am', '1pm', '2PM', '3pm', '12PM', '111am', '114pm', '24pm']
         self.assertEqual(mp.convertTimeTo24Hr(timelist), ([1, 2, 3, 0, 13, 14, 15, 12]))
     
-        
+    def test_removeUpdateRowAndFieldRow(self):
+        mp = MarketParser(self.url2)
+        with open('testline.csv') as csvfile:
+            testline = csv.reader(csvfile, quotechar='"', delimiter=',',
+            quoting=csv.QUOTE_ALL, skipinitialspace=True)
+            self.assertEqual(mp.removeUpdateRowandFieldNames(testline), ['testline2', ''])
 
 if __name__ == '__main__':
     unittest.main()
