@@ -110,7 +110,11 @@ def add_comment(request):
     
 def add_favourite(request):
     if request.method == 'POST':
-        user_name = request.POST.get('user_name')
+        
+        if users.get_current_user():
+            pass
+        else:
+            msg = "You have not signed in with your Google account."
         
     pass
     
@@ -215,7 +219,7 @@ def get_markets():
     #closed markets - ordered by close month
     markets_closed_query = Market.query(Market.close_month_int < current_month).order(Market.close_month_int)
     #upcoming markets - ordered by open month
-    markets_upcoming_query = Market.query(Market.open_month_int > current_month).order(Market.open_month_int)
+    markets_upcoming_query = Market.query(Market.open_month_int < current_month + 2).order(Market.open_month_int)
     
     markets = markets_query.fetch()
     markets_open = markets_open_query.fetch()
@@ -223,5 +227,6 @@ def get_markets():
     markets_upcoming = markets_upcoming_query.fetch()
     
     markets_open[:] = [market for market in markets_open if current_month <= market.close_month_int]
+    markets_upcoming[:] = [market for market in markets_upcoming if current_month < market.open_month_int]
     
     return markets, markets_open, markets_closed, markets_upcoming

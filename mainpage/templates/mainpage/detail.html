@@ -12,6 +12,7 @@
 			class="btn btn-social-icon btn-xs btn-facebook btn-default navbar-btn">
 				<i class="fa fa-facebook"></i>
 			</a>
+			<i class="fa fa-thumbs-up fa-lg"></i>
 		</div>
 	</div>
 	<ul class="list-group">
@@ -30,7 +31,7 @@
 
 <div class="panel panel-success">
 	<ul class="list-group">
-		<li class="list-group-item">Comments: Comment stub</li>
+		<li class="list-group-item">Comments:</li>
 		{% for comment in market.comments %}
 		<li class="list-group-item">{{ comment.content }}</li>
 		{% endfor %}
