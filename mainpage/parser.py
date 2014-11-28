@@ -101,7 +101,9 @@ class MarketParser:
                 vendor_numbers.append(row[14])
                 offerings.append(row[15])
                 # Geocode address string into lat/lon and put into lats/lons list
-                self.geocodeMarket(lats, lons, row[7])
+            
+        for address in addresses:
+            self.geocodeMarket(lats, lons, address)
                 
         # Check if there are empty fields and change empty fields to N/A
         offerings = self.checkEmpty(offerings)
