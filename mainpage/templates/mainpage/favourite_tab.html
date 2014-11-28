@@ -7,7 +7,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for market in markets_closed %}
+			{% for market in markets_favourite %}
 			<tr>
 				<td><a href="#" onclick="clickOnMarket({{ market.lat }}, {{ market.lon }}, '{{ market.name }}'); 
 										 toggle_details('/detail/{{ market.key.id }}/');

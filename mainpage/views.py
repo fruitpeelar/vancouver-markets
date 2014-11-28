@@ -110,32 +110,64 @@ def add_comment(request):
     
 def add_favourite(request):
     if request.method == 'POST':
+        current_user = users.get_current_user()
+        market_id = request.POST['market_id']
+        market_key = Market.get_by_id(int(market_id)).key
+        print "we got current user: "
+        print current_user
         
-        if users.get_current_user():
-            print request.POST['market_id']
-#             user_query = User.query(username = users.get_current_user())
-
+        if current_user:
+            user_query = User.query(User.username == current_user)
+            user = user_query.get()
+            print user_query
+            print user
+            if user == None:
+                user = User(username = current_user)
+                print "created a new user"
+            
+            if len(user.favourites) == 0:
+                user.favourites = [market_key]
+                user.put()
+            else:
+                if not market_key in user.favourites:
+                    user.favourites.append(market_key)
+                    user.put()
+                
+            if request.is_ajax():
+                return_data = {'msg': view_favourite(request, user)}
+                return HttpResponse(simplejson.dumps(return_data))
+            else:
+                return HttpResponse('Successfully added to your favourites.')
         else:
-            msg = "You have not signed in with your Google account."
-        
-    pass
+            return HttpResponse('Failed to add to your favourites.')
+
+def view_favourite(request, user=None):
     
-def get_details(request):
-    print "in get_details"
-    market = None
-    if request.method == 'GET':
-        try:
-            print "it is get"
-            received_id = request.GET['market_id']
-            print received_id
-            market = Market.get_by_id(int(received_id))
-            print "market created"
-        except:
-            print "in excpetion"
-            return HttpResponse("no market by the given id")
-    template_values = {'market': market,
-                       }
-    return render(request, 'mainpage/detail.html', template_values)
+    markets_favourite = []
+    for market_id in user.favourites:
+        markets_favourite.append(market_id.get())
+    
+    template = loader.get_template('mainpage/favourite_tab.html')
+    context = Context({'markets_favourite': markets_favourite})
+    return template.render(context)
+
+# not in use right now
+# def get_details(request):
+#     print "in get_details"
+#     market = None
+#     if request.method == 'GET':
+#         try:
+#             print "it is get"
+#             received_id = request.GET['market_id']
+#             print received_id
+#             market = Market.get_by_id(int(received_id))
+#             print "market created"
+#         except:
+#             print "in excpetion"
+#             return HttpResponse("no market by the given id")
+#     template_values = {'market': market,
+#                        }
+#     return render(request, 'mainpage/detail.html', template_values)
 
 # (helper) create a stub market and put it into the database
 def create_marketstub():

@@ -94,7 +94,11 @@ $(document).ready(function(){
 								</a>
 							</td>
 							<td style="vertical-align: middle">
-							<button class="btn btn-default btn-xs" onclick="add_to_favourite()">Favourite</button>
+							<form method="post" action="/add_to_favourite/" onsubmit="add_to_favourite(this); return false">
+								{% csrf_token %}
+								<input type="hidden" name="market_id" value="{{ market.key.id }}">
+								<button class="btn btn-default btn-xs">Favourite</button>
+							</form>
 							</td>
 							<td>{{ market.open_month }}</td>
 						</tr>

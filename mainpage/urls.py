@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     (r'^populate/$', populate),
     (r'^detail/(?P<market_id>\d+)/$', view_detail),
     (r'^comment/$', add_comment),
-    (r'^addfavourite/$', add_favourite)
+    (r'^add_to_favourite/$', add_favourite)
 )
