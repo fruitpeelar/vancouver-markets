@@ -9,6 +9,7 @@ from datetime import date, timedelta
 
 class MarketParser:
     def __init__(self, url):
+        # Initialize the class by getting the csv file from Vancouver database
         response = urllib2.Request(url)
         try:
             print "initialize using: " and url
@@ -18,21 +19,26 @@ class MarketParser:
             quoting=csv.QUOTE_ALL, skipinitialspace=True)
         except Exception:
             print "Fatal Error!"
-               
-    # Retrieve CSV file from the Vancouver OpenData url
+    
+    '''           
+    Retrieve CSV file from the Vancouver OpenData url
+    '''
     def getCSV(self):
         try:
             return self.cr
-        except AttributeError:
+        except Exception:
             print "CSV file not present!"
     
-    # Check if time is 1AM or not and return boolean
+    '''
+    Check if a week has passed since last update and return boolean
+    '''
     def updateTime(self):
-        print "time now"
+        # Compare time: set to 2014/11/05/ 00AM as reference
         compareDate = datetime.datetime(year=2014, month=11, day=5, hour=00).date()
         now = date.today()
         diff = now - timedelta(days=7)
-        print diff
+        
+        # if difference in time is greater than 7 days, then return true, else false
         if (diff > compareDate):
             compareDate = now
             print "Let's Update!"
@@ -40,22 +46,28 @@ class MarketParser:
         else:
             print "Not yet!"
             return False
-                
-    # Remove first row with update time and second row with fieldnames
+    
+    '''            
+    Remove first row with update time and second row with fieldnames
+    '''
     def removeUpdateRowandFieldNames(self, cr):
         cr.next()
         return cr.next()
 
-    # If the field is empty, then return the list with empty field filled as 'N/A'
+    '''
+    If the field is empty, then return the list with empty field filled as 'N/A'
+    '''
     def checkEmpty(self, fieldlist):
-        checkedOfferings = []
+        emptyCheckedList = []
         for field in fieldlist:
             if(not field):
                 field = 'N/A'
-            checkedOfferings.append(field)
-        return checkedOfferings
+            emptyCheckedList.append(field)
+        return emptyCheckedList
     
-    # Geocode address string to get google maps 
+    '''
+    Geocode address string to get google maps 
+    '''
     def geocodeMarket(self, listOflat, listOflon, address):
         #take address string and geocode it into a json object
         addressString = address + ", Vancouver, B.C."
@@ -72,9 +84,11 @@ class MarketParser:
         listOflat.append(lat)
         listOflon.append(lon)
     
-    # Precond: cr is not None
-    # Assumption: the csv file from the vancouver db is consistent in its format
-    # Parses the required market information into the corresponding lists
+    '''
+    Precond: cr is not None
+    Assumption: the csv file from the vancouver db is consistent in its format
+    Parses the required market information into the corresponding lists
+    '''
     def parseMarketInfo(self, cr):
         # Create lists to store market info
         names = []
@@ -120,7 +134,6 @@ class MarketParser:
         open_times = self.checkEmpty(open_times)
         close_times = self.checkEmpty(close_times)
         open_months = self.checkEmpty(open_months)
-        print offerings
             
         # Retrieved parsed information    
         open_time_ints = self.convertTimeTo24Hr(open_times)
@@ -146,8 +159,10 @@ class MarketParser:
                 'lats': lats,
                 'lons': lons
                 }
-      
-    # Splice the OpenMonths into the month it opens and the month it closes     
+    
+    '''  
+    Splice the OpenMonths into the month it opens and the month it closes   
+    '''  
     def getOpenCloseMonths(self, monthlist):
         openMonths = []
         closeMonths = []
@@ -160,7 +175,7 @@ class MarketParser:
                     'october':10, 'oct':10, 'november':11, 'nov':11, 'december':12, 'dec':12
                     }
     
-        # Split the month range, which is given as: Month1-Month2, at hyphen
+        # Split the month range at '- or to'
         for monthrange in monthlist:
             months = re.split(r'-|to', ''.join(monthrange))
             refinedMonthRange = []
@@ -169,12 +184,15 @@ class MarketParser:
                 if(month.strip().lower() in monthDict):
                     intMonth = monthDict.get(month.strip().lower())
                     refinedMonthRange.append(intMonth)
+            # Divide opening months and closing months and make new lists for each of them
             if refinedMonthRange:
                 openMonths.append(refinedMonthRange[0])
                 closeMonths.append(refinedMonthRange[1])
         return openMonths, closeMonths
 
-    # Convert the open and close time of the markets
+    '''
+    Convert the open and close time of the markets
+    '''
     def convertTimeTo24Hr(self, timelist):
         market24Time = []
         # Iterate all the times given in the timelist
@@ -200,13 +218,15 @@ class MarketParser:
                         # otherwise am time stays the same
                         # Add the converted time to the new list and return the list
                     market24Time.append(ampmtime)
+            # if string cannot be converted to integer(wrong data) then move to next item
             except:
                 continue
         return market24Time 
-    
-    
-    # Merge all the parsing and run
-    def testRun(self):
+     
+    '''
+    Merge all the parsing and retrieve the info
+    '''
+    def ParseMarkets(self):
         if (self.updateTime() is True):
             cr = self.getCSV()
             self.removeUpdateRowandFieldNames(cr)
