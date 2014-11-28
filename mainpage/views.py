@@ -6,7 +6,7 @@ from django.template import Context, loader
 
 from google.appengine.api import users
 
-from mainpage.models import Market, Comment
+from mainpage.models import Market, Comment, User
 from mainpage.parser import MarketParser
 
 from datetime import date
@@ -112,7 +112,9 @@ def add_favourite(request):
     if request.method == 'POST':
         
         if users.get_current_user():
-            pass
+            print request.POST['market_id']
+#             user_query = User.query(username = users.get_current_user())
+
         else:
             msg = "You have not signed in with your Google account."
         
