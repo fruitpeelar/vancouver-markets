@@ -1,4 +1,9 @@
-{% if with_layout %}{% include 'mainpage/header.html' %}{% endif %}
+{% if with_layout %}
+<head>
+<title>{{ market.name }}</title>
+</head>
+{% include 'mainpage/header.html' %}
+{% endif %}
 <div class="panel panel-success">
 	<div class="panel-heading clearfix">
 		<h3 class="panel-title pull-left">{{ market.name }}</h3>
@@ -41,7 +46,3 @@
 		{% endfor %}
 	</ul>
 </div>
-
-{% if with_layout %}
-	{% include 'mainpage/footer.html' %}
-{% endif %}
