@@ -232,3 +232,7 @@ def get_markets():
     markets_upcoming[:] = [market for market in markets_upcoming if current_month < market.open_month_int]
     
     return markets, markets_open, markets_closed, markets_upcoming
+
+def put_favourite_markets(market):
+    favourite = User(favourites = market)
+    favourite.put()
