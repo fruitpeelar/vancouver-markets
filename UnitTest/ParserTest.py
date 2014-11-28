@@ -15,20 +15,27 @@ import datetime
 
 class TestParser(unittest.TestCase):
     def setUp(self):
-        url = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
-        self.mp = MarketParser(url)
+        self.url = 'Wrong URL'
+        self.url2 = 'ftp://webftp.vancouver.ca/OpenData/csv/CommunityFoodMarketsandFarmersMarkets.csv'
+        
+    def test_getCSV(self):
+        self.assertRaises(Exception, MarketParser(self.url).getCSV())
         
     def test_checkEmpty(self):
+        mp = MarketParser(self.url2)
         fieldlist = ["",'','emptycheck']
-        self.assertEqual(self.mp.checkEmpty(fieldlist), ['N/A','N/A','emptycheck'])
+        self.assertEqual(mp.checkEmpty(fieldlist), ['N/A','N/A','emptycheck'])
     
     def test_getOpenCloseMonths(self):
+        mp = MarketParser(self.url2)
         monthslist = ['Jan-Feb', 'Jan to Feb', 'Mid-Jan to Feb', 'not months']
-        self.assertEqual(self.mp.getOpenCloseMonths(monthslist), ([1,1,1], [2,2,2]))
+        self.assertEqual(mp.getOpenCloseMonths(monthslist), ([1,1,1], [2,2,2]))
     
+    # Assumption: no empty field because the lists will be checked before hand
     def test_convertTimeTo24Hr(self):
+        mp = MarketParser(self.url2)
         timelist = ['N/A', '1am', '2AM', '3am', '12am', '1pm', '2PM', '3pm', '12PM', '111am', '114pm', '24pm']
-        self.assertEqual(self.mp.convertTimeTo24Hr(timelist), ([1, 2, 3, 0, 13, 14, 15, 12]))
+        self.assertEqual(mp.convertTimeTo24Hr(timelist), ([1, 2, 3, 0, 13, 14, 15, 12]))
     
         
 

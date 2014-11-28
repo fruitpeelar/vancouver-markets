@@ -179,28 +179,29 @@ class MarketParser:
         market24Time = []
         # Iterate all the times given in the timelist
         for twelvetime in timelist:
-            if twelvetime is not 'N/A':
-                # Convert list to string
-                stringTime = ''.join(twelvetime).lower()
+            # Convert list to string
+            stringTime = ''.join(twelvetime).lower()
         
-                # Take off am and pm and convert time to int
+            # Take off am and pm and convert time to int
+            try:
                 ampmtime = re.findall(r'\d+', twelvetime) 
                 ampmtime = int(''.join(ampmtime))
-            
-                # 12pm = 1200
-                if(ampmtime == 12 and re.search('pm', stringTime)):
-                    ampmtime = 12
-                # 12am = 0000
-                elif(ampmtime == 12 and re.search('am', stringTime)):
-                    ampmtime = 0
-                # all other pm = time + 12
-                elif re.search('pm', stringTime):
-                    ampmtime = ampmtime + 12
-                # otherwise am time stays the same
-                # Add the converted time to the new list and return the list
-                market24Time.append(ampmtime)
-            else:
-                market24Time.append(None)
+                # Check if time(in am-pm style) is valid (between 0-12)
+                if (ampmtime >= 0 and ampmtime <= 12):
+                    # 12pm = 1200
+                    if(ampmtime == 12 and re.search('pm', stringTime)):
+                        ampmtime = 12
+                    # 12am = 0000
+                    elif(ampmtime == 12 and re.search('am', stringTime)):
+                        ampmtime = 0
+                    # all other pm = time + 12
+                    elif re.search('pm', stringTime):
+                        ampmtime = ampmtime + 12
+                        # otherwise am time stays the same
+                        # Add the converted time to the new list and return the list
+                    market24Time.append(ampmtime)
+            except:
+                continue
         return market24Time 
     
     
