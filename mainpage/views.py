@@ -314,9 +314,6 @@ def populate_markets():
 
 # (helper) organize markets into four categories
 def get_markets():
-
-#     if need_update:
-#         populate_markets()
     
     today = date.today()
     current_month = today.month
